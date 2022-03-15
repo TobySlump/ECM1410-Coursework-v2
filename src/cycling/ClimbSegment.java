@@ -1,0 +1,22 @@
+package cycling;
+
+public class ClimbSegment extends Segment {
+    private double location;
+    private SegmentType type;
+    private double averageGradient;
+    private double length;
+
+    public ClimbSegment(Double Location, SegmentType type, Double averageGradient,
+                        Double length){
+        super();
+        this.location = Location;
+        this.type = type;
+        this.averageGradient = averageGradient;
+        this.length = length;
+
+    }
+
+    public int getSegmentID(){
+        return segmentID;
+    }
+}
