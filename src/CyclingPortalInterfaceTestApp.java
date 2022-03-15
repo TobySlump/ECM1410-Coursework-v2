@@ -40,8 +40,6 @@ public class CyclingPortalInterfaceTestApp {
 		cyclingportal.createRace("race 3", "test race");
 		cyclingportal.createRace("race 4", "test race");
 
-		cyclingportal.removeRaceById(5);
-
 		int[] desiredArray = new int[]{1, 2, 3, 4};
 		assert (Arrays.equals(cyclingportal.getRaceIds(),desiredArray))
 				: "Races not created correctly";
