@@ -20,7 +20,6 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
         return RaceIDs;
 
-        //test
     }
 
     @Override
@@ -30,7 +29,6 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         // exception stuff
         ListOfRaces.add(new Race(name, description));
         return ListOfRaces.getLast().getRaceID();
-        // test j
     }
 
     @Override
@@ -207,6 +205,22 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void concludeStagePreparation(int stageId) throws IDNotRecognisedException, InvalidStageStateException {
         // TODO Auto-generated method stub
+        boolean hasConcluded = false;
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            Race raceObj = ListOfRaces.get(i);
+
+            for (int j = 0; j < raceObj.getNumberOfStages(); j++){
+                if (raceObj.getStages()[j] == stageId){
+                    raceObj.concludeStatePreparation(stageId);
+                    hasConcluded = true;
+                }
+            }
+        }
+
+        if (!hasConcluded){
+            throw new IDNotRecognisedException("No stage found with Id: " + stageId);
+        }
 
     }
 

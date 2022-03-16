@@ -95,4 +95,12 @@ public class Race{
         stageObj.removeSegment(segmentId);
     }
 
+    public void concludeStatePreparation(int StateId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == StateId){
+                listOfStages.get(i).concludeStatePreparation();
+            }
+        }
+    }
+
 }

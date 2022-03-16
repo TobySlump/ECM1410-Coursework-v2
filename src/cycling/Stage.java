@@ -12,7 +12,7 @@ public class Stage{
     private LocalDateTime startTime;
     private StageType type;
     private LinkedList<Segment> listOfSegments = new LinkedList<>();
-
+    private String state;
 
     public Stage(String stageName, String description, double length,
                  LocalDateTime startTime, StageType type){
@@ -22,6 +22,7 @@ public class Stage{
         this.length = length;
         this.startTime = startTime;
         this.type = type;
+        this.state = "constructing";
     }
 
     public int getID(){
@@ -57,6 +58,10 @@ public class Stage{
                 listOfSegments.remove(listOfSegments.get(i));
             }
         }
+    }
+
+    public void concludeStatePreparation(){
+        state = "waiting for results";
     }
 
 
