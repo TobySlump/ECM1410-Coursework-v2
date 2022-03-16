@@ -19,6 +19,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         }
 
         return RaceIDs;
+
+        //test
     }
 
     @Override
