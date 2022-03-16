@@ -17,6 +17,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             RaceIDs[i] = ListOfRaces.get(i).getRaceID();
         }
 
+        //change
+
         return RaceIDs;
     }
 
