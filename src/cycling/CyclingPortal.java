@@ -28,6 +28,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         // exception stuff
         ListOfRaces.add(new Race(name, description));
         return ListOfRaces.getLast().getRaceID();
+        // test j
     }
 
     @Override
