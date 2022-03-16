@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 public class CyclingPortal implements MiniCyclingPortalInterface {
     private LinkedList<Race> ListOfRaces = new LinkedList<>();
+    private LinkedList<Team> ListOfTeams = new LinkedList<>();
 
     @Override
     public int[] getRaceIds() {
@@ -16,8 +17,6 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++) {
             RaceIDs[i] = ListOfRaces.get(i).getRaceID();
         }
-
-        //change
 
         return RaceIDs;
     }
@@ -228,12 +227,23 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
         // TODO Auto-generated method stub
-        return 0;
+
+        ListOfTeams.add(new Team(name, description));
+        return ListOfTeams.getLast().getTeamID();
+
     }
 
     @Override
     public void removeTeam(int teamId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
+
+        for (int i = 0; i < ListOfTeams.size(); i++){
+            Team teamObj = ListOfTeams.get(i);
+
+            if (teamObj.getTeamID() == teamId){
+                ListOfTeams.remove(teamObj);
+            }
+        }
 
     }
 

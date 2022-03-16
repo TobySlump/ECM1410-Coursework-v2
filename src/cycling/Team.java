@@ -6,10 +6,14 @@ public class Team{
 
     private int teamID;
     private static int nextTeamID = 0;
+    private String name;
+    private String description;
     private LinkedList<Rider> listOfRiders = new LinkedList<>();
 
-    public Team(){
+    public Team(String name, String Description){
         this.teamID = ++nextTeamID;
+        this.name = name;
+        this.description = Description;
     }
 
     public void addRider(String name, String yearOfBirth){
@@ -19,6 +23,10 @@ public class Team{
 
     public void removeRider(String name){
         //'remove rider'
+    }
+
+    public int getTeamID(){
+        return teamID;
     }
 
 }
