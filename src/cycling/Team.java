@@ -29,4 +29,14 @@ public class Team{
         return teamID;
     }
 
+    public int[] getRiderIds(){
+        int[] listOfRiderIds = new int[listOfRiders.size()];
+
+        for (int i = 0; i < listOfRiders.size(); i++){
+            listOfRiderIds[i] = listOfRiders.get(i).getId();
+        }
+
+        return listOfRiderIds;
+    }
+
 }

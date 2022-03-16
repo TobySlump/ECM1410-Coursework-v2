@@ -279,7 +279,14 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public int[] getTeamRiders(int teamId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
-        return null;
+
+        for (int i = 0; i < ListOfTeams.size(); i++){
+            if (ListOfTeams.get(i).getTeamID() == teamId){
+                return ListOfTeams.get(i).getRiderIds();
+            }
+        }
+
+        throw new IDNotRecognisedException("No team found with Id:" + teamId);
     }
 
     @Override

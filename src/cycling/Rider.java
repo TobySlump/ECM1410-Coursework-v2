@@ -13,4 +13,8 @@ public class Rider{
         this.yearOfBirth = yearOfBirth;
         this.riderID = ++nextRiderID;
     }
+
+    public int getId(){
+        return riderID;
+    }
 }
