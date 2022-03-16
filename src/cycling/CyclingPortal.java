@@ -250,7 +250,13 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public int[] getTeams() {
         // TODO Auto-generated method stub
-        return null;
+        int[] teamIds = new int[ListOfTeams.size()];
+
+        for (int i = 0; i < ListOfTeams.size(); i++){
+            teamIds[i] = ListOfTeams.get(i).getTeamID();
+        }
+
+        return teamIds;
     }
 
     @Override
