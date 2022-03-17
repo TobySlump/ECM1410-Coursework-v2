@@ -364,6 +364,14 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             InvalidStageStateException {
         // TODO Auto-generated method stub
 
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
+                if (ListOfRaces.get(i).getStages()[j] == stageId){
+
+                }
+            }
+        }
+
     }
 
     @Override

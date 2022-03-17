@@ -1,6 +1,7 @@
 package cycling;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.LinkedList;
 
 public class Race{
@@ -107,6 +108,14 @@ public class Race{
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == StateId){
                 listOfStages.get(i).concludeStatePreparation();
+            }
+        }
+    }
+
+    public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+
             }
         }
     }
