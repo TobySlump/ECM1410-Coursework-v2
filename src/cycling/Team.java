@@ -16,7 +16,7 @@ public class Team{
         this.description = Description;
     }
 
-    public void addRider(String name, String yearOfBirth){
+    public void addRider(String name, int yearOfBirth){
         Rider newRider = new Rider(teamID, name, yearOfBirth);
         listOfRiders.add(newRider);
     }
@@ -37,6 +37,10 @@ public class Team{
         }
 
         return listOfRiderIds;
+    }
+
+    public int getNewRiderID(){
+        return listOfRiders.getLast().getId();
     }
 
 }

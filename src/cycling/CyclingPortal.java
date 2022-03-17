@@ -332,7 +332,15 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     public int createRider(int teamID, String name, int yearOfBirth)
             throws IDNotRecognisedException, IllegalArgumentException {
         // TODO Auto-generated method stub
-        return 0;
+
+        for (int i = 0; i < ListOfTeams.size(); i++){
+            if (ListOfTeams.get(i).getTeamID() == teamID){
+                ListOfTeams.get(i).addRider(name, yearOfBirth);
+                return ListOfTeams.get(i).getNewRiderID();
+            }
+        }
+
+        throw new IDNotRecognisedException("No team found with ID: " + teamID);
     }
 
     @Override

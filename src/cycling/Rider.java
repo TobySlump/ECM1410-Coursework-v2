@@ -5,9 +5,9 @@ public class Rider{
     private static int nextRiderID = 0;
     private int teamID;
     private String name;
-    private String yearOfBirth;
+    private int yearOfBirth;
 
-    public Rider(int teamID, String name, String yearOfBirth){
+    public Rider(int teamID, String name, int yearOfBirth){
         this.teamID = teamID;
         this.name = name;
         this.yearOfBirth = yearOfBirth;
