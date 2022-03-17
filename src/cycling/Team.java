@@ -1,5 +1,6 @@
 package cycling;
 
+import java.time.LocalTime;
 import java.util.LinkedList;
 
 public class Team{
@@ -46,5 +47,6 @@ public class Team{
     public int getNewRiderID(){
         return listOfRiders.getLast().getId();
     }
+
 
 }

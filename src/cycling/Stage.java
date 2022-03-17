@@ -71,5 +71,9 @@ public class Stage{
         state = "waiting for results";
     }
 
+    public void addRidersTime(int riderId, LocalTime[] riderTimes){
+        rawRiderResults.put(riderId, riderTimes);
+    }
+
 
 }
