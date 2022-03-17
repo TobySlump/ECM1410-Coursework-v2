@@ -134,4 +134,13 @@ public class Race{
         return null;
     }
 
+    public LocalTime getRiderAdjustedElapsedResults(int stageId, int riderId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getRiderAdjustedElapsedTimes(riderId);
+            }
+        }
+        return null;
+    }
+
 }

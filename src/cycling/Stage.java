@@ -78,8 +78,36 @@ public class Stage{
         return rawRiderResults.get(riderId);
     }
 
-    public LocalTime[] getRiderAdjustedElapsedTimes(int riderId){
+    public LocalTime getRiderAdjustedElapsedTimes(int riderId){
+        boolean finishedAdjusting = false;
+        LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length];
+        boolean hasAdjusted;
 
+        while (!finishedAdjusting){
+            hasAdjusted = false;
+            for (Integer key: rawRiderResults.keySet()){
+                double riderTimeInSeconds = rawRiderResults.get(riderId)
+                        [rawRiderResults.get(riderId).length].toSecondOfDay();
+
+                if (key != riderId){
+                    if (rawRiderResults.get(key)[rawRiderResults.get(riderId).length].toSecondOfDay() -
+                    riderTimeInSeconds < 1 && rawRiderResults.get(key)
+                            [rawRiderResults.get(riderId).length].toSecondOfDay() -
+                            riderTimeInSeconds > 0){
+
+                        finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length];
+
+                    }
+                }
+            }
+
+            if (!hasAdjusted){
+                finishedAdjusting = true;
+            }
+        }
+
+        long seconds = finishTime.toSecondOfDay() - rawRiderResults.get(riderId)[0].toSecondOfDay();
+        return LocalTime.ofSecondOfDay(seconds);
     }
 
 
