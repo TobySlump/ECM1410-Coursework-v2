@@ -40,13 +40,17 @@ public class Race{
         return listOfStages.getLast().getID();
     }
 
-    public int[] getStages(){
+    public int[] getStageIDs(){
         int[] ListOfStageIDs = new int[listOfStages.size()];
         for (int i = 0; i < listOfStages.size(); i++){
             ListOfStageIDs[i] = listOfStages.get(i).getID();
         }
         return ListOfStageIDs;
     }
+
+    //public String[] getStageNames(){
+    //   return st
+    //}
 
     public double getStageLength(int StageID){
         for (int i = 0; i < listOfStages.size(); i++){

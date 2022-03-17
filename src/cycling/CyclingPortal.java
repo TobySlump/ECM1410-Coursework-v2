@@ -97,11 +97,11 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         // TODO Auto-generated method stub
 
         // exception handling
-        for (int i = 0; i < x ; i++) { //what should x be?
-            if (y.get(i).getStageName() == stageName) { // what should y be? // if name already used
-                throw new IllegalNameException("The given name has already been used on a stage. Names must be unique./");
-            }
-        }
+        //for (int i = 0; i < x ; i++) { //what should x be?
+        //    if (y.get(i).getStageName() == stageName) { // what should y be? // if name already used
+        //        throw new IllegalNameException("The given name has already been used on a stage. Names must be unique./");
+        //    }
+        //}
 
         if (stageName == null) { //if name null
             throw new InvalidNameException("Name must not be null");
@@ -111,12 +111,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             }
         }
 
-        if (length == null) {
-            throw new InvalidLengthException("Length must not be null");
-        } else {
-            if (length < 5){
-                throw new InvalidLengthException("Length must be more than 5kms");
-            }
+        if (length < 5) { // Length has to be greater than 5kms
+            throw new InvalidLengthException("Length must be more than 5kms");
         }
 
 
@@ -138,7 +134,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race RaceObj = ListOfRaces.get(i);
             if (RaceObj.getRaceID() == raceId){
-                return RaceObj.getStages();
+                return RaceObj.getStageIDs();
             }
         }
         throw new IDNotRecognisedException("Couldn't find race with ID: " + raceId);
@@ -150,8 +146,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
-            for (int j = 0; j < raceObj.getStages().length; j++){
-                if (raceObj.getStages()[j] == stageId){
+            for (int j = 0; j < raceObj.getStageIDs().length; j++){
+                if (raceObj.getStageIDs()[j] == stageId){
                     return raceObj.getStageLength(stageId);
                 }
             }
@@ -167,8 +163,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
-            for (int j = 0; j < raceObj.getStages().length; j++){
-                if (raceObj.getStages()[j] == stageId){
+            for (int j = 0; j < raceObj.getStageIDs().length; j++){
+                if (raceObj.getStageIDs()[j] == stageId){
                     raceObj.removeStageByID(stageId);
                     hasDeleted = true;
                 }
@@ -189,8 +185,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
-            for (int j = 0; j < raceObj.getStages().length; j++){
-                if (raceObj.getStages()[j] == stageId){
+            for (int j = 0; j < raceObj.getStageIDs().length; j++){
+                if (raceObj.getStageIDs()[j] == stageId){
                     return raceObj.addClimbToStage(stageId, location, type,
                             averageGradient, length);
                 }
@@ -208,8 +204,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
-            for (int j = 0; j < raceObj.getStages().length; j++){
-                if (raceObj.getStages()[j] == stageId){
+            for (int j = 0; j < raceObj.getStageIDs().length; j++){
+                if (raceObj.getStageIDs()[j] == stageId){
                     return raceObj.addSprintToStage(stageId, location);
                 }
             }
@@ -226,7 +222,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
-            for (int j = 0; j < raceObj.getStages().length; j++){
+            for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 for (int k = 0; k < raceObj.getSegmentIds(j).length; k++) {
                     if (raceObj.getSegmentIds(j)[k] == segmentId) {
                         raceObj.removeSegmentById(j, segmentId);
@@ -250,7 +246,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             Race raceObj = ListOfRaces.get(i);
 
             for (int j = 0; j < raceObj.getNumberOfStages(); j++){
-                if (raceObj.getStages()[j] == stageId){
+                if (raceObj.getStageIDs()[j] == stageId){
                     raceObj.concludeStatePreparation(stageId);
                     hasConcluded = true;
                 }
@@ -270,8 +266,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++) {
             Race raceObj = ListOfRaces.get(i);
 
-            for (int j = 0; j < raceObj.getStages().length; j++) {
-                if (raceObj.getStages()[j] == stageId){
+            for (int j = 0; j < raceObj.getStageIDs().length; j++) {
+                if (raceObj.getStageIDs()[j] == stageId){
                     return raceObj.getSegmentIds(j);
                 }
             }
