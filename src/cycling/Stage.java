@@ -29,6 +29,9 @@ public class Stage{
         return stageID;
     }
 
+    public String getStageName(){
+        return stageName;
+    }
     public double getLength(){
         return length;
     }

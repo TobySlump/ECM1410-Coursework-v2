@@ -26,9 +26,24 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     public int createRace(String name, String description) throws IllegalNameException, InvalidNameException {
         // TODO Auto-generated method stub
 
-        // exception stuff
+        // exception handling
+        for (int i = 0; i < ListOfRaces.size(); i++) {
+            if (ListOfRaces.get(i).getRaceName() == name) { // if name already used
+                throw new IllegalNameException("The given name has already been used on a race. Names must be unique./");
+            }
+        }
+
+        if (name == null) { //if name null
+            throw new InvalidNameException("Name must not be null");
+        } else {
+            if (name.length() > 30 || name.contains(" ") || name == "") { //if name does not meet specified criteria
+                throw new InvalidNameException("Name must not be empty, must be a single word and cannot be over 30 characters");
+            }
+        }
+
         ListOfRaces.add(new Race(name, description));
         return ListOfRaces.getLast().getRaceID();
+
     }
 
     @Override
@@ -80,6 +95,30 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                               StageType type)
             throws IDNotRecognisedException, IllegalNameException, InvalidNameException, InvalidLengthException {
         // TODO Auto-generated method stub
+
+        // exception handling
+        for (int i = 0; i < x ; i++) { //what should x be?
+            if (y.get(i).getStageName() == stageName) { // what should y be? // if name already used
+                throw new IllegalNameException("The given name has already been used on a stage. Names must be unique./");
+            }
+        }
+
+        if (stageName == null) { //if name null
+            throw new InvalidNameException("Name must not be null");
+        } else {
+            if (stageName.length() > 30 || stageName.contains(" ") || stageName == "") { //if name does not meet specified criteria
+                throw new InvalidNameException("Name must not be empty, must be a single word and cannot be over 30 characters");
+            }
+        }
+
+        if (length == null) {
+            throw new InvalidLengthException("Length must not be null");
+        } else {
+            if (length < 5){
+                throw new InvalidLengthException("Length must be more than 5kms");
+            }
+        }
+
 
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race RaceObj = ListOfRaces.get(i);

@@ -21,6 +21,10 @@ public class Race{
         return raceID;
     }
 
+    public String getRaceName(){
+        return name;
+    }
+
     public String viewRaceDetails(){
         return description;
     }
