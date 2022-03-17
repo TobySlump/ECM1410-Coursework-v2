@@ -3,6 +3,7 @@ package cycling;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Race{
     private int raceID;
@@ -49,9 +50,13 @@ public class Race{
         return ListOfStageIDs;
     }
 
-    //public String[] getStageNames(){
-    //   return st
-    //}
+    public String[] getStageNames(){
+        String[] ListOfStageNames = new String[listOfStages.size()];
+        for (int i = 0; i < listOfStages.size(); i++){
+            ListOfStageNames[i] = listOfStages.get(i).getStageName();
+        }
+        return ListOfStageNames;
+    }
 
     public double getStageLength(int StageID){
         for (int i = 0; i < listOfStages.size(); i++){
@@ -115,9 +120,18 @@ public class Race{
     public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){
-
+                listOfStages.get(i).addRidersTime(riderId, checkpoints);
             }
         }
+    }
+
+    public LocalTime[] getRiderResults(int stageId, int riderId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getRiderTimes(riderId);
+            }
+        }
+        return null;
     }
 
 }

@@ -97,11 +97,13 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         // TODO Auto-generated method stub
 
         // exception handling
-        //for (int i = 0; i < x ; i++) { //what should x be?
-        //    if (y.get(i).getStageName() == stageName) { // what should y be? // if name already used
-        //        throw new IllegalNameException("The given name has already been used on a stage. Names must be unique./");
-        //    }
-        //}
+        for (int i = 0; i < ListOfRaces.size() ; i++) { //what should x be?
+            for (int j = 0; i < ListOfRaces.get(i).getNumberOfStages() ; j++) {
+                if (ListOfRaces.get(i).getStageNames()[j] == stageName) { // what should y be? // if name already used
+                    throw new IllegalNameException("The given name has already been used on a stage. Names must be unique.");
+                }
+            }
+        }
 
         if (stageName == null) { //if name null
             throw new InvalidNameException("Name must not be null");
@@ -181,12 +183,17 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                                           Double length) throws IDNotRecognisedException, InvalidLocationException, InvalidStageStateException,
             InvalidStageTypeException {
         // TODO Auto-generated method stub
+        // TO-DO InvalidStageStateException
+        // TO-DO IDNotRecognisedException throughout
 
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 if (raceObj.getStageIDs()[j] == stageId){
+                    if (0 > location || location > raceObj.getStageLength(stageId) - length){
+                        throw new InvalidLocationException("The starting location of the climb is invalid. It must start and end within the stage.");
+                    }
                     return raceObj.addClimbToStage(stageId, location, type,
                             averageGradient, length);
                 }
@@ -366,8 +373,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
-                if (ListOfRaces.get(i).getStages()[j] == stageId){
-
+                if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    ListOfRaces.get(i).registerRiderResultsInStage(stageId, riderId, checkpoints);
                 }
             }
         }
@@ -377,7 +384,16 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public LocalTime[] getRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
-        return null;
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
+                if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    return ListOfRaces.get(i).getRiderResults(stageId, riderId);
+                }
+            }
+        }
+
+        throw new IDNotRecognisedException("No stage found with ID: " + stageId);
     }
 
     @Override
