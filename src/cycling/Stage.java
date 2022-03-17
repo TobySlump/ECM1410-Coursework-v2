@@ -79,5 +79,11 @@ public class Stage{
         return rawRiderResults.get(riderId);
     }
 
+    public LocalTime[] getRiderAdjustedElapsedTimes(int riderId){
+
+    }
+
+
+
 
 }
