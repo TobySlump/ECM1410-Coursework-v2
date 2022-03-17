@@ -120,4 +120,13 @@ public class Race{
         }
     }
 
+    public LocalTime[] getRiderResults(int stageId, int riderId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getRiderTimes(riderId);
+            }
+        }
+        return null;
+    }
+
 }

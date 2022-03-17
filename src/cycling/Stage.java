@@ -75,5 +75,9 @@ public class Stage{
         rawRiderResults.put(riderId, riderTimes);
     }
 
+    public LocalTime[] getRiderTimes(int riderId){
+        return rawRiderResults.get(riderId);
+    }
+
 
 }
