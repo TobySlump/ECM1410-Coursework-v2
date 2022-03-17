@@ -366,8 +366,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
-                if (ListOfRaces.get(i).getStages()[j] == stageId){
-
+                if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    ListOfRaces.get(i).registerRiderResultsInStage(stageId, riderId, checkpoints);
                 }
             }
         }

@@ -115,7 +115,7 @@ public class Race{
     public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){
-
+                listOfStages.get(i).addRidersTime(riderId, checkpoints);
             }
         }
     }
