@@ -1,7 +1,10 @@
 package cycling;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Stage{
     private int stageID;
@@ -13,6 +16,7 @@ public class Stage{
     private StageType type;
     private LinkedList<Segment> listOfSegments = new LinkedList<>();
     private String state;
+    private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>();
 
     public Stage(String stageName, String description, double length,
                  LocalDateTime startTime, StageType type){
