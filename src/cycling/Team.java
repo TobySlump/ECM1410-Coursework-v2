@@ -21,8 +21,12 @@ public class Team{
         listOfRiders.add(newRider);
     }
 
-    public void removeRider(String name){
-        //'remove rider'
+    public void removeRider(int riderId){
+        for (int i = 0; i < listOfRiders.size(); i++){
+            if (listOfRiders.get(i).getId() == riderId){
+                listOfRiders.remove(listOfRiders.get(i));
+            }
+        }
     }
 
     public int getTeamID(){

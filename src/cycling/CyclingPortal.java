@@ -346,7 +346,20 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void removeRider(int riderId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
+        boolean hasRemoved = false;
 
+        for (int i = 0; i < ListOfTeams.size(); i++){
+            for (int j = 0; j < ListOfTeams.get(i).getRiderIds().length; j++){
+                if (ListOfTeams.get(i).getRiderIds()[j] == riderId){
+                    ListOfTeams.get(i).removeRider(riderId);
+                    hasRemoved = true;
+                }
+            }
+        }
+
+        if (!hasRemoved){
+            throw new IDNotRecognisedException("No rider found with ID: " + riderId);
+        }
     }
 
     @Override
