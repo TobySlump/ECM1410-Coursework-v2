@@ -118,6 +118,10 @@ public class Stage{
         rawRiderResults.remove(riderId);
     }
 
+    public boolean isRiderInResults(int riderId){
+        return rawRiderResults.containsKey(riderId);
+    }
+
 
 
 

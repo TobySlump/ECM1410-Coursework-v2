@@ -173,4 +173,14 @@ public class Race{
         }
     }
 
+    public boolean isRiderInResults(int stageId, int riderId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).isRiderInResults(riderId);
+            }
+        }
+        //never reached
+        return false;
+    }
+
 }
