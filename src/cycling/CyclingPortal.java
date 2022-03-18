@@ -462,7 +462,20 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void deleteRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
+        boolean hasDeleted = false;
 
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
+                if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    ListOfRaces.get(i).deleteRidersResults(stageId, riderId);
+                    hasDeleted = true;
+                }
+            }
+        }
+
+        if (!hasDeleted){
+            throw new IDNotRecognisedException("No stage found with ID: " + riderId);
+        }
     }
 
     @Override

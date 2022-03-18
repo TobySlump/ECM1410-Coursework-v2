@@ -165,4 +165,12 @@ public class Race{
         return null;
     }
 
+    public void deleteRidersResults(int stageId, int riderId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                listOfStages.get(i).removeRidersResults(riderId);
+            }
+        }
+    }
+
 }

@@ -114,6 +114,10 @@ public class Stage{
         return LocalTime.ofSecondOfDay(seconds);
     }
 
+    public void removeRidersResults(int riderId){
+        rawRiderResults.remove(riderId);
+    }
+
 
 
 
