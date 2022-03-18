@@ -51,6 +51,10 @@ public class Stage{
         return listOfSegmentIds;
     }
 
+    public LinkedList<Segment> getListOfSegments(){
+        return listOfSegments;
+    }
+
     public int addClimb(Double location, SegmentType type,
                         Double averageGradient, Double length){
         listOfSegments.add(new ClimbSegment(location, type, averageGradient, length));

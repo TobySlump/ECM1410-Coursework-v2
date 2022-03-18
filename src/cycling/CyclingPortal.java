@@ -189,8 +189,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 if (raceObj.getStageIDs()[j] == stageId) {
-                    if (raceObj.getStageState(stageId) == "waiting for results") {
-                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    if (raceObj.getStageState(stageId) != "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: " + raceObj.getStageState(stageId));
                     }
                     if (0 > location || location > raceObj.getStageLength(stageId) - length) {
                         throw new InvalidLocationException("The starting location of the climb is invalid. It must start and end within the stage.");
@@ -217,8 +217,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 if (raceObj.getStageIDs()[j] == stageId){
-                    if (raceObj.getStageState(stageId) == "waiting for results") {
-                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    if (raceObj.getStageState(stageId) != "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: " + raceObj.getStageState(stageId) );
                     }
                     if (0 > location || location > raceObj.getStageLength(stageId)) {
                         throw new InvalidLocationException("The starting location of the climb is invalid. It must start within the stage.");
@@ -245,8 +245,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 for (int k = 0; k < raceObj.getSegmentIds(j).length; k++) {
                     if (raceObj.getSegmentIds(j)[k] == segmentId) {
-                        if (raceObj.getStageState(raceObj.getStageIDs()[j]) == "waiting for results") {
-                            throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                        if (raceObj.getStageState(raceObj.getStageIDs()[j]) != "waiting for results") {
+                            throw new InvalidStageStateException("Stage is in invalid state: " + (raceObj.getStageState(raceObj.getStageIDs()[j]) );
                         }
                         raceObj.removeSegmentById(j, segmentId);
                         hasDeleted = true;
@@ -270,8 +270,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getNumberOfStages(); j++){
                 if (raceObj.getStageIDs()[j] == stageId){
-                    if (raceObj.getStageState(stageId) == "waiting for results") {
-                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    if (raceObj.getStageState(stageId) != "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: " + raceObj.getStageState(stageId));
                     }
                     raceObj.concludeStatePreparation(stageId);
                     hasConcluded = true;
@@ -412,12 +412,17 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointsException,
             InvalidStageStateException {
         // TODO Auto-generated method stub
+        // james DuplicatedResultException
         boolean hasRegistered = false;
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
-                    if (raceObj.getStageState(stageId) == "waiting for results") {
-                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    if (checkpoints.length != ListOfRaces.get(i).getListOfSegmentsFromStage(stageId).size() + 2){
+                        throw new InvalidCheckpointsException("Invalid length of checkpoints");
+                    }
+
+                    if (ListOfRaces.get(i).getStageState(stageId) != "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: " + ListOfRaces.get(i).getStageState(stageId));
                     }
                     ListOfRaces.get(i).registerRiderResultsInStage(stageId, riderId, checkpoints);
                     hasRegistered = true;

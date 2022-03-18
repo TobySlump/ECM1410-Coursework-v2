@@ -35,6 +35,14 @@ public class Race{
         return listOfStages.size();
     }
 
+    public LinkedList<Segment> getListOfSegmentsFromStage(int stageID){
+        for (int i = 0; i < listOfStages.size(); i++) {
+            if (listOfStages.get(i).getID() == stageID) {
+                return listOfStages.get(i).getListOfSegments();
+            }
+        }
+        return null;
+    }
     public int addStage(String stageName, String stageDescription, double length,
         LocalDateTime startTime, StageType type){
 
