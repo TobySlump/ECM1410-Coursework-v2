@@ -412,7 +412,16 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public LocalTime getRiderAdjustedElapsedTimeInStage(int stageId, int riderId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
-        return null;
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
+                if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    return ListOfRaces.get(i).getRiderAdjustedElapsedResults(stageId, riderId);
+                }
+            }
+        }
+
+        throw new IDNotRecognisedException("No stage found with ID: " + stageId);
     }
 
     @Override
