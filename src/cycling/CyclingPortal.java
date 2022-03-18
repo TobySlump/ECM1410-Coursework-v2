@@ -3,6 +3,7 @@ package cycling;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class CyclingPortal implements MiniCyclingPortalInterface {
@@ -98,12 +99,13 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
         // exception handling
         for (int i = 0; i < ListOfRaces.size() ; i++) { //what should x be?
-            for (int j = 0; i < ListOfRaces.get(i).getNumberOfStages() ; j++) {
+            for (int j = 0; j < ListOfRaces.get(i).getStageIDs().length ; j++) {
                 if (ListOfRaces.get(i).getStageNames()[j] == stageName) { // what should y be? // if name already used
                     throw new IllegalNameException("The given name has already been used on a stage. Names must be unique.");
                 }
             }
         }
+
 
         if (stageName == null) { //if name null
             throw new InvalidNameException("Name must not be null");
@@ -246,7 +248,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                 for (int k = 0; k < raceObj.getSegmentIds(j).length; k++) {
                     if (raceObj.getSegmentIds(j)[k] == segmentId) {
                         if (raceObj.getStageState(raceObj.getStageIDs()[j]) != "waiting for results") {
-                            throw new InvalidStageStateException("Stage is in invalid state: " + (raceObj.getStageState(raceObj.getStageIDs()[j]) );
+                            throw new InvalidStageStateException("Stage is in invalid state: " + (raceObj.getStageState(raceObj.getStageIDs()[j]) ));
                         }
                         raceObj.removeSegmentById(j, segmentId);
                         hasDeleted = true;
@@ -420,7 +422,6 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                     if (checkpoints.length != ListOfRaces.get(i).getListOfSegmentsFromStage(stageId).size() + 2){
                         throw new InvalidCheckpointsException("Invalid length of checkpoints");
                     }
-
                     if (ListOfRaces.get(i).getStageState(stageId) != "waiting for results") {
                         throw new InvalidStageStateException("Stage is in invalid state: " + ListOfRaces.get(i).getStageState(stageId));
                     }
@@ -441,6 +442,10 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    if (!ListOfRaces.get(i).isRiderInResults(stageId, riderId)){
+                        throw new IDNotRecognisedException
+                                ("No rider with ID: " + riderId + " results found in stage with ID: " + stageId);
+                    }
                     return ListOfRaces.get(i).getRiderResults(stageId, riderId);
                 }
             }
@@ -456,6 +461,10 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    if (!ListOfRaces.get(i).isRiderInResults(stageId, riderId)){
+                        throw new IDNotRecognisedException
+                                ("No rider with ID: " + riderId + " results found in stage with ID: " + stageId);
+                    }
                     return ListOfRaces.get(i).getRiderAdjustedElapsedResults(stageId, riderId);
                 }
             }
@@ -472,6 +481,10 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    if (!ListOfRaces.get(i).isRiderInResults(stageId, riderId)){
+                        throw new IDNotRecognisedException
+                                ("No rider with ID: " + riderId + " results found in stage with ID: " + stageId);
+                    }
                     ListOfRaces.get(i).deleteRidersResults(stageId, riderId);
                     hasDeleted = true;
                 }
@@ -486,7 +499,16 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public int[] getRidersRankInStage(int stageId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
-        return null;
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
+                if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    return ListOfRaces.get(i).getRidersRankInStage(stageId);
+                }
+            }
+        }
+
+        throw new IDNotRecognisedException("No stage found with ID: " + stageId);
     }
 
     @Override
