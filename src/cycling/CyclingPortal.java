@@ -3,6 +3,7 @@ package cycling;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class CyclingPortal implements MiniCyclingPortalInterface {
@@ -98,12 +99,13 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
         // exception handling
         for (int i = 0; i < ListOfRaces.size() ; i++) { //what should x be?
-            for (int j = 0; i < ListOfRaces.get(i).getNumberOfStages() ; j++) {
+            for (int j = 0; j < ListOfRaces.get(i).getStageIDs().length ; j++) {
                 if (ListOfRaces.get(i).getStageNames()[j] == stageName) { // what should y be? // if name already used
                     throw new IllegalNameException("The given name has already been used on a stage. Names must be unique.");
                 }
             }
         }
+
 
         if (stageName == null) { //if name null
             throw new InvalidNameException("Name must not be null");
@@ -271,7 +273,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             for (int j = 0; j < raceObj.getNumberOfStages(); j++){
                 if (raceObj.getStageIDs()[j] == stageId){
                     if (raceObj.getStageState(stageId) == "waiting for results") {
-                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results123)");
                     }
                     raceObj.concludeStatePreparation(stageId);
                     hasConcluded = true;
@@ -416,8 +418,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
-                    if (raceObj.getStageState(stageId) == "waiting for results") {
-                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    if (ListOfRaces.get(i).getStageState(stageId) != "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: constructing)");
                     }
                     ListOfRaces.get(i).registerRiderResultsInStage(stageId, riderId, checkpoints);
                     hasRegistered = true;
