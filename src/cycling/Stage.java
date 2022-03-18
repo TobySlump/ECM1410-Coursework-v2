@@ -125,12 +125,12 @@ public class Stage{
     }
 
     public int[] getRidersRank(){
-        int[][] riderTimes = new int[rawRiderResults.size()][1];
+        int[][] riderTimes = new int[rawRiderResults.size()][2];
         int index = 0;
 
         for (Integer key: rawRiderResults.keySet()){
             LocalTime[] riderTimesList = rawRiderResults.get(key);
-            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length].toSecondOfDay()
+            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay()
                     - riderTimesList[0].toSecondOfDay();
 
             riderTimes[index][0] = key;

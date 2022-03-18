@@ -99,13 +99,23 @@ public class CyclingPortalInterfaceTestApp {
 		cyclingportal.registerRiderResultsInStage(1, 2, riderTimes);
 
 		riderTimes = new LocalTime[]
-				{LocalTime.ofSecondOfDay(5), LocalTime.ofSecondOfDay(20), LocalTime.ofSecondOfDay(45)};
+				{LocalTime.ofSecondOfDay(5), LocalTime.ofSecondOfDay(20), LocalTime.ofSecondOfDay(42)};
 		cyclingportal.registerRiderResultsInStage(1, 3, riderTimes);
 
 		System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(1, 3)));
 
 		System.out.println(cyclingportal.getRiderAdjustedElapsedTimeInStage(1, 1));
 
+		cyclingportal.deleteRiderResultsInStage(1,3);
+		//makes exception
+		//System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(1,3)));
+
+		riderTimes = new LocalTime[]
+				{LocalTime.ofSecondOfDay(5), LocalTime.ofSecondOfDay(20), LocalTime.ofSecondOfDay(42)};
+		cyclingportal.registerRiderResultsInStage(1, 3, riderTimes);
+		System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(1,3)));
+
+		System.out.println(Arrays.toString(cyclingportal.getRidersRankInStage(1)));
 
 	}
 }
