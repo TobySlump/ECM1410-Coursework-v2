@@ -191,7 +191,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 if (raceObj.getStageIDs()[j] == stageId) {
-                    if (raceObj.getStageState(stageId) != "waiting for results") {
+                    if (raceObj.getStageState(stageId) == "waiting for results") {
                         throw new InvalidStageStateException("Stage is in invalid state: " + raceObj.getStageState(stageId));
                     }
                     if (0 > location || location > raceObj.getStageLength(stageId) - length) {
@@ -219,7 +219,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 if (raceObj.getStageIDs()[j] == stageId){
-                    if (raceObj.getStageState(stageId) != "waiting for results") {
+                    if (raceObj.getStageState(stageId) == "waiting for results") {
                         throw new InvalidStageStateException("Stage is in invalid state: " + raceObj.getStageState(stageId) );
                     }
                     if (0 > location || location > raceObj.getStageLength(stageId)) {
@@ -247,7 +247,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 for (int k = 0; k < raceObj.getSegmentIds(j).length; k++) {
                     if (raceObj.getSegmentIds(j)[k] == segmentId) {
-                        if (raceObj.getStageState(raceObj.getStageIDs()[j]) != "waiting for results") {
+                        if (raceObj.getStageState(raceObj.getStageIDs()[j]) == "waiting for results") {
                             throw new InvalidStageStateException("Stage is in invalid state: " + (raceObj.getStageState(raceObj.getStageIDs()[j]) ));
                         }
                         raceObj.removeSegmentById(j, segmentId);
@@ -272,7 +272,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getNumberOfStages(); j++){
                 if (raceObj.getStageIDs()[j] == stageId){
-                    if (raceObj.getStageState(stageId) != "waiting for results") {
+                    if (raceObj.getStageState(stageId) == "waiting for results") {
                         throw new InvalidStageStateException("Stage is in invalid state: " + raceObj.getStageState(stageId));
                     }
                     raceObj.concludeStatePreparation(stageId);
