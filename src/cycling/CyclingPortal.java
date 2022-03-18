@@ -493,7 +493,16 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public int[] getRidersRankInStage(int stageId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
-        return null;
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
+                if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    return ListOfRaces.get(i).getRidersRankInStage(stageId);
+                }
+            }
+        }
+
+        throw new IDNotRecognisedException("No stage found with ID: " + stageId);
     }
 
     @Override

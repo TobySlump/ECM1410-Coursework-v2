@@ -183,4 +183,14 @@ public class Race{
         return false;
     }
 
+    public int[] getRidersRankInStage(int stageId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getRidersRank();
+            }
+        }
+
+        return null;
+    }
+
 }

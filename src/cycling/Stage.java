@@ -2,9 +2,7 @@ package cycling;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 public class Stage{
     private int stageID;
@@ -120,6 +118,35 @@ public class Stage{
 
     public boolean isRiderInResults(int riderId){
         return rawRiderResults.containsKey(riderId);
+    }
+
+    public int[] getRidersRank(){
+        int[][] riderTimes = new int[rawRiderResults.size()][1];
+        int index = 0;
+
+        for (Integer key: rawRiderResults.keySet()){
+            LocalTime[] riderTimesList = rawRiderResults.get(key);
+            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length].toSecondOfDay()
+                    - riderTimesList[0].toSecondOfDay();
+
+            riderTimes[index][0] = key;
+            riderTimes[index][1] = riderFinishTime;
+            index += 1;
+        }
+
+        Arrays.sort(riderTimes, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] first, int[] second) {
+                if(first[1] > second[1]) return 1;
+                else return -1;
+            }
+        });
+
+        int[] riderRanks = new int[rawRiderResults.size()];
+        for (int i = 0; i < rawRiderResults.size(); i++){
+            riderRanks[i] = riderTimes[i][0];
+        }
+        return riderRanks;
     }
 
 
