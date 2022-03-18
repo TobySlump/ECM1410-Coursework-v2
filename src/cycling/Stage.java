@@ -87,7 +87,6 @@ public class Stage{
     public LocalTime getRiderAdjustedElapsedTimes(int riderId){
         boolean finishedAdjusting = false;
         LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length-1];
-        System.out.println(finishTime);
         boolean hasAdjusted;
 
         while (!finishedAdjusting){
@@ -97,16 +96,14 @@ public class Stage{
 
                 if (key != riderId){
                     if (rawRiderResults.get(key)[rawRiderResults.get(key).length-1].toSecondOfDay() -
-                    riderTimeInSeconds < 1 && rawRiderResults.get(key)
+                    riderTimeInSeconds >= -1 && rawRiderResults.get(key)
                             [rawRiderResults.get(key).length-1].toSecondOfDay() -
-                            riderTimeInSeconds > 0){
+                            riderTimeInSeconds < 0){
 
                         finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length-1];
                         hasAdjusted = true;
 
                     }
-                }else {
-                    hasAdjusted = true;
                 }
             }
 
