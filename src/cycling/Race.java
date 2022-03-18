@@ -58,15 +58,37 @@ public class Race{
         return ListOfStageNames;
     }
 
-    public double getStageLength(int StageID){
+    public double getStageLength(int stageID){
         for (int i = 0; i < listOfStages.size(); i++){
-            if (listOfStages.get(i).getID() == StageID){
+            if (listOfStages.get(i).getID() == stageID){
                 return listOfStages.get(i).getLength();
             }
         }
 
         //should always find length
         return 0;
+    }
+
+    public String getStageState(int stageID){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageID){
+                return listOfStages.get(i).getState();
+            }
+        }
+
+        //should always find state
+        return null;
+    }
+
+    public StageType getStageType(int stageID){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageID){
+                return listOfStages.get(i).getStageType();
+            }
+        }
+
+        //should always find state
+        return null;
     }
 
     public void removeStageByID(int stageID){

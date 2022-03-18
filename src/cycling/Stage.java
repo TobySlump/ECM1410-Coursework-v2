@@ -39,6 +39,10 @@ public class Stage{
         return length;
     }
 
+    public String getState() { return state; }
+
+    public StageType getStageType() { return type; }
+
     public int[] getSegmentsIds(){
         int[] listOfSegmentIds = new int[listOfSegments.size()];
         for (int i = 0; i < listOfSegments.size(); i++){

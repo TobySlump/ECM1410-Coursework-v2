@@ -183,16 +183,20 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                                           Double length) throws IDNotRecognisedException, InvalidLocationException, InvalidStageStateException,
             InvalidStageTypeException {
         // TODO Auto-generated method stub
-        // TO-DO InvalidStageStateException
-        // TO-DO IDNotRecognisedException throughout
 
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
-                if (raceObj.getStageIDs()[j] == stageId){
-                    if (0 > location || location > raceObj.getStageLength(stageId) - length){
+                if (raceObj.getStageIDs()[j] == stageId) {
+                    if (raceObj.getStageState(stageId) == "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    }
+                    if (0 > location || location > raceObj.getStageLength(stageId) - length) {
                         throw new InvalidLocationException("The starting location of the climb is invalid. It must start and end within the stage.");
+                    }
+                    if (raceObj.getStageType(stageId) == StageType.TT) {
+                        throw new InvalidStageTypeException("Segments cannot be added to time trial stages");
                     }
                     return raceObj.addClimbToStage(stageId, location, type,
                             averageGradient, length);
@@ -213,6 +217,15 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 if (raceObj.getStageIDs()[j] == stageId){
+                    if (raceObj.getStageState(stageId) == "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    }
+                    if (0 > location || location > raceObj.getStageLength(stageId)) {
+                        throw new InvalidLocationException("The starting location of the climb is invalid. It must start within the stage.");
+                    }
+                    if (raceObj.getStageType(stageId) == StageType.TT) {
+                        throw new InvalidStageTypeException("Segments cannot be added to time trial stages");
+                    }
                     return raceObj.addSprintToStage(stageId, location);
                 }
             }
