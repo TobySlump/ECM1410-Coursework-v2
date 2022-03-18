@@ -82,24 +82,27 @@ public class Stage{
 
     public LocalTime getRiderAdjustedElapsedTimes(int riderId){
         boolean finishedAdjusting = false;
-        LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length];
+        LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length-1];
+        System.out.println(finishTime);
         boolean hasAdjusted;
 
         while (!finishedAdjusting){
             hasAdjusted = false;
             for (Integer key: rawRiderResults.keySet()){
-                double riderTimeInSeconds = rawRiderResults.get(riderId)
-                        [rawRiderResults.get(riderId).length].toSecondOfDay();
+                double riderTimeInSeconds = finishTime.toSecondOfDay();
 
                 if (key != riderId){
-                    if (rawRiderResults.get(key)[rawRiderResults.get(riderId).length].toSecondOfDay() -
+                    if (rawRiderResults.get(key)[rawRiderResults.get(key).length-1].toSecondOfDay() -
                     riderTimeInSeconds < 1 && rawRiderResults.get(key)
-                            [rawRiderResults.get(riderId).length].toSecondOfDay() -
+                            [rawRiderResults.get(key).length-1].toSecondOfDay() -
                             riderTimeInSeconds > 0){
 
-                        finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length];
+                        finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length-1];
+                        hasAdjusted = true;
 
                     }
+                }else {
+                    hasAdjusted = true;
                 }
             }
 

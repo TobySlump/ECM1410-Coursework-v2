@@ -273,7 +273,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             for (int j = 0; j < raceObj.getNumberOfStages(); j++){
                 if (raceObj.getStageIDs()[j] == stageId){
                     if (raceObj.getStageState(stageId) == "waiting for results") {
-                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results123)");
+                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
                     }
                     raceObj.concludeStatePreparation(stageId);
                     hasConcluded = true;
