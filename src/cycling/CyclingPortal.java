@@ -245,6 +245,9 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
                 for (int k = 0; k < raceObj.getSegmentIds(j).length; k++) {
                     if (raceObj.getSegmentIds(j)[k] == segmentId) {
+                        if (raceObj.getStageState(raceObj.getStageIDs()[j]) == "waiting for results") {
+                            throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                        }
                         raceObj.removeSegmentById(j, segmentId);
                         hasDeleted = true;
                     }
@@ -267,6 +270,9 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getNumberOfStages(); j++){
                 if (raceObj.getStageIDs()[j] == stageId){
+                    if (raceObj.getStageState(stageId) == "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    }
                     raceObj.concludeStatePreparation(stageId);
                     hasConcluded = true;
                 }
@@ -300,6 +306,20 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
         // TODO Auto-generated method stub
 
+        for (int i = 0; i < ListOfRaces.size(); i++) {
+            if (ListOfRaces.get(i).getRaceName() == name) { // if name already used
+                throw new IllegalNameException("The given name has already been used on a race. Names must be unique./");
+            }
+        }
+
+        if (name == null) { //if name null
+            throw new InvalidNameException("Name must not be null");
+        } else {
+            if (name.length() > 30 || name.contains(" ") || name == "") { //if name does not meet specified criteria
+                throw new InvalidNameException("Name must not be empty, must be a single word and cannot be over 30 characters");
+            }
+        }
+
         ListOfTeams.add(new Team(name, description));
         return ListOfTeams.getLast().getTeamID();
 
@@ -308,15 +328,18 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void removeTeam(int teamId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
-
+        boolean hasRemoved = false;
         for (int i = 0; i < ListOfTeams.size(); i++){
             Team teamObj = ListOfTeams.get(i);
 
             if (teamObj.getTeamID() == teamId){
                 ListOfTeams.remove(teamObj);
+                hasRemoved = true;
             }
         }
-
+        if (!hasRemoved) {
+            throw new IDNotRecognisedException("No team found with ID: " + teamId);
+        }
     }
 
     @Override
@@ -348,6 +371,12 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     public int createRider(int teamID, String name, int yearOfBirth)
             throws IDNotRecognisedException, IllegalArgumentException {
         // TODO Auto-generated method stub
+        if (yearOfBirth < 1900) {
+            throw new IllegalArgumentException("Year of birth is less than 1900.");
+        } else if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null.");
+        }
+
 
         for (int i = 0; i < ListOfTeams.size(); i++){
             if (ListOfTeams.get(i).getTeamID() == teamID){
@@ -383,15 +412,21 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointsException,
             InvalidStageStateException {
         // TODO Auto-generated method stub
-
+        boolean hasRegistered = false;
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    if (raceObj.getStageState(stageId) == "waiting for results") {
+                        throw new InvalidStageStateException("Stage is in invalid state: waiting for results)");
+                    }
                     ListOfRaces.get(i).registerRiderResultsInStage(stageId, riderId, checkpoints);
+                    hasRegistered = true;
                 }
             }
         }
-
+        if (!hasRegistered){
+            throw new IDNotRecognisedException("No rider found with ID: " + riderId);
+        }
     }
 
     @Override
