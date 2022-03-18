@@ -436,6 +436,10 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    if (!ListOfRaces.get(i).isRiderInResults(stageId, riderId)){
+                        throw new IDNotRecognisedException
+                                ("No rider with ID: " + riderId + " results found in stage with ID: " + stageId);
+                    }
                     return ListOfRaces.get(i).getRiderResults(stageId, riderId);
                 }
             }
@@ -451,6 +455,10 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                    if (!ListOfRaces.get(i).isRiderInResults(stageId, riderId)){
+                        throw new IDNotRecognisedException
+                                ("No rider with ID: " + riderId + " results found in stage with ID: " + stageId);
+                    }
                     return ListOfRaces.get(i).getRiderAdjustedElapsedResults(stageId, riderId);
                 }
             }
