@@ -201,4 +201,13 @@ public class Race{
         return null;
     }
 
+    public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getRankedAdjustedElapsedTimes();
+            }
+        }
+        return null;
+    }
+
 }
