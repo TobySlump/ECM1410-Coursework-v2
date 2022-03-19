@@ -19,4 +19,12 @@ public class Rider implements Serializable {
     public int getId(){
         return riderID;
     }
+
+    public int getNextRiderID(){
+        return nextRiderID;
+    }
+
+    public void setNextRiderID(int nextRiderId){
+        nextRiderID = nextRiderId;
+    }
 }

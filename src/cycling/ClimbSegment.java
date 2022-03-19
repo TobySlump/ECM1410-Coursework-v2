@@ -21,4 +21,12 @@ public class ClimbSegment extends Segment implements Serializable {
     public int getSegmentID(){
         return segmentID;
     }
+
+    public int getNextSegmentID(){
+        return nextSegmentID;
+    }
+
+    public void setNextSegmentID(int nextSegmentId){
+        nextSegmentID = nextSegmentId;
+    }
 }

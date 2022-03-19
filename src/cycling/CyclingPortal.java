@@ -599,7 +599,20 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
         try {
             FileWriter myWriter = new FileWriter(filename + " static attributes.txt");
-            myWriter.write("Files in Java might be tricky, but it is fun enough!");
+            int[] attributes = new int[5];
+
+            if (ListOfRaces.size() != 0){
+                attributes[0] = ListOfRaces.get(0).getNextRaceID();
+
+                for (int i = 0; i < ListOfRaces.size(); i++){
+                    if (ListOfRaces.get(i).getNumberOfStages() != 0){
+                        attributes[1] = ListOfRaces.get(i).getNextStageID();
+                    }
+                }
+
+            }else{attributes[0] = 0;}
+
+            //myWriter.write();
             myWriter.close();
         } catch (IOException e) {
             throw new IOException("Couldn't write to attribute file");

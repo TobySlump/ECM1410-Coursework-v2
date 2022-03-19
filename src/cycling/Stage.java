@@ -42,6 +42,14 @@ public class Stage implements Serializable {
 
     public StageType getStageType() { return type; }
 
+    public int getNextStageID(){
+        return nextStageID;
+    }
+
+    public void setNextStageID(int nextStageId){
+        nextStageID = nextStageId;
+    }
+
     public int[] getSegmentsIds(){
         int[] listOfSegmentIds = new int[listOfSegments.size()];
         for (int i = 0; i < listOfSegments.size(); i++){

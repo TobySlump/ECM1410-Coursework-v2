@@ -36,6 +36,21 @@ public class Race implements Serializable {
         return listOfStages.size();
     }
 
+    public int getNextRaceID(){
+        return nextRaceID;
+    }
+
+    public void setNextRaceID(int nextRaceID){
+        this.nextRaceID = nextRaceID;
+    }
+
+    public int getNextStageID(){
+        for (int i = 0; i < listOfStages.size(); i++){
+            return listOfStages.get(0).getNextStageID();
+        }
+        return 0;
+    }
+
     public LinkedList<Segment> getListOfSegmentsFromStage(int stageID){
         for (int i = 0; i < listOfStages.size(); i++) {
             if (listOfStages.get(i).getID() == stageID) {
