@@ -565,14 +565,14 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void eraseCyclingPortal() {
         // TODO Auto-generated method stub
-
+        ListOfRaces.clear();
+        ListOfTeams.clear();
     }
 
     @Override
     public void saveCyclingPortal(String filename) throws IOException {
         // TODO Auto-generated method stub
-        ListOfRaces.clear();
-        ListOfTeams.clear();
+
     }
 
     @Override
