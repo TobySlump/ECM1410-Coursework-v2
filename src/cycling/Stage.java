@@ -112,8 +112,7 @@ public class Stage{
             }
         }
 
-        long seconds = finishTime.toSecondOfDay() - rawRiderResults.get(riderId)[0].toSecondOfDay();
-        return LocalTime.ofSecondOfDay(seconds);
+        return finishTime;
     }
 
     public void removeRidersResults(int riderId){
