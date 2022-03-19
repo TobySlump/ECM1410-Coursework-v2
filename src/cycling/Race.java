@@ -1,11 +1,12 @@
 package cycling;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Race{
+public class Race implements Serializable {
     private int raceID;
     private static int nextRaceID = 0;
     private  String name;

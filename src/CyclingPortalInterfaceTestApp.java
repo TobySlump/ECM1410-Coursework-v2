@@ -1,5 +1,6 @@
 import cycling.*;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -25,7 +26,7 @@ public class CyclingPortalInterfaceTestApp {
 	 */
 	public static void main(String[] args) throws InvalidNameException, IllegalNameException,
 			IDNotRecognisedException, InvalidLengthException, InvalidStageStateException,
-			InvalidLocationException, InvalidStageTypeException, DuplicatedResultException, InvalidCheckpointsException {
+			InvalidLocationException, InvalidStageTypeException, DuplicatedResultException, InvalidCheckpointsException, IOException {
 		System.out.println("The system compiled and started the execution...");
 
 		MiniCyclingPortalInterface portal = new BadMiniCyclingPortal();
@@ -132,6 +133,9 @@ public class CyclingPortalInterfaceTestApp {
 		System.out.println(Arrays.toString(cyclingportal.getRidersRankInStage(1)));
 
 		System.out.println(Arrays.toString(cyclingportal.getRankedAdjustedElapsedTimesInStage(1)));
+
+		//cyclingportal.saveCyclingPortal("test");
+
 
 	}
 }

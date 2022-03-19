@@ -1,9 +1,10 @@
 package cycling;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.LinkedList;
 
-public class Team{
+public class Team implements Serializable {
 
     private int teamID;
     private static int nextTeamID = 0;

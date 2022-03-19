@@ -1,9 +1,8 @@
 package cycling;
 
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class CyclingPortal implements MiniCyclingPortalInterface {
@@ -572,7 +571,39 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void saveCyclingPortal(String filename) throws IOException {
         // TODO Auto-generated method stub
+        String fileNameUsed = filename;
+        if (!filename.endsWith(".ser")){
+            fileNameUsed = filename + ".ser";
+        }
 
+        try (ObjectOutputStream out = new ObjectOutputStream(new
+                FileOutputStream(fileNameUsed))) {
+            out.writeObject(ListOfRaces);
+            out.writeObject(ListOfTeams);
+        }catch (IOException e){
+            throw new IOException("Couldn't save objects");
+        }
+
+        if (filename.endsWith(".ser")){
+            filename = filename.substring(0,filename.length()-4);
+        }
+
+        try {
+            File myObj = new File(filename + " static attributes.txt");
+            if (!myObj.createNewFile()) {
+                throw new IOException("Attribute file already exists");
+            }
+        } catch (IOException e) {
+            throw new IOException("Attribute file couldn't be created");
+        }
+
+        try {
+            FileWriter myWriter = new FileWriter(filename + " static attributes.txt");
+            myWriter.write("Files in Java might be tricky, but it is fun enough!");
+            myWriter.close();
+        } catch (IOException e) {
+            throw new IOException("Couldn't write to attribute file");
+        }
     }
 
     @Override

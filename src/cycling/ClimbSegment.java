@@ -1,6 +1,8 @@
 package cycling;
 
-public class ClimbSegment extends Segment {
+import java.io.Serializable;
+
+public class ClimbSegment extends Segment implements Serializable {
     private double location;
     private SegmentType type;
     private double averageGradient;

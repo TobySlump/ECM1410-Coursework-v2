@@ -1,6 +1,8 @@
 package cycling;
 
-public abstract class Segment{
+import java.io.Serializable;
+
+public abstract class Segment implements Serializable {
     protected int segmentID;
     protected static int nextSegmentID = 0;
 

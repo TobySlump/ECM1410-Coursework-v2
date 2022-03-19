@@ -1,6 +1,8 @@
 package cycling;
 
-public class SprintSegment extends Segment {
+import java.io.Serializable;
+
+public class SprintSegment extends Segment implements Serializable {
     private double location;
     private SegmentType type;
 

@@ -1,5 +1,7 @@
 package cycling;
 
+import java.io.Serializable;
+
 /**
  * This enum is used to represent the segment types within stages on road races.
  * 
@@ -7,7 +9,7 @@ package cycling;
  * @version 1.0
  *
  */
-public enum SegmentType {
+public enum SegmentType implements Serializable {
 
 	/**
 	 * An intermediate sprint.

@@ -1,5 +1,7 @@
 package cycling;
 
+import java.io.Serializable;
+
 /**
  * This enum is used to represent the stage types  on road races.
  * 
@@ -7,7 +9,7 @@ package cycling;
  * @version 1.0
  *
  */
-public enum StageType {
+public enum StageType implements Serializable {
 	
 	/**
 	 * Used for mostly flat stages.

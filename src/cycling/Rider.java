@@ -1,6 +1,8 @@
 package cycling;
 
-public class Rider{
+import java.io.Serializable;
+
+public class Rider implements Serializable {
     private int riderID;
     private static int nextRiderID = 0;
     private int teamID;
