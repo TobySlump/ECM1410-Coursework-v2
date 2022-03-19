@@ -414,11 +414,16 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointsException,
             InvalidStageStateException {
         // TODO Auto-generated method stub
-        // james DuplicatedResultException
+        // james DuplicatedResultException race.getRiderResults
         boolean hasRegistered = false;
+
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
+                        if (!ListOfRaces.get(i).isRiderInResults(stageId, riderId)){
+                            throw new DuplicatedResultException("Rider already has results");
+                    }
+
                     if (checkpoints.length != ListOfRaces.get(i).getListOfSegmentsFromStage(stageId).size() + 2){
                         throw new InvalidCheckpointsException("Invalid length of checkpoints");
                     }
