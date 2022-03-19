@@ -571,7 +571,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void saveCyclingPortal(String filename) throws IOException {
         // TODO Auto-generated method stub
-
+        ListOfRaces.clear();
+        ListOfTeams.clear();
     }
 
     @Override

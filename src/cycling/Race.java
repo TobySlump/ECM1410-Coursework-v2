@@ -218,6 +218,7 @@ public class Race{
         }
         // will never get here
         return 0;
+    }
 
     public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId){
         for (int i = 0; i < listOfStages.size(); i++){
