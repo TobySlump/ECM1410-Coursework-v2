@@ -609,7 +609,24 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     @Override
     public void loadCyclingPortal(String filename) throws IOException, ClassNotFoundException {
         // TODO Auto-generated method stub
+        String fileNameUsed = filename;
+        if (!filename.endsWith(".ser")){
+            fileNameUsed = filename + ".ser";
+        }
 
+        try (ObjectInputStream in = new ObjectInputStream(new
+                FileInputStream(fileNameUsed))) {
+            Object obj = in.readObject();
+            if (obj instanceof LinkedList<?>)
+                ListOfRaces = (LinkedList<Race>) obj;//downcast safely
+            obj = in.readObject();
+            if (obj instanceof LinkedList<?>)
+                ListOfTeams = (LinkedList<Team>) obj;//downcast safely
+        }catch (IOException e){
+            throw new IOException();
+        }catch (ClassNotFoundException e){
+            throw new ClassNotFoundException("");
+        }
     }
 
 }

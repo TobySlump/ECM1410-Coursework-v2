@@ -26,7 +26,7 @@ public class CyclingPortalInterfaceTestApp {
 	 */
 	public static void main(String[] args) throws InvalidNameException, IllegalNameException,
 			IDNotRecognisedException, InvalidLengthException, InvalidStageStateException,
-			InvalidLocationException, InvalidStageTypeException, DuplicatedResultException, InvalidCheckpointsException, IOException {
+			InvalidLocationException, InvalidStageTypeException, DuplicatedResultException, InvalidCheckpointsException, IOException, ClassNotFoundException {
 		System.out.println("The system compiled and started the execution...");
 
 		MiniCyclingPortalInterface portal = new BadMiniCyclingPortal();
@@ -135,6 +135,11 @@ public class CyclingPortalInterfaceTestApp {
 		System.out.println(Arrays.toString(cyclingportal.getRankedAdjustedElapsedTimesInStage(1)));
 
 		//cyclingportal.saveCyclingPortal("test");
+		cyclingportal.eraseCyclingPortal();
+		System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
+		cyclingportal.loadCyclingPortal("test");
+
+		System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
 
 
 	}
