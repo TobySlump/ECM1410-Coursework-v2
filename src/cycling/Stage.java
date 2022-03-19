@@ -86,22 +86,22 @@ public class Stage{
 
     public LocalTime getRiderAdjustedElapsedTimes(int riderId){
         boolean finishedAdjusting = false;
-        LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length];
+        LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length-1];
         boolean hasAdjusted;
 
         while (!finishedAdjusting){
             hasAdjusted = false;
             for (Integer key: rawRiderResults.keySet()){
-                double riderTimeInSeconds = rawRiderResults.get(riderId)
-                        [rawRiderResults.get(riderId).length].toSecondOfDay();
+                double riderTimeInSeconds = finishTime.toSecondOfDay();
 
                 if (key != riderId){
-                    if (rawRiderResults.get(key)[rawRiderResults.get(riderId).length].toSecondOfDay() -
-                    riderTimeInSeconds < 1 && rawRiderResults.get(key)
-                            [rawRiderResults.get(riderId).length].toSecondOfDay() -
-                            riderTimeInSeconds > 0){
+                    if (rawRiderResults.get(key)[rawRiderResults.get(key).length-1].toSecondOfDay() -
+                    riderTimeInSeconds >= -1 && rawRiderResults.get(key)
+                            [rawRiderResults.get(key).length-1].toSecondOfDay() -
+                            riderTimeInSeconds < 0){
 
-                        finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length];
+                        finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length-1];
+                        hasAdjusted = true;
 
                     }
                 }
@@ -125,12 +125,12 @@ public class Stage{
     }
 
     public int[] getRidersRank(){
-        int[][] riderTimes = new int[rawRiderResults.size()][1];
+        int[][] riderTimes = new int[rawRiderResults.size()][2];
         int index = 0;
 
         for (Integer key: rawRiderResults.keySet()){
             LocalTime[] riderTimesList = rawRiderResults.get(key);
-            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length].toSecondOfDay()
+            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay()
                     - riderTimesList[0].toSecondOfDay();
 
             riderTimes[index][0] = key;
