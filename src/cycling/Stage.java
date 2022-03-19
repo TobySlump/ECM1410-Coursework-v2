@@ -130,8 +130,8 @@ public class Stage{
 
         for (Integer key: rawRiderResults.keySet()){
             LocalTime[] riderTimesList = rawRiderResults.get(key);
-            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay()
-                    - riderTimesList[0].toSecondOfDay();
+            riderTimesList[riderTimesList.length-1] = getRiderAdjustedElapsedTimes(key);
+            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay();
 
             riderTimes[index][0] = key;
             riderTimes[index][1] = riderFinishTime;
@@ -151,9 +151,29 @@ public class Stage{
             riderRanks[i] = riderTimes[i][0];
         }
         return riderRanks;
-
     }
 
+    public LocalTime[] getRankedAdjustedElapsedTimes(){
+        int[] RankedAdjustedElapsedTimesSeconds = new int[rawRiderResults.size()];
+        int index = 0;
+
+        for (Integer key: rawRiderResults.keySet()){
+            RankedAdjustedElapsedTimesSeconds[index] = getRiderAdjustedElapsedTimes(key).toSecondOfDay();
+            index += 1;
+        }
+        System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
+        Arrays.sort(RankedAdjustedElapsedTimesSeconds);
+        System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
+
+        LocalTime[] RankedAdjustedElapsedTimes = new LocalTime[rawRiderResults.size()];
+        for (int i = 0; i < rawRiderResults.size(); i++){
+            RankedAdjustedElapsedTimes[i] = LocalTime.ofSecondOfDay(RankedAdjustedElapsedTimesSeconds[i]);
+
+        }
+
+        return RankedAdjustedElapsedTimes;
+    }
+    
     public int getPointsForStage(int cyclistPosition){ // selects stage type
         switch (this.type) {
             case FLAT:

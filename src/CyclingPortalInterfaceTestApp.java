@@ -92,11 +92,11 @@ public class CyclingPortalInterfaceTestApp {
 
 		LocalTime[] riderTimes =
 				{LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(15), LocalTime.ofSecondOfDay(47)};
-		cyclingportal.registerRiderResultsInStage(1, 1, riderTimes);
+		cyclingportal.registerRiderResultsInStage(1, 2, riderTimes);
 
 		riderTimes = new LocalTime[]
 				{LocalTime.ofSecondOfDay(1), LocalTime.ofSecondOfDay(13), LocalTime.ofSecondOfDay(46)};
-		cyclingportal.registerRiderResultsInStage(1, 2, riderTimes);
+		cyclingportal.registerRiderResultsInStage(1, 1, riderTimes);
 
 		riderTimes = new LocalTime[]
 				{LocalTime.ofSecondOfDay(5), LocalTime.ofSecondOfDay(20), LocalTime.ofSecondOfDay(42)};
@@ -116,6 +116,8 @@ public class CyclingPortalInterfaceTestApp {
 		System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(1,3)));
 
 		System.out.println(Arrays.toString(cyclingportal.getRidersRankInStage(1)));
+
+		System.out.println(Arrays.toString(cyclingportal.getRankedAdjustedElapsedTimesInStage(1)));
 
 	}
 }

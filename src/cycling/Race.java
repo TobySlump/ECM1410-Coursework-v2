@@ -201,6 +201,7 @@ public class Race{
         return null;
     }
 
+
     public int getPointsFromStage(int stageId, int riderPosition) {
         // points for stage
         // stage points depend on type
@@ -217,6 +218,14 @@ public class Race{
         }
         // will never get here
         return 0;
+
+    public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getRankedAdjustedElapsedTimes();
+            }
+        }
+        return null;
     }
 
 }
