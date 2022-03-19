@@ -172,8 +172,47 @@ public class Stage{
 
         return RankedAdjustedElapsedTimes;
     }
+    
+    public int getPointsForStage(int cyclistPosition){ // selects stage type
+        switch (this.type) {
+            case FLAT:
+                // score for flat stage
+                int[] flatPoints = {35, 30, 26, 24, 22, 20, 19, 18, 17, 16,
+                        15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+                if (cyclistPosition < 24) {
+                    return flatPoints[cyclistPosition];
+                } else {
+                    return 0;
+                }
+            case MEDIUM_MOUNTAIN:
+                // score for medium mountain stage
+                int[] mediumMountainPoints = {25, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10,
+                9, 8, 7, 6, 5, 4, 3, 2, 1};
+                if (cyclistPosition < 19) {
+                    return mediumMountainPoints[cyclistPosition];
+                } else {
+                    return 0;
+                }
+            case HIGH_MOUNTAIN:
+                // score for high mountain stage
+                int[] highMountainPoints = {20, 17, 15, 13, 12, 10, 9, 8, 7,
+                6, 5, 4, 3, 2, 1};
+                if (cyclistPosition < 14) {
+                    return highMountainPoints[cyclistPosition];
+                } else {
+                    return 0;
+                }
+            case TT:
+                // score for time trial stage
+                int[] timeTrialPoints = {15, 15, 10, 8, 6, 5, 4, 3, 2, 1};
+                if (cyclistPosition < 9) {
+                    return timeTrialPoints[cyclistPosition];
+                } else {
+                    return 0;
+                }
+        }
+        // should never get to this point
+        return 0;
+        }
+    }
 
-
-
-
-}

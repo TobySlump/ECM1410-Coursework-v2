@@ -201,6 +201,24 @@ public class Race{
         return null;
     }
 
+
+    public int getPointsFromStage(int stageId, int riderPosition) {
+        // points for stage
+        // stage points depend on type
+        // points for sprints
+        // can be time trial
+        // getStageType()
+        StageType raceStageType;
+        for (int i = 0; i < listOfStages.size(); i++) { // loop through stages in race
+            if (listOfStages.get(i).getID() == stageId) { //if desired stage
+                return(listOfStages.get(i).getPointsForStage(riderPosition));
+                // switch case for stage type ?
+
+            }
+        }
+        // will never get here
+        return 0;
+
     public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){

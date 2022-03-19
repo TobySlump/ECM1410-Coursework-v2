@@ -531,13 +531,33 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     }
 
     @Override
-    public int[] getRidersPointsInStage(int stageId) throws IDNotRecognisedException {
+    public int[] getRidersPointsInStage(int stageId) throws IDNotRecognisedException { //james
+        // Get the number of points obtained by each rider in a stage.
+        int [] ridersRanked = getRidersRankInStage((stageId));
+        int [] riderPoints = new int [ridersRanked.length]; // create new array of riders to store points
+        for (int i = 0; i < ridersRanked.length; i++){ // for loops through riders
+            riderPoints[i] = ListOfRaces.get(i).getPointsFromStage(stageId, i);//get points for stage // add current riders point to array of rider points
+        }
+
+
+
+        // works in stage of race. so get to stage from race.
+        // uses getRidersRankInStage to get ranks of riders
+        // works in for loop to go through list of riders
+        // calculate the correct amount of points and add to the array of rider points
+        // return array of rider points
+        // at end, stage not recognised
+
+        // sprints seperately?
         // TODO Auto-generated method stub
+
         return null;
     }
 
     @Override
-    public int[] getRidersMountainPointsInStage(int stageId) throws IDNotRecognisedException {
+    public int[] getRidersMountainPointsInStage(int stageId) throws IDNotRecognisedException { //james
+        //Get the number of mountain points obtained by each rider in a stage.
+
         // TODO Auto-generated method stub
         return null;
     }
