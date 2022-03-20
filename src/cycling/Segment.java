@@ -12,6 +12,4 @@ public abstract class Segment implements Serializable {
 
     abstract int getSegmentID();
 
-    abstract void setNextSegmentID(int nextSegmentId);
-
 }

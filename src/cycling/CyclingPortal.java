@@ -578,42 +578,20 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             fileNameUsed = filename + ".ser";
         }
 
-        //try {
-        //FileWriter myWriter = new FileWriter(filename + " static attributes.txt");
-
         staticAttributes[0] = Race.getNextRaceID();
         staticAttributes[1] = Stage.getNextStageID();
         staticAttributes[2] = SprintSegment.getNextSegmentID();
         staticAttributes[3] = Team.getNextTeamID();
         staticAttributes[4] = Rider.getNextRiderID();
 
-        //.out.println(Arrays.toString(staticAttributes));
-
-        //myWriter.write(Arrays.toString(staticAttributes));
-        //myWriter.close();
-        //} catch (IOException e) {
-        //    throw new IOException("Couldn't write to attribute file");
-        //}
-
         try (ObjectOutputStream out = new ObjectOutputStream(new
                 FileOutputStream(fileNameUsed))) {
-            out.writeObject(this);
+            out.writeObject(ListOfRaces);
+            out.writeObject(ListOfTeams);
+            out.writeObject(staticAttributes);
         }catch (IOException e){
             throw new IOException("Couldn't save objects");
         }
-
-        /*if (filename.endsWith(".ser")){
-            filename = filename.substring(0,filename.length()-4);
-        }
-
-        try {
-            File myObj = new File(filename + " static attributes.txt");
-            if (!myObj.createNewFile()) {
-                throw new IOException("Attribute file already exists");
-            }
-        } catch (IOException e) {
-            throw new IOException("Attribute file couldn't be created");
-        }*/
 
     }
 
@@ -633,6 +611,14 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             obj = in.readObject();
             if (obj instanceof LinkedList<?>)
                 ListOfTeams = (LinkedList<Team>) obj;//downcast safely
+            obj = in.readObject();
+            if (obj instanceof int[])
+                staticAttributes = (int[]) obj;
+            Race.setNextRaceID(staticAttributes[0]);
+            Stage.setNextStageID(staticAttributes[1]);
+            SprintSegment.setNextSegmentID(staticAttributes[2]);
+            Team.setNextTeamID(staticAttributes[3]);
+            Rider.setNextRiderID(staticAttributes[4]);
         }catch (IOException e){
             throw new IOException();
         }catch (ClassNotFoundException e){

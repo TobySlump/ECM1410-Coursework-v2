@@ -135,11 +135,13 @@ public class CyclingPortalInterfaceTestApp {
 		System.out.println(Arrays.toString(cyclingportal.getRankedAdjustedElapsedTimesInStage(1)));
 
 		cyclingportal.saveCyclingPortal("test");
-		//cyclingportal.eraseCyclingPortal();
-		//System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
-		//yclingportal.loadCyclingPortal("test");
+		cyclingportal.eraseCyclingPortal();
+		System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
+		cyclingportal.loadCyclingPortal("test");
 
-		//System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
+		System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
+		System.out.println(cyclingportal.createRider(1, "testkid7", 1975));
+		System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
 
 
 

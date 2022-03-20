@@ -27,12 +27,8 @@ public class Team implements Serializable {
         return nextTeamID;
     }
 
-    public void setNextTeamID(int nextTeamId){
+    public static void setNextTeamID(int nextTeamId){
         nextTeamID = nextTeamId;
-    }
-
-    public void setNextRiderID(int nextRiderID){
-        listOfRiders.get(0).setNextRiderID(nextRiderID);
     }
 
     public void removeRider(int riderId){

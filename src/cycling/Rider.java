@@ -24,7 +24,7 @@ public class Rider implements Serializable {
         return nextRiderID;
     }
 
-    public void setNextRiderID(int nextRiderId){
+    public static void setNextRiderID(int nextRiderId){
         nextRiderID = nextRiderId;
     }
 }

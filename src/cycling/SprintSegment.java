@@ -21,7 +21,7 @@ public class SprintSegment extends Segment implements Serializable {
         return nextSegmentID;
     }
 
-    public void setNextSegmentID(int nextSegmentId){
+    public static void setNextSegmentID(int nextSegmentId){
         nextSegmentID = nextSegmentId;
     }
 }
