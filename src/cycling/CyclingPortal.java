@@ -3,11 +3,13 @@ package cycling;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class CyclingPortal implements MiniCyclingPortalInterface {
     private LinkedList<Race> ListOfRaces = new LinkedList<>();
     private LinkedList<Team> ListOfTeams = new LinkedList<>();
+    private int[] staticAttributes = new int[5];
 
     @Override
     public int[] getRaceIds() {
@@ -576,15 +578,31 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             fileNameUsed = filename + ".ser";
         }
 
+        //try {
+        //FileWriter myWriter = new FileWriter(filename + " static attributes.txt");
+
+        staticAttributes[0] = Race.getNextRaceID();
+        staticAttributes[1] = Stage.getNextStageID();
+        staticAttributes[2] = SprintSegment.getNextSegmentID();
+        staticAttributes[3] = Team.getNextTeamID();
+        staticAttributes[4] = Rider.getNextRiderID();
+
+        //.out.println(Arrays.toString(staticAttributes));
+
+        //myWriter.write(Arrays.toString(staticAttributes));
+        //myWriter.close();
+        //} catch (IOException e) {
+        //    throw new IOException("Couldn't write to attribute file");
+        //}
+
         try (ObjectOutputStream out = new ObjectOutputStream(new
                 FileOutputStream(fileNameUsed))) {
-            out.writeObject(ListOfRaces);
-            out.writeObject(ListOfTeams);
+            out.writeObject(this);
         }catch (IOException e){
             throw new IOException("Couldn't save objects");
         }
 
-        if (filename.endsWith(".ser")){
+        /*if (filename.endsWith(".ser")){
             filename = filename.substring(0,filename.length()-4);
         }
 
@@ -595,35 +613,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             }
         } catch (IOException e) {
             throw new IOException("Attribute file couldn't be created");
-        }
+        }*/
 
-        try {
-            FileWriter myWriter = new FileWriter(filename + " static attributes.txt");
-            int[] attributes = new int[5];
-
-            if (ListOfRaces.size() != 0){
-                attributes[0] = ListOfRaces.get(0).getNextRaceID();
-
-                for (int i = 0; i < ListOfRaces.size(); i++){
-                    if (ListOfRaces.get(i).getNumberOfStages() != 0){
-                        attributes[1] = ListOfRaces.get(i).getNextStageID();
-
-                        for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
-                            if(ListOfRaces.get(i).getNumberOfSegents(ListOfRaces.get(i).getStageIDs()[j]) != 0){
-                                attributes[2] =
-                                        ListOfRaces.get(i).getNextSegmentId(ListOfRaces.get(i).getStageIDs()[j]);
-                            }
-                        }
-                    }
-                }
-
-            }else{attributes[0] = 0;}
-
-            //myWriter.write();
-            myWriter.close();
-        } catch (IOException e) {
-            throw new IOException("Couldn't write to attribute file");
-        }
     }
 
     @Override

@@ -23,12 +23,16 @@ public class Team implements Serializable {
         listOfRiders.add(newRider);
     }
 
-    public int getNextTeamID(){
+    public static int getNextTeamID(){
         return nextTeamID;
     }
 
     public void setNextTeamID(int nextTeamId){
         nextTeamID = nextTeamId;
+    }
+
+    public void setNextRiderID(int nextRiderID){
+        listOfRiders.get(0).setNextRiderID(nextRiderID);
     }
 
     public void removeRider(int riderId){

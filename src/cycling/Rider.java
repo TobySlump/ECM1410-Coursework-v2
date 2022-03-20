@@ -20,7 +20,7 @@ public class Rider implements Serializable {
         return riderID;
     }
 
-    public int getNextRiderID(){
+    public static int getNextRiderID(){
         return nextRiderID;
     }
 

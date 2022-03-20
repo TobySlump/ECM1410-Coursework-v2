@@ -45,30 +45,20 @@ public class Race implements Serializable {
         return 0;
     }
 
-    public int getNextRaceID(){
+    public static int getNextRaceID(){
         return nextRaceID;
     }
+
 
     public void setNextRaceID(int nextRaceId){
         nextRaceID = nextRaceId;
     }
 
-    public int getNextStageID(){
-        return listOfStages.get(0).getNextStageID();
-    }
 
     public void setNextStageID(int nextStageId){
         listOfStages.get(0).setNextStageID(nextStageId);
     }
 
-    public int getNextSegmentId(int stageId){
-        for (int i = 0; i < listOfStages.size(); i++){
-            if (listOfStages.get(i).getID() == stageId){
-                return listOfStages.get(i).getNextSegmentId();
-            }
-        }
-        return 0;
-    }
 
     public LinkedList<Segment> getListOfSegmentsFromStage(int stageID){
         for (int i = 0; i < listOfStages.size(); i++) {

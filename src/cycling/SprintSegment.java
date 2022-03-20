@@ -17,7 +17,7 @@ public class SprintSegment extends Segment implements Serializable {
         return segmentID;
     }
 
-    public int getNextSegmentID(){
+    public static int getNextSegmentID(){
         return nextSegmentID;
     }
 

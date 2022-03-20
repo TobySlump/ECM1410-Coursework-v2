@@ -134,7 +134,7 @@ public class CyclingPortalInterfaceTestApp {
 
 		System.out.println(Arrays.toString(cyclingportal.getRankedAdjustedElapsedTimesInStage(1)));
 
-		//cyclingportal.saveCyclingPortal("test");
+		cyclingportal.saveCyclingPortal("test");
 		//cyclingportal.eraseCyclingPortal();
 		//System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
 		//yclingportal.loadCyclingPortal("test");
