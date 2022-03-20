@@ -185,7 +185,9 @@ public class Race implements Serializable {
     public LocalTime getRiderAdjustedElapsedResults(int stageId, int riderId){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){
-                return listOfStages.get(i).getRiderAdjustedElapsedTimes(riderId);
+                int adjustedFinishTime = listOfStages.get(i).getRiderAdjustedElapsedTimes(riderId).toSecondOfDay();
+                int startTime = listOfStages.get(i).getRiderTimes(riderId)[0].toSecondOfDay();
+                return LocalTime.ofSecondOfDay(adjustedFinishTime-startTime);
             }
         }
         return null;

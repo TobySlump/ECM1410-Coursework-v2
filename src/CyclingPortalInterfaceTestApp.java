@@ -95,7 +95,7 @@ public class CyclingPortalInterfaceTestApp {
 		System.out.println(cyclingportal.createRider(1, "testkid6", 1974));
 
 		LocalTime[] riderTimes =
-				{LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(15), LocalTime.ofSecondOfDay(47)};
+				{LocalTime.ofSecondOfDay(2), LocalTime.ofSecondOfDay(15), LocalTime.ofSecondOfDay(47)};
 		cyclingportal.registerRiderResultsInStage(1, 1, riderTimes);
 
 		riderTimes = new LocalTime[]
@@ -107,7 +107,7 @@ public class CyclingPortalInterfaceTestApp {
 		cyclingportal.registerRiderResultsInStage(1, 3, riderTimes);
 
 		System.out.println("Rider Results:");
-		System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(1, 3)));
+		System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(1, 1)));
 
 		System.out.println(cyclingportal.getRiderAdjustedElapsedTimeInStage(1, 1));
 
