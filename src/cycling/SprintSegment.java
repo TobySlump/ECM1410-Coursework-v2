@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class SprintSegment extends Segment implements Serializable {
     private double location;
-    private SegmentType type;
 
     public SprintSegment(Double Location){
         super();

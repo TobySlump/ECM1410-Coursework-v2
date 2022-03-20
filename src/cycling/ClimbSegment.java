@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class ClimbSegment extends Segment implements Serializable {
     private double location;
-    private SegmentType type;
     private double averageGradient;
     private double length;
 
