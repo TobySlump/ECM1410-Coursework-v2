@@ -219,7 +219,7 @@ public class Stage implements Serializable {
         return 0;
         }
 
-        public int getPointsFromStageSprints(int riderPosition){ //calculate points for intermediate sprints
+        public int[][] getPointsFromStageSprints(int riderPosition){ //calculate points for intermediate sprints
             int timeThroughSprint;
             LocalTime[] riderTimesList; //list of times for a rider
             int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
@@ -246,21 +246,16 @@ public class Stage implements Serializable {
             int[] intermediateSprintPoints = {20, 17, 15, 13, 11, 10, 9,
                     8, 7, 6, 5, 4, 3, 2, 1};
             for (int i = 0; i < rawRiderResults.size(); i++){
-
                 if (i < 14) {
-                    //return intermediateSprintPoints[cyclistPosition];
+                    ridersPoints[i][0]=ridersTimes[i][0];
+                    ridersPoints[i][1]=intermediateSprintPoints[i];
                 } else {
-                    return 0;
+                    ridersPoints[i][0]=ridersTimes[i][0];
+                    ridersPoints[i][1]=0;
                 }
-                //ridersPoints[i][1] =
-            }
-                // give points and return thw points
+             }
 
-
-            // code here duh
-            //getStageSegments
-            //ListOfRaces.get(i).getListOfSegmentsFromStage(stageId).size()
-            return 0;
+            return ridersPoints;
         }
     }
 
