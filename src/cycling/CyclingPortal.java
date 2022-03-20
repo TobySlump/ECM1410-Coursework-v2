@@ -607,6 +607,13 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                 for (int i = 0; i < ListOfRaces.size(); i++){
                     if (ListOfRaces.get(i).getNumberOfStages() != 0){
                         attributes[1] = ListOfRaces.get(i).getNextStageID();
+
+                        for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
+                            if(ListOfRaces.get(i).getNumberOfSegents(ListOfRaces.get(i).getStageIDs()[j]) != 0){
+                                attributes[2] =
+                                        ListOfRaces.get(i).getNextSegmentId(ListOfRaces.get(i).getStageIDs()[j]);
+                            }
+                        }
                     }
                 }
 

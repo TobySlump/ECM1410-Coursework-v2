@@ -36,17 +36,36 @@ public class Race implements Serializable {
         return listOfStages.size();
     }
 
+    public int getNumberOfSegents(int stageId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getSegmentsIds().length;
+            }
+        }
+        return 0;
+    }
+
     public int getNextRaceID(){
         return nextRaceID;
     }
 
-    public void setNextRaceID(int nextRaceID){
-        this.nextRaceID = nextRaceID;
+    public void setNextRaceID(int nextRaceId){
+        nextRaceID = nextRaceId;
     }
 
     public int getNextStageID(){
+        return listOfStages.get(0).getNextStageID();
+    }
+
+    public void setNextStageID(int nextStageId){
+        listOfStages.get(0).setNextStageID(nextStageId);
+    }
+
+    public int getNextSegmentId(int stageId){
         for (int i = 0; i < listOfStages.size(); i++){
-            return listOfStages.get(0).getNextStageID();
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getNextSegmentId();
+            }
         }
         return 0;
     }
