@@ -546,7 +546,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         int [] ridersRanked = getRidersRankInStage((stageId));
         int [] riderPoints = new int [ridersRanked.length]; // create new array of riders to store points
         for (int i = 0; i < ridersRanked.length; i++){ // for loops through riders
-            riderPoints[i] = ListOfRaces.get(i).getPointsFromStage(stageId, i);//get points for stage // add current riders point to array of rider points
+            riderPoints[i] = ListOfRaces.get(i).getPointsFromStage(stageId, i); // add current riders point to array of rider points
         }
 
 

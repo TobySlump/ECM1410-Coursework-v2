@@ -229,11 +229,12 @@ public class Race implements Serializable {
         // can be time trial
         // getStageType()
         StageType raceStageType;
+        int riderPoints;
         for (int i = 0; i < listOfStages.size(); i++) { // loop through stages in race
             if (listOfStages.get(i).getID() == stageId) { //if desired stage
-                return(listOfStages.get(i).getPointsForStage(riderPosition));
-                // switch case for stage type ?
-
+                riderPoints = (listOfStages.get(i).getPointsForStageRank(riderPosition)); // points from stage finish
+                riderPoints += listOfStages.get(i).getPointsFromStageSprints(riderPosition); // points from stage
+                return riderPoints;
             }
         }
         // will never get here

@@ -15,7 +15,7 @@ public class Stage implements Serializable {
     private StageType type;
     private LinkedList<Segment> listOfSegments = new LinkedList<>();
     private String state;
-    private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>();
+    private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>(); //riderid, ridertimes
 
     public Stage(String stageName, String description, double length,
                  LocalDateTime startTime, StageType type){
@@ -181,47 +181,86 @@ public class Stage implements Serializable {
 
         return RankedAdjustedElapsedTimes;
     }
-    
-    public int getPointsForStage(int cyclistPosition){ // selects stage type
+
+    public int getPointsForStageRank(int cyclistPosition){ // selects stage type
         switch (this.type) {
             case FLAT:
                 // score for flat stage
-                int[] flatPoints = {35, 30, 26, 24, 22, 20, 19, 18, 17, 16,
-                        15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-                if (cyclistPosition < 24) {
+                int[] flatPoints = {50, 30, 20, 18, 16, 14, 12, 10, 8,
+                    7, 6, 5, 4, 3, 2};
+                if (cyclistPosition < 14) {
                     return flatPoints[cyclistPosition];
                 } else {
                     return 0;
                 }
             case MEDIUM_MOUNTAIN:
                 // score for medium mountain stage
-                int[] mediumMountainPoints = {25, 22, 20, 18, 16, 15, 14, 13, 12, 11, 10,
-                9, 8, 7, 6, 5, 4, 3, 2, 1};
-                if (cyclistPosition < 19) {
+                int[] mediumMountainPoints = {30, 25, 22, 19, 17, 15, 13, 11,
+                9, 7, 6, 5, 4, 3, 2};
+                if (cyclistPosition < 14) { //position is -1 due to 0 indexing. i.e., first place is position 0.
                     return mediumMountainPoints[cyclistPosition];
                 } else {
                     return 0;
                 }
             case HIGH_MOUNTAIN:
-                // score for high mountain stage
-                int[] highMountainPoints = {20, 17, 15, 13, 12, 10, 9, 8, 7,
-                6, 5, 4, 3, 2, 1};
+                // Score for high mountain stage
+            case TT:
+                // score for TT mountain stage (Same as high mountain)
+                int[] highMountainPoints = {20, 17, 15, 13, 11, 10, 9,
+                8, 7, 6, 5, 4, 3, 2, 1};
                 if (cyclistPosition < 14) {
                     return highMountainPoints[cyclistPosition];
                 } else {
                     return 0;
                 }
-            case TT:
-                // score for time trial stage
-                int[] timeTrialPoints = {15, 15, 10, 8, 6, 5, 4, 3, 2, 1};
-                if (cyclistPosition < 9) {
-                    return timeTrialPoints[cyclistPosition];
-                } else {
-                    return 0;
-                }
+
         }
         // should never get to this point
         return 0;
+        }
+
+        public int getPointsFromStageSprints(int riderPosition){ //calculate points for intermediate sprints
+            int timeThroughSprint;
+            LocalTime[] riderTimesList; //list of times for a rider
+            int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
+            int index = 0;
+            int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
+            for (int i = 0; i < listOfSegments.size(); i++) {
+                if (listOfSegments.get(i).getSegmentType() == SegmentType.SPRINT) { // if sprint segment
+                    for (Integer key : rawRiderResults.keySet()) { // loop through riders
+                        riderTimesList = rawRiderResults.get(key); //to account for start time
+                        ridersTimes[index][0] = key;
+                        ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
+                        index += 1;
+                    }
+
+                    Arrays.sort(ridersTimes, new Comparator<int[]>() { //sort riders into order they crossed line
+                        @Override
+                        public int compare(int[] o1, int[] o2) {
+                            if (o1[1] > o2[1]) return 1;
+                            else return -1;
+                        }
+                    });
+                }
+            }
+            int[] intermediateSprintPoints = {20, 17, 15, 13, 11, 10, 9,
+                    8, 7, 6, 5, 4, 3, 2, 1};
+            for (int i = 0; i < rawRiderResults.size(); i++){
+
+                if (i < 14) {
+                    //return intermediateSprintPoints[cyclistPosition];
+                } else {
+                    return 0;
+                }
+                //ridersPoints[i][1] =
+            }
+                // give points and return thw points
+
+
+            // code here duh
+            //getStageSegments
+            //ListOfRaces.get(i).getListOfSegmentsFromStage(stageId).size()
+            return 0;
         }
     }
 
