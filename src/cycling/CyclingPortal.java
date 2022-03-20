@@ -452,7 +452,16 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                         throw new IDNotRecognisedException
                                 ("No rider with ID: " + riderId + " results found in stage with ID: " + stageId);
                     }
-                    return ListOfRaces.get(i).getRiderResults(stageId, riderId);
+                    LocalTime[] results = ListOfRaces.get(i).getRiderResults(stageId, riderId);
+                    LocalTime[] resultsWithElapsedTime = new LocalTime[results.length + 1];
+                    LocalTime elapsedTime =
+                            LocalTime.ofSecondOfDay(results[results.length-1].toSecondOfDay()
+                                    - results[0].toSecondOfDay());
+                    for (int k = 0; k < results.length; k++){
+                        resultsWithElapsedTime[k] = results[k];
+                    }
+                    resultsWithElapsedTime[results.length] = elapsedTime;
+                    return resultsWithElapsedTime;
                 }
             }
         }
