@@ -14,6 +14,13 @@ public class Race implements Serializable {
     private LinkedList<Stage> listOfStages = new LinkedList<>();
     private LinkedList<Team> listOfTeams = new LinkedList<>();
 
+
+    /**
+     * Race class constructor
+     *
+     * @param name
+     * @param Description
+     */
     public Race(String name, String Description){
         this.name = name;
         this.description = Description;
