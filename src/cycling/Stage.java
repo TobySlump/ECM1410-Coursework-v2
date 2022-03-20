@@ -219,8 +219,7 @@ public class Stage implements Serializable {
         return 0;
         }
 
-        public int[][] getPointsFromStageSprints(int riderPosition){ //calculate points for intermediate sprints
-            int timeThroughSprint;
+        public int[][] getPointsFromStageSprints(){ //calculate points for intermediate sprints
             LocalTime[] riderTimesList; //list of times for a rider
             int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
             int index = 0;
@@ -254,6 +253,82 @@ public class Stage implements Serializable {
                     ridersPoints[i][1]=0;
                 }
              }
+
+            return ridersPoints;
+        }
+
+        public int[][] getPointsFromMountainStages(){
+            LocalTime[] riderTimesList; //list of times for a rider
+            int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
+            int index = 0;
+            SegmentType typeOfSegment = null;
+            int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
+            for (int i = 0; i < listOfSegments.size(); i++) {
+                if (listOfSegments.get(i).getSegmentType() != SegmentType.SPRINT) { // if not sprint segment, so climb segment
+                    typeOfSegment = listOfSegments.get(i).getSegmentType();
+                    for (Integer key : rawRiderResults.keySet()) { // loop through riders
+                        riderTimesList = rawRiderResults.get(key); //to account for start time
+                        ridersTimes[index][0] = key;
+                        ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
+                        index += 1;
+                    }
+
+                    Arrays.sort(ridersTimes, new Comparator<int[]>() { //sort riders into order they crossed line
+                        @Override
+                        public int compare(int[] o1, int[] o2) {
+                            if (o1[1] > o2[1]) return 1;
+                            else return -1;
+                        }
+                    });
+                }
+            }
+            int[] HCPoints = {20, 15, 12, 10, 8, 6, 4, 2};
+            int[] OneCPoints = {10, 8, 6, 4, 2, 1};
+            int[] TwoCPoints = {5, 3, 2, 1};
+            int[] ThreeCPoints = {2, 1};
+            int[] FourCPoints = {1};
+
+            for (int i = 0; i < rawRiderResults.size(); i++){
+                switch (typeOfSegment) {
+                    case HC:
+                        ridersPoints[i][0] = ridersTimes[i][0];
+                        if (i > HCPoints.length - 1) {
+                            ridersPoints[i][1] = HCPoints[i];
+                        } else {
+                            ridersPoints[i][1] = 0;
+                        }
+                    case C1:
+                        ridersPoints[i][0] = ridersTimes[i][0];
+                        if (i > OneCPoints.length - 1) {
+                            ridersPoints[i][1] = OneCPoints[i];
+                        } else {
+                            ridersPoints[i][1] = 0;
+                        }
+                    case C2:
+                        ridersPoints[i][0] = ridersTimes[i][0];
+                        if (i > TwoCPoints.length - 1) {
+                            ridersPoints[i][1] = TwoCPoints[i];
+                        } else {
+                            ridersPoints[i][1] = 0;
+                        }
+                    case C3:
+                        ridersPoints[i][0] = ridersTimes[i][0];
+                        if (i > ThreeCPoints.length - 1) {
+                            ridersPoints[i][1] = ThreeCPoints[i];
+                        } else {
+                            ridersPoints[i][1] = 0;
+                        }
+                    case C4:
+                        ridersPoints[i][0] = ridersTimes[i][0];
+                        if (i > FourCPoints.length - 1) {
+                            ridersPoints[i][1] = FourCPoints[i];
+                        } else {
+                            ridersPoints[i][1] = 0;
+                        }
+                    default: //not a climb
+                        break;
+                }
+            }
 
             return ridersPoints;
         }
