@@ -16,10 +16,10 @@ public class Race implements Serializable {
 
 
     /**
-     * Race class constructor
+     * Race class constructor.
      *
-     * @param name
-     * @param Description
+     * @param name Race's name.
+     * @param Description Races' description.
      */
     public Race(String name, String Description){
         this.name = name;
@@ -27,6 +27,11 @@ public class Race implements Serializable {
         raceID = ++nextRaceID;
     }
 
+    /**
+     * Gets the ID of this race object.
+     *
+     * @return The race ID.
+     */
     public int getRaceID(){
         return raceID;
     }
