@@ -277,7 +277,7 @@ public class Race implements Serializable {
 
         return 0;
     }
-    
+
     /**
      * The method retrieves a list of IDs for segments in a queried stage.
      *

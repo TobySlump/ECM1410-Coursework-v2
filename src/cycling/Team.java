@@ -44,8 +44,9 @@ public class Team implements Serializable {
     }
 
     /**
+     * Removes a rider from the team.
      *
-     * @param riderId
+     * @param riderId The ID of the rider being removed.
      */
     public void removeRider(int riderId){
         for (int i = 0; i < listOfRiders.size(); i++){
@@ -59,6 +60,11 @@ public class Team implements Serializable {
         return teamID;
     }
 
+    /**
+     * Retrieves a list of riders ID who are in the team.
+     *
+     * @return The list of rider IDs.
+     */
     public int[] getRiderIds(){
         int[] listOfRiderIds = new int[listOfRiders.size()];
 
@@ -69,6 +75,11 @@ public class Team implements Serializable {
         return listOfRiderIds;
     }
 
+    /**
+     * Retrieves the unique ID of the rider newest to the team.
+     *
+     * @return The newest rider's ID.
+     */
     public int getNewRiderID(){
         return listOfRiders.getLast().getId();
     }
