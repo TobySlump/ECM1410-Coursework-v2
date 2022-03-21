@@ -6,12 +6,17 @@ public abstract class Segment implements Serializable {
     protected int segmentID;
     protected static int nextSegmentID = 0;
     protected SegmentType type;
+    protected double location;
 
     public Segment(){
         this.segmentID = ++nextSegmentID;
     }
 
     public SegmentType getSegmentType() { return type; }
+
+    public double getLocation(){
+        return location;
+    }
 
     abstract int getSegmentID();
 

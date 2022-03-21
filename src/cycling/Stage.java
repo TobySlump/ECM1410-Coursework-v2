@@ -64,6 +64,23 @@ public class Stage implements Serializable {
         return listOfSegments;
     }
 
+    public double[] getListOfSegmentLocations(){
+        double[] segmentLengths = new double[listOfSegments.size()];
+        for (int i = 0; i < listOfSegments.size(); i++){
+            segmentLengths[i] = listOfSegments.get(i).getLocation();
+        }
+        return segmentLengths;
+    }
+
+    public double getSegmentLocation(int segmentId){
+        for (int i = 0; i < listOfSegments.size(); i++){
+            if (listOfSegments.get(i).getSegmentID() == segmentId){
+                return listOfSegments.get(i).getLocation();
+            }
+        }
+        return 0;
+    }
+
     public int addClimb(Double location, SegmentType type,
                         Double averageGradient, Double length){
         listOfSegments.add(new ClimbSegment(location, type, averageGradient, length));

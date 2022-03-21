@@ -3,7 +3,6 @@ package cycling;
 import java.io.Serializable;
 
 public class ClimbSegment extends Segment implements Serializable {
-    private double location;
     private double averageGradient;
     private double length;
 

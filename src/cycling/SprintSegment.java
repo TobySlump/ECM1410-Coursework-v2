@@ -3,11 +3,10 @@ package cycling;
 import java.io.Serializable;
 
 public class SprintSegment extends Segment implements Serializable {
-    private double location;
 
     public SprintSegment(Double Location){
         super();
-        this.location = Location;
+        location = Location;
         this.type = SegmentType.SPRINT;
 
     }

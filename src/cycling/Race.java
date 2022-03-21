@@ -3,6 +3,7 @@ package cycling;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class Race implements Serializable {
     /**
      * Race class constructor.
      *
-     * @param name Race's name.
+     * @param name        Race's name.
      * @param Description Races' description.
      */
     public Race(String name, String Description){
@@ -114,12 +115,12 @@ public class Race implements Serializable {
     /**
      * Creates a new stage and adds it to this race.
      *
-     * @param stageName An identifier name for the stage.
+     * @param stageName        An identifier name for the stage.
      * @param stageDescription A descriptive text for the stage.
-     * @param length Stage length in kilometres.
-     * @param startTime The date and time in which the stage will be raced.
-     *                  It cannot be null.
-     * @param type The type of the stage.
+     * @param length           Stage length in kilometres.
+     * @param startTime        The date and time in which the stage will be raced.
+     *                         It cannot be null.
+     * @param type             The type of the stage.
      * @return The unique ID of the stage.
      */
     public int addStage(String stageName, String stageDescription, double length,
@@ -157,15 +158,23 @@ public class Race implements Serializable {
         }
         Collections.sort(StageDates);
 
-        for (int i = 0; i < listOfStages.size(); i++){
-            if (StageDates.get(i) == listOfStages.get(i).getStartTime()){
-                orderedStageIds[i] = listOfStages.get(i).getID();
+        for (int i = 0; i < listOfStages.size(); i++) {
+            for (int j = 0; j < listOfStages.size(); j++) {
+                if (StageDates.get(i) == listOfStages.get(j).getStartTime()) {
+                    orderedStageIds[i] = listOfStages.get(j).getID();
+
+                    StageDates.set(i, null);
+                }
             }
         }
-
         return orderedStageIds;
     }
 
+    /**
+     * The method gets a list of all stage names for a race.
+     *
+     * @return The list of stage names.
+     */
     public String[] getStageNames(){
         String[] ListOfStageNames = new String[listOfStages.size()];
         for (int i = 0; i < listOfStages.size(); i++){
@@ -174,6 +183,12 @@ public class Race implements Serializable {
         return ListOfStageNames;
     }
 
+    /**
+     * Retrieves the length of a stage in a race.
+     *
+     * @param stageID The ID of the stage being queried.
+     * @return The stage's length.
+     */
     public double getStageLength(int stageID){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageID){
@@ -185,6 +200,12 @@ public class Race implements Serializable {
         return 0;
     }
 
+    /**
+     * Retrieves the state of a stage in a race.
+     *
+     * @param stageID The ID of the stage being queried.
+     * @return The stage's state.
+     */
     public String getStageState(int stageID){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageID){
@@ -196,6 +217,12 @@ public class Race implements Serializable {
         return null;
     }
 
+    /**
+     * Retrieves the type of a stage in a race.
+     *
+     * @param stageID The ID of the stage being queried.
+     * @return The stage's type.
+     */
     public StageType getStageType(int stageID){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageID){
@@ -207,6 +234,11 @@ public class Race implements Serializable {
         return null;
     }
 
+    /**
+     * Removes a stage and all its related data.
+     *
+     * @param stageID The ID of the stage being removed.
+     */
     public void removeStageByID(int stageID){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageID){
@@ -216,6 +248,20 @@ public class Race implements Serializable {
         }
     }
 
+    /**
+     * Adds a climb segment to a stage.
+     *
+     * @param stageId         The ID of the stage to which the climb segment is
+     *                        to be added.
+     * @param location        The kilometre location where the climb finishes
+     *                        within the stage.
+     * @param type            The category of the climb - {@link SegmentType#C4},
+     * 	 *                        {@link SegmentType#C3}, {@link SegmentType#C2},
+     * 	 *                        {@link SegmentType#C1}, or {@link SegmentType#HC}.
+     * @param averageGradient The average gradient of the climb.
+     * @param length          The length of the climb in kilometres.
+     * @return The unique ID of the segment created.
+     */
     public int addClimbToStage(int stageId, Double location, SegmentType type,
                                Double averageGradient, Double length){
         for (int i = 0; i < listOfStages.size(); i++){
@@ -228,6 +274,15 @@ public class Race implements Serializable {
         return 0;
     }
 
+    /**
+     * Adds an intermediate sprint to a stage.
+     *
+     * @param stageId  The ID of the stage to which the intermediate
+     *                 sprint segment is being added.
+     * @param location The kilometre location where the intermediate sprint
+     *                 finishes within a stage
+     * @return The unique ID of the segment created.
+     */
     public int addSprintToStage(int stageId, double location){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){
@@ -238,8 +293,43 @@ public class Race implements Serializable {
         return 0;
     }
 
-    public int[] getSegmentIds(int index){
-        return listOfStages.get(index).getSegmentsIds();
+
+    public int[] getSegmentIds(int stageId){
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                return listOfStages.get(i).getSegmentsIds();
+            }
+        }
+        return null;
+    }
+
+    public int[] getOrderedSegmentIds(int stageId){
+        double[] segmentLengths = new double[listOfStages.size()];
+        int[] orderedSegmementIds = new int[listOfStages.size()];
+        int[] segmentIds = new int[listOfStages.size()];
+
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                segmentLengths = listOfStages.get(i).getListOfSegmentLocations();
+                segmentIds = listOfStages.get(i).getSegmentsIds();
+            }
+        }
+        Arrays.sort(segmentLengths);
+
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (listOfStages.get(i).getID() == stageId){
+                for (int j = 0; j < listOfStages.size(); j++){
+                    for (int k = 0; k < listOfStages.size(); k++){
+                        if (segmentLengths[j] ==
+                                listOfStages.get(i).getSegmentLocation(segmentIds[k])){
+                            orderedSegmementIds[j] = segmentIds[k];
+                            orderedSegmementIds[j] = 0;
+                        }
+                    }
+                }
+            }
+        }
+        return orderedSegmementIds;
     }
 
     public void removeSegmentById(int stageIndex, int segmentId){

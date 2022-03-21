@@ -195,7 +195,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                     if (raceObj.getStageState(stageId) == "waiting for results") {
                         throw new InvalidStageStateException("Stage is in invalid state: " + raceObj.getStageState(stageId));
                     }
-                    if (0 > location || location > raceObj.getStageLength(stageId) - length) {
+                    if (0 > location || location > raceObj.getStageLength(stageId)) {
                         throw new InvalidLocationException("The starting location of the climb is invalid. It must start and end within the stage.");
                     }
                     if (raceObj.getStageType(stageId) == StageType.TT) {
@@ -297,7 +297,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++) {
                 if (raceObj.getStageIDs()[j] == stageId){
-                    return raceObj.getSegmentIds(j);
+                    return raceObj.getSegmentIds(stageId);
                 }
             }
         }
