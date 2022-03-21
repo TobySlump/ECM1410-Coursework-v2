@@ -17,6 +17,15 @@ public class Stage implements Serializable {
     private String state;
     private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>(); //riderid, ridertimes
 
+    /**
+     * Stage Class constructor
+     *
+     * @param stageName     Name of the stage
+     * @param description   Description of the stage
+     * @param length        Length of the stage (kms)
+     * @param startTime     Start time of the stage in LocalDateTime format
+     * @param type          Type of stage
+     */
     public Stage(String stageName, String description, double length,
                  LocalDateTime startTime, StageType type){
         this.stageID = ++nextStageID;
@@ -34,9 +43,7 @@ public class Stage implements Serializable {
 
     public String getStageName() { return stageName; }
 
-    public double getLength(){
-        return length;
-    }
+    public double getLength() { return length; }
 
     public String getState() { return state; }
 
@@ -44,13 +51,9 @@ public class Stage implements Serializable {
 
     public LocalDateTime getStartTime(){return startTime; }
 
-    public static int getNextStageID(){
-        return nextStageID;
-    }
+    public static int getNextStageID() { return nextStageID; }
 
-    public static void setNextStageID(int nextStageId){
-        nextStageID = nextStageId;
-    }
+    public static void setNextStageID(int nextStageId){ nextStageID = nextStageId; }
 
     public int[] getSegmentsIds(){
         int[] listOfSegmentIds = new int[listOfSegments.size()];
@@ -60,9 +63,7 @@ public class Stage implements Serializable {
         return listOfSegmentIds;
     }
 
-    public LinkedList<Segment> getListOfSegments(){
-        return listOfSegments;
-    }
+    public LinkedList<Segment> getListOfSegments() { return listOfSegments; }
 
     public double[] getListOfSegmentLocations(){
         double[] segmentLengths = new double[listOfSegments.size()];
