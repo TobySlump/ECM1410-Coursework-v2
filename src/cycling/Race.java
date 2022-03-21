@@ -14,7 +14,6 @@ public class Race implements Serializable {
     private  String name;
     private String description;
     private LinkedList<Stage> listOfStages = new LinkedList<>();
-    private LinkedList<Team> listOfTeams = new LinkedList<>();
 
 
     /**
