@@ -512,6 +512,12 @@ public class Race implements Serializable {
         return nullList;
     }
 
+    /**
+     * Creates and sorts a list of rider's total time to complete a race.
+     * The total time is the summation of the riders adjusted elapsed time for each stage in the race.
+     *
+     * @return The sorted list of riders total adjusted elapsed times.
+     */
     public LocalTime[] getGeneralClassificationTimes(){
         LinkedList<Integer> classificationTimes = new LinkedList<>();
 
