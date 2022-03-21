@@ -18,7 +18,7 @@ public class Stage implements Serializable {
     private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>(); //riderid, ridertimes
 
     /**
-     * Stage Class constructor
+     * Stage Class constructor.
      *
      * @param stageName     Name of the stage
      * @param description   Description of the stage

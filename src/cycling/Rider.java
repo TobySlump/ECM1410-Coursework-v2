@@ -9,6 +9,13 @@ public class Rider implements Serializable {
     private String name;
     private int yearOfBirth;
 
+    /**
+     * Rider class constructor.
+     *
+     * @param teamID      The ID of the team the rider will be added to.
+     * @param name        Rider's name.
+     * @param yearOfBirth Rider's year of birth.
+     */
     public Rider(int teamID, String name, int yearOfBirth){
         this.teamID = teamID;
         this.name = name;

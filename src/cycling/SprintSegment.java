@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class SprintSegment extends Segment implements Serializable {
 
+    /**
+     * Sprint Segment class constructor.
+     *
+     * @param Location The finish location of the segment in a stage.
+     */
     public SprintSegment(Double Location){
         super();
         location = Location;
