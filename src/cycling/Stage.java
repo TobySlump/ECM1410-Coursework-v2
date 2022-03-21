@@ -53,7 +53,7 @@ public class Stage implements Serializable {
 
     public static int getNextStageID() { return nextStageID; }
 
-    public static void setNextStageID(int nextStageId){ nextStageID = nextStageId; }
+    public LocalTime[] getRiderTimes(int riderId){ return rawRiderResults.get(riderId); }
 
     public int[] getSegmentsIds(){
         int[] listOfSegmentIds = new int[listOfSegments.size()];
@@ -82,6 +82,9 @@ public class Stage implements Serializable {
         return 0;
     }
 
+    public static void setNextStageID(int nextStageId){ nextStageID = nextStageId; }
+
+
     public int addClimb(Double location, SegmentType type,
                         Double averageGradient, Double length){
         listOfSegments.add(new ClimbSegment(location, type, averageGradient, length));
@@ -107,10 +110,6 @@ public class Stage implements Serializable {
 
     public void addRidersTime(int riderId, LocalTime[] riderTimes){
         rawRiderResults.put(riderId, riderTimes);
-    }
-
-    public LocalTime[] getRiderTimes(int riderId){
-        return rawRiderResults.get(riderId);
     }
 
     public LocalTime getRiderAdjustedElapsedTimes(int riderId){

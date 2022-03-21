@@ -278,7 +278,6 @@ public class Race implements Serializable {
         return 0;
     }
 
-
     public int[] getSegmentIds(int stageId){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){

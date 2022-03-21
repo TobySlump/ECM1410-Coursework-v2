@@ -143,7 +143,10 @@ public class CyclingPortalInterfaceTestApp {
 		System.out.println(cyclingportal.createRider(1, "testkid7", 1975));
 		System.out.println(Arrays.toString(cyclingportal.getRaceIds()));
 
-
+		System.out.print("I am testing the 'points adding' now.");
+		// getRidersPointsInStage(stageID)
+		// getRidersRankInStage
+		// rawRiderResults
 
 
 	}
