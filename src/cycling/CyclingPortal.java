@@ -657,7 +657,13 @@ public class CyclingPortal implements CyclingPortalInterface {
     @Override
     public LocalTime[] getGeneralClassificationTimesInRace(int raceId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
-        return null;
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            if (ListOfRaces.get(i).getRaceID() == raceId){
+                return ListOfRaces.get(i).getGeneralClassificationTimes();
+            }
+        }
+        throw new IDNotRecognisedException("No race found with ID: " + raceId);
     }
 
     @Override

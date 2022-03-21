@@ -151,6 +151,10 @@ public class Stage implements Serializable {
         return rawRiderResults.containsKey(riderId);
     }
 
+    public int getRiderStartTime(int riderId){
+        return rawRiderResults.get(riderId)[0].toSecondOfDay();
+    }
+
     public int[] getRidersRank(){
         int[][] riderTimes = new int[rawRiderResults.size()][2];
         int index = 0;
@@ -351,5 +355,7 @@ public class Stage implements Serializable {
 
             return ridersPoints;
         }
+
+
     }
 
