@@ -66,21 +66,6 @@ public class Race implements Serializable {
     }
 
     /**
-     * The method queries the number of segments created for a stage.
-     *
-     * @param stageId The ID of the stage being queried.
-     * @return The number of segments in the stage.
-     */
-    public int getNumberOfSegents(int stageId){
-        for (int i = 0; i < listOfStages.size(); i++){
-            if (listOfStages.get(i).getID() == stageId){
-                return listOfStages.get(i).getSegmentsIds().length;
-            }
-        }
-        return 0;
-    }
-
-    /**
      * Gets the value of the static attribute nextRaceID.
      *
      * @return The value of nextRaceID.
@@ -99,17 +84,17 @@ public class Race implements Serializable {
     }
 
     /**
-     *
+     * Gets the number of segments in a stage.
      * @param stageID
-     * @return
+     * @return The number of segments in the given stage
      */
-    public LinkedList<Segment> getListOfSegmentsFromStage(int stageID){
+    public int getNumberOfSegmentsInStage(int stageID){
         for (int i = 0; i < listOfStages.size(); i++) {
             if (listOfStages.get(i).getID() == stageID) {
-                return listOfStages.get(i).getListOfSegments();
+                return listOfStages.get(i).getListOfSegments().size();
             }
         }
-        return null;
+        return 0;
     }
 
     /**

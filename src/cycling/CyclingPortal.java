@@ -425,7 +425,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
                             throw new DuplicatedResultException("Rider already has results");
                     }
 
-                    if (checkpoints.length != ListOfRaces.get(i).getListOfSegmentsFromStage(stageId).size() + 2){
+                    if (checkpoints.length != ListOfRaces.get(i).getNumberOfSegmentsInStage(stageId) + 2){
                         throw new InvalidCheckpointsException("Invalid length of checkpoints");
                     }
                     if (ListOfRaces.get(i).getStageState(stageId) != "waiting for results") {

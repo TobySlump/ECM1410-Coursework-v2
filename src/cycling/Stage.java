@@ -17,6 +17,14 @@ public class Stage implements Serializable {
     private String state;
     private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>(); //riderid, ridertimes
 
+    /**
+     * Stage Class constructor
+     * @param stageName     Name of the stage
+     * @param description   Description of the stage
+     * @param length        Length of the stage (kms)
+     * @param startTime
+     * @param type
+     */
     public Stage(String stageName, String description, double length,
                  LocalDateTime startTime, StageType type){
         this.stageID = ++nextStageID;
