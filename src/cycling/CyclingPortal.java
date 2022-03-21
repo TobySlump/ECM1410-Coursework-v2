@@ -246,8 +246,8 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
             Race raceObj = ListOfRaces.get(i);
 
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
-                for (int k = 0; k < raceObj.getSegmentIds(j).length; k++) {
-                    if (raceObj.getSegmentIds(j)[k] == segmentId) {
+                for (int k = 0; k < raceObj.getSegmentIds(raceObj.getStageIDs()[j]).length; k++) {
+                    if (raceObj.getSegmentIds(raceObj.getStageIDs()[j])[k] == segmentId) {
                         if (raceObj.getStageState(raceObj.getStageIDs()[j]) == "waiting for results") {
                             throw new InvalidStageStateException("Stage is in invalid state: " + (raceObj.getStageState(raceObj.getStageIDs()[j]) ));
                         }
@@ -573,6 +573,11 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         // TODO Auto-generated method stub
         ListOfRaces.clear();
         ListOfTeams.clear();
+        Race.setNextRaceID(0);
+        Stage.setNextStageID(0);
+        SprintSegment.setNextSegmentID(0);
+        Rider.setNextRiderID(0);
+        Team.setNextTeamID(0);
     }
 
     @Override
