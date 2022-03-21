@@ -36,18 +36,39 @@ public class Race implements Serializable {
         return raceID;
     }
 
+    /**
+     * Gets the name of this race object.
+     *
+     * @return The race name.
+     */
     public String getRaceName(){
         return name;
     }
 
+    /**
+     * Gets the description of this race object.
+     *
+     * @return The race description.
+     */
     public String viewRaceDetails(){
         return description;
     }
 
+    /**
+     * The method queries the number of stages in this race.
+     *
+     * @return The number of stages being stored.
+     */
     public int getNumberOfStages(){
         return listOfStages.size();
     }
 
+    /**
+     * The method queries the number of segments created for a stage.
+     *
+     * @param stageId The ID of the stage being queried.
+     * @return The number of segments in the stage.
+     */
     public int getNumberOfSegents(int stageId){
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){
@@ -57,14 +78,29 @@ public class Race implements Serializable {
         return 0;
     }
 
+    /**
+     * Gets the value of the static attribute nextRaceID.
+     *
+     * @return The value of nextRaceID.
+     */
     public static int getNextRaceID(){
         return nextRaceID;
     }
 
+    /**
+     * Sets the value of nextRaceID.
+     *
+     * @param nextRaceId The value nextRaceID is being set to.
+     */
     public static void setNextRaceID(int nextRaceId){
         nextRaceID = nextRaceId;
     }
 
+    /**
+     *
+     * @param stageID
+     * @return
+     */
     public LinkedList<Segment> getListOfSegmentsFromStage(int stageID){
         for (int i = 0; i < listOfStages.size(); i++) {
             if (listOfStages.get(i).getID() == stageID) {
@@ -73,6 +109,18 @@ public class Race implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Creates a new stage and adds it to this race.
+     *
+     * @param stageName An identifier name for the stage.
+     * @param stageDescription A descriptive text for the stage.
+     * @param length Stage length in kilometres.
+     * @param startTime The date and time in which the stage will be raced.
+     *                  It cannot be null.
+     * @param type The type of the stage.
+     * @return The unique ID of the stage.
+     */
     public int addStage(String stageName, String stageDescription, double length,
         LocalDateTime startTime, StageType type){
 
@@ -80,6 +128,11 @@ public class Race implements Serializable {
         return listOfStages.getLast().getID();
     }
 
+    /**
+     * Retrieves the list of stage IDs for a race.
+     *
+     * @return The list of stage IDs.
+     */
     public int[] getStageIDs(){
         int[] ListOfStageIDs = new int[listOfStages.size()];
         for (int i = 0; i < listOfStages.size(); i++){
