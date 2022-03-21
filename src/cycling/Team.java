@@ -12,12 +12,24 @@ public class Team implements Serializable {
     private String description;
     private LinkedList<Rider> listOfRiders = new LinkedList<>();
 
+    /**
+     * Team class constructor.
+     *
+     * @param name        Team's name.
+     * @param Description Team's description.
+     */
     public Team(String name, String Description){
         this.teamID = ++nextTeamID;
         this.name = name;
         this.description = Description;
     }
 
+    /**
+     * Creates a rider and adds them to the team.
+     *
+     * @param name        Rider's name.
+     * @param yearOfBirth Rider's year of birth.
+     */
     public void addRider(String name, int yearOfBirth){
         Rider newRider = new Rider(teamID, name, yearOfBirth);
         listOfRiders.add(newRider);
@@ -31,6 +43,10 @@ public class Team implements Serializable {
         nextTeamID = nextTeamId;
     }
 
+    /**
+     *
+     * @param riderId
+     */
     public void removeRider(int riderId){
         for (int i = 0; i < listOfRiders.size(); i++){
             if (listOfRiders.get(i).getId() == riderId){

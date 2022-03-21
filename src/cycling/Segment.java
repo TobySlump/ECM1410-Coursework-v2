@@ -8,6 +8,9 @@ public abstract class Segment implements Serializable {
     protected SegmentType type;
     protected double location;
 
+    /**
+     * Class constructor
+     */
     public Segment(){
         this.segmentID = ++nextSegmentID;
     }
