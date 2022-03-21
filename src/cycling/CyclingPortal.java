@@ -541,35 +541,31 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     }
 
     @Override
-    public int[] getRidersPointsInStage(int stageId) throws IDNotRecognisedException { //james
+    public int[] getRidersPointsInStage(int stageId) throws IDNotRecognisedException {
         // Get the number of points obtained by each rider in a stage.
         int [] ridersRanked = getRidersRankInStage((stageId));
+        if (ridersRanked.length == 0){ // if ID is not recognised, return will be empty
+            throw new IDNotRecognisedException("Stage ID not recognised");
+        }
         int [] riderPoints = new int [ridersRanked.length]; // create new array of riders to store points
         for (int i = 0; i < ridersRanked.length; i++){ // for loops through riders
             riderPoints[i] = ListOfRaces.get(i).getPointsFromStage(stageId, i); // add current riders point to array of rider points
         }
-
-
-
-        // works in stage of race. so get to stage from race.
-        // uses getRidersRankInStage to get ranks of riders
-        // works in for loop to go through list of riders
-        // calculate the correct amount of points and add to the array of rider points
-        // return array of rider points
-        // at end, stage not recognised
-
-        // sprints seperately?
-        // TODO Auto-generated method stub
-
-        return null;
+        return riderPoints;
     }
 
     @Override
-    public int[] getRidersMountainPointsInStage(int stageId) throws IDNotRecognisedException { //james
+    public int[] getRidersMountainPointsInStage(int stageId) throws IDNotRecognisedException {
         //Get the number of mountain points obtained by each rider in a stage.
-
-        // TODO Auto-generated method stub
-        return null;
+        int [] ridersRanked = getRidersRankInStage((stageId));
+        if (ridersRanked.length == 0){ // if ID is not recognised, return will be empty
+            throw new IDNotRecognisedException("Stage ID not recognised");
+        }
+        int [] riderPoints = new int [ridersRanked.length]; // create new array of riders to store points
+        for (int i = 0; i < ridersRanked.length; i++){ // for loops through riders
+            riderPoints[i] = ListOfRaces.get(i).getMountainPointsFromStage(stageId, i); // add current riders point to array of rider points
+        }
+        return riderPoints;
     }
 
     @Override
