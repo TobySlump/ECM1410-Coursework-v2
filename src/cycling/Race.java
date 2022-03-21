@@ -3,6 +3,7 @@ package cycling;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -139,6 +140,30 @@ public class Race implements Serializable {
             ListOfStageIDs[i] = listOfStages.get(i).getID();
         }
         return ListOfStageIDs;
+    }
+
+    /**
+     * Retrieves the list of stage IDs for a race and orders them by start time.
+     *
+     * @return The list of ordered stage IDs.
+     */
+    public int[] getOrderedStageIDs(){
+        int[] orderedStageIds = new int[listOfStages.size()];
+        LinkedList<LocalDateTime> StageDates =
+                new LinkedList<LocalDateTime>();
+
+        for (int i = 0; i < listOfStages.size(); i++){
+            StageDates.add(listOfStages.get(i).getStartTime());
+        }
+        Collections.sort(StageDates);
+
+        for (int i = 0; i < listOfStages.size(); i++){
+            if (StageDates.get(i) == listOfStages.get(i).getStartTime()){
+                orderedStageIds[i] = listOfStages.get(i).getID();
+            }
+        }
+
+        return orderedStageIds;
     }
 
     public String[] getStageNames(){

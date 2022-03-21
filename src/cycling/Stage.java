@@ -42,6 +42,8 @@ public class Stage implements Serializable {
 
     public StageType getStageType() { return type; }
 
+    public LocalDateTime getStartTime(){return startTime; }
+
     public static int getNextStageID(){
         return nextStageID;
     }

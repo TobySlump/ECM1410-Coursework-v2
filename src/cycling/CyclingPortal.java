@@ -139,7 +139,7 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race RaceObj = ListOfRaces.get(i);
             if (RaceObj.getRaceID() == raceId){
-                return RaceObj.getStageIDs();
+                return RaceObj.getOrderedStageIDs();
             }
         }
         throw new IDNotRecognisedException("Couldn't find race with ID: " + raceId);
