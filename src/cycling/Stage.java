@@ -20,11 +20,11 @@ public class Stage implements Serializable {
     /**
      * Stage Class constructor.
      *
-     * @param stageName     Name of the stage
-     * @param description   Description of the stage
-     * @param length        Length of the stage (kms)
-     * @param startTime     Start time of the stage in LocalDateTime format
-     * @param type          Type of stage
+     * @param stageName     Name of the stage.
+     * @param description   Description of the stage.
+     * @param length        Length of the stage (kms).
+     * @param startTime     Start time of the stage in LocalDateTime format.
+     * @param type          Type of stage.
      */
     public Stage(String stageName, String description, double length,
                  LocalDateTime startTime, StageType type){
@@ -220,7 +220,8 @@ public class Stage implements Serializable {
 
     /**
      *  Sorts the array of riders in the race based on their results (time) and ranking.
-     * @return sorted array of rider IDs
+     *
+     * @return sorted array of rider IDs.
      */
     public int[] getRidersRank(){
         int[][] riderTimes = new int[rawRiderResults.size()][2];
@@ -228,8 +229,9 @@ public class Stage implements Serializable {
 
         for (Integer key: rawRiderResults.keySet()){
             LocalTime[] riderTimesList = rawRiderResults.get(key);
-            riderTimesList[riderTimesList.length-1] = getRiderAdjustedElapsedTimes(key);
-            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay();
+            //riderTimesList[riderTimesList.length-1] = getRiderAdjustedElapsedTimes(key);
+            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay()
+                    - riderTimesList[0].toSecondOfDay();
 
             riderTimes[index][0] = key;
             riderTimes[index][1] = riderFinishTime;
@@ -253,6 +255,7 @@ public class Stage implements Serializable {
 
     /**
      * Calculates the adjusted time of riders in a stage, riders within 1s of each other are grouped.
+     *
      * @return Array of the adjusted times of riders in the stage.
      */
     public LocalTime[] getRankedAdjustedElapsedTimes(){
@@ -260,12 +263,13 @@ public class Stage implements Serializable {
         int index = 0;
 
         for (Integer key: rawRiderResults.keySet()){
-            RankedAdjustedElapsedTimesSeconds[index] = getRiderAdjustedElapsedTimes(key).toSecondOfDay();
+            RankedAdjustedElapsedTimesSeconds[index] = getRiderAdjustedElapsedTimes(key).toSecondOfDay()
+                    - rawRiderResults.get(key)[0].toSecondOfDay();
             index += 1;
         }
-        System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
+        //System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
         Arrays.sort(RankedAdjustedElapsedTimesSeconds);
-        System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
+        //System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
 
         LocalTime[] RankedAdjustedElapsedTimes = new LocalTime[rawRiderResults.size()];
         for (int i = 0; i < rawRiderResults.size(); i++){
