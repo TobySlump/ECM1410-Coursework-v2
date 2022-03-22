@@ -301,6 +301,7 @@ public class Race implements Serializable {
         int[] orderedSegmementIds = new int[listOfStages.size()];
         int[] segmentIds = new int[listOfStages.size()];
 
+        //creates list of segment Ids and locations
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){
                 segmentLengths = listOfStages.get(i).getListOfSegmentLocations();
@@ -309,6 +310,7 @@ public class Race implements Serializable {
         }
         Arrays.sort(segmentLengths);
 
+        //Matches up segment Id to its sorted length
         for (int i = 0; i < listOfStages.size(); i++){
             if (listOfStages.get(i).getID() == stageId){
                 for (int j = 0; j < listOfStages.size(); j++){
@@ -536,6 +538,7 @@ public class Race implements Serializable {
     public LocalTime[] getGeneralClassificationTimes(){
         LinkedList<Integer> classificationTimes = new LinkedList<>();
 
+        //Creates list of rider's total times
         for (int i = 1; i <= Rider.getNextRiderID(); i++){
             int totalTime = 0;
             for (int j = 0; j < listOfStages.size(); j++) {
@@ -554,6 +557,7 @@ public class Race implements Serializable {
         }
         Collections.sort(classificationTimes);
 
+        //Converts rider's times from Integer to LocalTime
         LocalTime[] sortedClassificationTimes = new LocalTime[classificationTimes.size()];
         for (int i = 0; i < sortedClassificationTimes.length; i++){
             sortedClassificationTimes[i] = LocalTime.ofSecondOfDay(classificationTimes.get(i));
@@ -567,6 +571,7 @@ public class Race implements Serializable {
         int[] classificationRank = new int[arrayLength];
         int[][] classificationRiderTime = new int[arrayLength][2];
 
+        //Fills array with rider Ids and their corresponding total times
         for (int i = 1; i <= Rider.getNextRiderID(); i++) {
             int totalTime = 0;
             for (int j = 0; j < listOfStages.size(); j++) {
@@ -585,6 +590,7 @@ public class Race implements Serializable {
             }
         }
 
+        //Sorts the array by the rider's times
         Arrays.sort(classificationRiderTime, new Comparator<int[]>() {
             @Override
             public int compare(int[] first, int[] second) {
@@ -593,6 +599,7 @@ public class Race implements Serializable {
             }
         });
 
+        //Extracts sorted rider Ids
         for (int i = 0; i < arrayLength; i++) {
             classificationRank[i] = classificationRiderTime[i][0];
         }

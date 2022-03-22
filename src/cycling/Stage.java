@@ -169,6 +169,7 @@ public class Stage implements Serializable {
                 double riderTimeInSeconds = finishTime.toSecondOfDay();
 
                 if (key != riderId){
+                    //If rider is within 1 second of a rider in front, lower their finish time
                     if (rawRiderResults.get(key)[rawRiderResults.get(key).length-1].toSecondOfDay() -
                     riderTimeInSeconds >= -1 && rawRiderResults.get(key)
                             [rawRiderResults.get(key).length-1].toSecondOfDay() -
@@ -227,9 +228,9 @@ public class Stage implements Serializable {
         int[][] riderTimes = new int[rawRiderResults.size()][2];
         int index = 0;
 
+        //Fills array with rider Ids and their corresponding elapsed time
         for (Integer key: rawRiderResults.keySet()){
             LocalTime[] riderTimesList = rawRiderResults.get(key);
-            //riderTimesList[riderTimesList.length-1] = getRiderAdjustedElapsedTimes(key);
             int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay()
                     - riderTimesList[0].toSecondOfDay();
 
@@ -238,6 +239,7 @@ public class Stage implements Serializable {
             index += 1;
         }
 
+        //Sorts array by elapsed time
         Arrays.sort(riderTimes, new Comparator<int[]>() {
             @Override
             public int compare(int[] first, int[] second) {
@@ -246,6 +248,7 @@ public class Stage implements Serializable {
             }
         });
 
+        //Extracts sorted rider Ids from array
         int[] riderRanks = new int[rawRiderResults.size()];
         for (int i = 0; i < rawRiderResults.size(); i++){
             riderRanks[i] = riderTimes[i][0];
@@ -262,15 +265,15 @@ public class Stage implements Serializable {
         int[] RankedAdjustedElapsedTimesSeconds = new int[rawRiderResults.size()];
         int index = 0;
 
+        //Fills array with rider adjusted finish times
         for (Integer key: rawRiderResults.keySet()){
             RankedAdjustedElapsedTimesSeconds[index] = getRiderAdjustedElapsedTimes(key).toSecondOfDay()
                     - rawRiderResults.get(key)[0].toSecondOfDay();
             index += 1;
         }
-        //System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
         Arrays.sort(RankedAdjustedElapsedTimesSeconds);
-        //System.out.println(Arrays.toString(RankedAdjustedElapsedTimesSeconds));
 
+        //Converts finish time from Int to LocalTime
         LocalTime[] RankedAdjustedElapsedTimes = new LocalTime[rawRiderResults.size()];
         for (int i = 0; i < rawRiderResults.size(); i++){
             RankedAdjustedElapsedTimes[i] = LocalTime.ofSecondOfDay(RankedAdjustedElapsedTimesSeconds[i]);
