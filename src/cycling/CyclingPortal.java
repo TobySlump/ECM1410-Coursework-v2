@@ -544,13 +544,24 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     public int[] getRidersPointsInStage(int stageId) throws IDNotRecognisedException {
         // Get the number of points obtained by each rider in a stage.
         int [] ridersRanked = getRidersRankInStage((stageId));
+        boolean pointsCalculated = false;
         if (ridersRanked.length == 0){ // if ID is not recognised, return will be empty
             throw new IDNotRecognisedException("Stage ID not recognised");
         }
+        System.out.println("run 3");
         int [] riderPoints = new int [ridersRanked.length]; // create new array of riders to store points
-        for (int i = 0; i < ridersRanked.length; i++){ // for loops through riders
-            riderPoints[i] = ListOfRaces.get(i).getPointsFromStage(stageId, i); // add current riders point to array of rider points
+        System.out.println("run 4");
+        for (int i = 0; i < ListOfRaces.size(); i++){ // loop through races
+            if (pointsCalculated == false) { // if data for points has not been collected
+                for (int j = 0; j < ridersRanked.length; j++){ // loops through riders
+                    riderPoints[j] = ListOfRaces.get(i).getPointsFromStage(stageId, j, ridersRanked[j]); // add current riders point to array of rider points
+                    if (riderPoints[j] != 0) { // data has been returned
+                        pointsCalculated = true; // will not get data again
+                    }
+                }
+            }
         }
+        System.out.println("run 5");
         return riderPoints;
     }
 
@@ -558,13 +569,25 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
     public int[] getRidersMountainPointsInStage(int stageId) throws IDNotRecognisedException {
         //Get the number of mountain points obtained by each rider in a stage.
         int [] ridersRanked = getRidersRankInStage((stageId));
+        boolean pointsCalculated = false;
         if (ridersRanked.length == 0){ // if ID is not recognised, return will be empty
             throw new IDNotRecognisedException("Stage ID not recognised");
         }
         int [] riderPoints = new int [ridersRanked.length]; // create new array of riders to store points
-        for (int i = 0; i < ridersRanked.length; i++){ // for loops through riders
-            riderPoints[i] = ListOfRaces.get(i).getMountainPointsFromStage(stageId, i); // add current riders point to array of rider points
+        for (int i = 0; i < ListOfRaces.size(); i++){ // loop through races
+            if (pointsCalculated == false) { // if data for points has not been collected
+                for (int j = 0; j < ridersRanked.length; j++) { // for loops through riders
+                    riderPoints[j] = ListOfRaces.get(i).getMountainPointsFromStage(stageId, j, ridersRanked[j]); // add current riders point to array of rider points
+                    System.out.println(j + "added");
+                    System.out.println(riderPoints[j]);
+                    if (riderPoints[j] != 0) { // data has been returned
+                        pointsCalculated = true; // will not get data again
+                    }
+                }
+            }
         }
+
+
         return riderPoints;
     }
 

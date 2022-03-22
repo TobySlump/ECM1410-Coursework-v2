@@ -55,6 +55,8 @@ public class Stage implements Serializable {
 
     public LocalTime[] getRiderTimes(int riderId){ return rawRiderResults.get(riderId); }
 
+    public int getNumberOfRiders(){ return (rawRiderResults.size());}
+
     public int[] getSegmentsIds(){
         int[] listOfSegmentIds = new int[listOfSegments.size()];
         for (int i = 0; i < listOfSegments.size(); i++){
@@ -244,6 +246,8 @@ public class Stage implements Serializable {
             int index = 0;
             int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
             for (int i = 0; i < listOfSegments.size(); i++) {
+                System.out.println("segment types:" + i);
+                System.out.println(listOfSegments.get(i).getSegmentType());
                 if (listOfSegments.get(i).getSegmentType() == SegmentType.SPRINT) { // if sprint segment
                     for (Integer key : rawRiderResults.keySet()) { // loop through riders
                         riderTimesList = rawRiderResults.get(key); //to account for start time
@@ -265,7 +269,7 @@ public class Stage implements Serializable {
                     8, 7, 6, 5, 4, 3, 2, 1};
             for (int i = 0; i < rawRiderResults.size(); i++){
                 if (i < 14) {
-                    ridersPoints[i][0]=ridersTimes[i][0];
+                    ridersPoints[i][0]=ridersTimes[i][0]; //rider ID
                     ridersPoints[i][1]=intermediateSprintPoints[i];
                 } else {
                     ridersPoints[i][0]=ridersTimes[i][0];
@@ -289,6 +293,7 @@ public class Stage implements Serializable {
                         riderTimesList = rawRiderResults.get(key); //to account for start time
                         ridersTimes[index][0] = key;
                         ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
+                        System.out.println(key + "done");
                         index += 1;
                     }
 
@@ -306,23 +311,26 @@ public class Stage implements Serializable {
             int[] TwoCPoints = {5, 3, 2, 1};
             int[] ThreeCPoints = {2, 1};
             int[] FourCPoints = {1};
-
+            System.out.println(Arrays.toString(ridersTimes[0]));
             for (int i = 0; i < rawRiderResults.size(); i++){
                 switch (typeOfSegment) {
                     case HC:
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i > HCPoints.length - 1) {
+                        if (i < HCPoints.length - 1) {
                             ridersPoints[i][1] = HCPoints[i];
                         } else {
                             ridersPoints[i][1] = 0;
                         }
+                        break;
                     case C1:
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i > OneCPoints.length - 1) {
+                        if (i < OneCPoints.length - 1) {
                             ridersPoints[i][1] = OneCPoints[i];
+                            System.out.println(ridersPoints[i][0] + "done");
                         } else {
                             ridersPoints[i][1] = 0;
                         }
+                        break;
                     case C2:
                         ridersPoints[i][0] = ridersTimes[i][0];
                         if (i > TwoCPoints.length - 1) {
@@ -330,20 +338,23 @@ public class Stage implements Serializable {
                         } else {
                             ridersPoints[i][1] = 0;
                         }
+                        break;
                     case C3:
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i > ThreeCPoints.length - 1) {
+                        if (i < ThreeCPoints.length - 1) {
                             ridersPoints[i][1] = ThreeCPoints[i];
                         } else {
                             ridersPoints[i][1] = 0;
                         }
+                        break;
                     case C4:
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i > FourCPoints.length - 1) {
+                        if (i < FourCPoints.length - 1) {
                             ridersPoints[i][1] = FourCPoints[i];
                         } else {
                             ridersPoints[i][1] = 0;
                         }
+                        break;
                     default: //not a climb
                         break;
                 }

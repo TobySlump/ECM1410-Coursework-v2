@@ -439,7 +439,7 @@ public class Race implements Serializable {
     }
 
     /**
-     * Get the riders finished position in a stage.
+     * Get the riders finishing position in a stage.
      *
      * @param stageId The ID of the stage being queried.
      * @return A list of riders ID sorted by their elapsed time.
@@ -450,27 +450,40 @@ public class Race implements Serializable {
                 return listOfStages.get(i).getRidersRank();
             }
         }
-
+        // if no riders
         int[] nullList = new int[]{};
         return nullList;
     }
 
     /**
-     * Get the number of points obtained by a rider in a stage.
+     * Get the number of points obtained by a rider in a stage including intermediate sprints.
      *
      * @param stageId       The ID of the stage being queried.
      * @param riderPosition The rank of the rider in the stage.
      * @return The number of points the rider won in the stage
      */
-    public int getPointsFromStage(int stageId, int riderPosition) {
-        StageType raceStageType;
+    public int getPointsFromStage(int stageId, int riderPosition, int riderID) {
         int riderPoints;
         for (int i = 0; i < listOfStages.size(); i++) { // loop through stages in race
             if (listOfStages.get(i).getID() == stageId) { //if desired stage
+                int numberOfRiders = listOfStages.get(i).getNumberOfRiders(); // number of riders in race
                 riderPoints = (listOfStages.get(i).getPointsForStageRank(riderPosition)); // points from stage finish
-                riderPoints += (listOfStages.get(i).getPointsFromStageSprints())[i][1]; // points from stage
+                for (int j = 0; j < (numberOfRiders); j++){ // loop through riders
+                    System.out.println("j:" + j);
+                    int[][] PointsFromStage = (listOfStages.get(i).getPointsFromStageSprints()); // get the points of stage sprints
+                    if (PointsFromStage[j][0] == riderID){
+                        System.out.println("rider ID:" + riderID);
+                        System.out.println("Stage points:" + riderPoints);
+                        riderPoints += PointsFromStage[j][1]; // points from sprints
+                        System.out.println("segment points:" + PointsFromStage[j][1]);
+                        System.out.println("combined points:" + riderPoints);
+                    }
+                }
                 return riderPoints;
+            } else {
+                break;
             }
+
         }
         return 0;
     }
@@ -482,12 +495,17 @@ public class Race implements Serializable {
      * @param riderPosition The rank of the rider in the stage.
      * @return The number of mountain points the rider won in the stage.
      */
-    public int getMountainPointsFromStage(int stageId, int riderPosition) {
-        StageType raceStageType;
-        int riderPoints;
+    public int getMountainPointsFromStage(int stageId, int riderPosition, int riderID) {
+        int riderPoints = 0;
         for (int i = 0; i < listOfStages.size(); i++) { // loop through stages in race
             if (listOfStages.get(i).getID() == stageId) { //if desired stage
-                riderPoints = (listOfStages.get(i).getPointsFromMountainStages())[i][1]; // points from stage
+                int numberOfRiders = listOfStages.get(i).getNumberOfRiders(); // number of riders in race
+                for (int j = 0; j < (numberOfRiders); j++) { // loop through riders
+                    int[][] PointsFromStage = (listOfStages.get(i).getPointsFromMountainStages()); // points from stage
+                    if (PointsFromStage[j][0] == riderID){
+                        riderPoints = PointsFromStage[j][1];
+                    }
+                }
                 return riderPoints;
             }
         }
