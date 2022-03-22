@@ -96,11 +96,6 @@
           <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/cycling/Stage.java</url>
-          <line>455</line>
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

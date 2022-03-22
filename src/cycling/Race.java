@@ -561,7 +561,7 @@ public class Race implements Serializable {
 
         return sortedClassificationTimes;
     }
-
+    
     public int[] getRidersGeneralClassificationRank(){
         int arrayLength = getGeneralClassificationTimes().length;
         int[] classificationRank = new int[arrayLength];
@@ -598,6 +598,38 @@ public class Race implements Serializable {
         }
 
         return classificationRank;
+
+    /**
+     * Calculates the number of points for each rider across a whole race (sum of all stages).
+     * Points match riders in the order of getRidersGeneralClassificationRank.
+     *
+     * @return List of riders points in a race.
+     */
+    public int[] getRidersOverallPoints(){
+        LocalTime[] ridersSorted = getRidersGeneralClassificationRank();
+        int[] ridersPoints = new int[getRidersGeneralClassificationRank().size];
+        for (int i = 0; i <= ridersSorted.length; i++){ // loop through riders
+            for (int j = 0; j < listOfStages.size(); j++) { // loop through stages
+                Stage stageObj = listOfStages.get(j);
+                ridersPoints[i] += stageObj.getPointsForStageRank(i); // score for position in race
+                ridersPoints[i] += stageObj.getPointsFromStageSprints(getRidersGeneralClassificationRank(i))[i][1];
+            }
+
+        }
+        return ridersPoints;
+    }
+
+    public int[] getRidersOverallMountainPoints(){
+        LocalTime[] ridersSorted = getRidersGeneralClassificationRank();
+        int[] ridersPoints = new int[getRidersGeneralClassificationRank().size];
+        for (int i = 0; i <= ridersSorted.length; i++){ // loop through riders
+            for (int j = 0; j < listOfStages.size(); j++) { // loop through stages
+                Stage stageObj = listOfStages.get(j);
+                ridersPoints[i] += stageObj.getPointsFromMountainStages(getRidersGeneralClassificationRank(i))[i][1];
+            }
+
+        }
+        return ridersPoints;
     }
 
 }

@@ -692,13 +692,28 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getRidersPointsInRace(int raceId) throws IDNotRecognisedException {
+        int[] ridersPoints;
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            if (ListOfRaces.get(i).getRaceID() == raceId){
+                ridersPoints = ListOfRaces.get(i).getRidersOverallPoints(); //get points for race
+                return ridersPoints;
+            }
+        }
+        throw new IDNotRecognisedException("No race found with ID: " + raceId);
         // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
     public int[] getRidersMountainPointsInRace(int raceId) throws IDNotRecognisedException {
         // TODO Auto-generated method stub
+        int[] ridersPoints;
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            if (ListOfRaces.get(i).getRaceID() == raceId){
+                ridersPoints = ListOfRaces.get(i).getRidersOverallMountainPoints(); //get points for race
+                return ridersPoints;
+            }
+        }
+        throw new IDNotRecognisedException("No race found with ID: " + raceId);
         return null;
     }
 
