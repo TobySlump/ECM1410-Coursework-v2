@@ -3,10 +3,7 @@ package cycling;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Race implements Serializable {
     private int raceID;
@@ -563,6 +560,44 @@ public class Race implements Serializable {
         }
 
         return sortedClassificationTimes;
+    }
+
+    public int[] getRidersGeneralClassificationRank(){
+        int arrayLength = getGeneralClassificationTimes().length;
+        int[] classificationRank = new int[arrayLength];
+        int[][] classificationRiderTime = new int[arrayLength][2];
+
+        for (int i = 1; i <= Rider.getNextRiderID(); i++){
+            int totalTime = 0;
+            for (int j = 0; j < listOfStages.size(); j++) {
+                Stage stageObj = listOfStages.get(j);
+                if (isRiderInResults(stageObj.getID(), i)){
+                    totalTime = totalTime + stageObj.getRiderAdjustedElapsedTimes(i).toSecondOfDay()
+                            - stageObj.getRiderStartTime(i);
+                }else{
+                    totalTime = -1;
+                    break;
+                }
+            }
+            if (totalTime != -1){
+                classificationRiderTime[i-1][0] = i;
+                classificationRiderTime[i-1][1] = totalTime;
+            }
+        }
+
+        Arrays.sort(classificationRiderTime, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] first, int[] second) {
+                if(first[1] > second[1]) return 1;
+                else return -1;
+            }
+        });
+
+        for (int i = 0; i < arrayLength; i++){
+            classificationRank[i] = classificationRiderTime[i][0];
+        }
+
+        return classificationRank;
     }
 
 }

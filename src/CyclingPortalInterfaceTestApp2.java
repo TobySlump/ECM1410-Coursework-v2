@@ -14,13 +14,13 @@ public class CyclingPortalInterfaceTestApp2 {
             InvalidLocationException, InvalidStageTypeException, DuplicatedResultException, InvalidCheckpointsException, IOException, ClassNotFoundException {
         System.out.println("The system compiled and started the execution...");
 
-        MiniCyclingPortalInterface portal = new BadMiniCyclingPortal();
-//		CyclingPortalInterface portal = new BadCyclingPortal();
+        //MiniCyclingPortalInterface portal = new BadCyclingPortal();
+		CyclingPortalInterface portal = new BadCyclingPortal();
 
         assert (portal.getRaceIds().length == 0)
                 : "Innitial SocialMediaPlatform not empty as required or not returning an empty array.";
 
-        MiniCyclingPortalInterface cyclingportal = new CyclingPortal();
+        CyclingPortalInterface cyclingportal = new CyclingPortal();
 
         cyclingportal.createRace("race1", "test race");
 
@@ -28,12 +28,9 @@ public class CyclingPortalInterfaceTestApp2 {
                 5, LocalDateTime.now(), StageType.FLAT);
         cyclingportal.addStageToRace(1, "stage2", "test stage",
                 9, LocalDateTime.now(), StageType.HIGH_MOUNTAIN);
-        cyclingportal.addStageToRace(1, "stage3", "test stage",
-                6.9, LocalDateTime.now(), StageType.MEDIUM_MOUNTAIN);
-        cyclingportal.addStageToRace(1, "stage4", "test stage",
-                7.2, LocalDateTime.now(), StageType.MEDIUM_MOUNTAIN);
 
         cyclingportal.concludeStagePreparation(1);
+        cyclingportal.concludeStagePreparation(2);
 
         cyclingportal.createTeam("team1", "test team");
         cyclingportal.createRider(1, "testkid1", 1969);
@@ -101,6 +98,36 @@ public class CyclingPortalInterfaceTestApp2 {
 
         System.out.println(Arrays.toString(cyclingportal.getRidersRankInStage(1)));
         System.out.println(Arrays.toString(cyclingportal.getRankedAdjustedElapsedTimesInStage(1)));
+
+
+        riderTimes = new LocalTime[]
+                {LocalTime.ofSecondOfDay(2), LocalTime.ofSecondOfDay(15)};
+        cyclingportal.registerRiderResultsInStage(2, 1, riderTimes);
+
+        riderTimes = new LocalTime[]
+                {LocalTime.ofSecondOfDay(1), LocalTime.ofSecondOfDay(13)};
+        cyclingportal.registerRiderResultsInStage(2, 2, riderTimes);
+
+        riderTimes = new LocalTime[]
+                {LocalTime.ofSecondOfDay(5), LocalTime.ofSecondOfDay(20)};
+        cyclingportal.registerRiderResultsInStage(2, 3, riderTimes);
+
+        riderTimes = new LocalTime[]
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(14)};
+        cyclingportal.registerRiderResultsInStage(2, 4, riderTimes);
+
+        riderTimes = new LocalTime[]
+                {LocalTime.ofSecondOfDay(4), LocalTime.ofSecondOfDay(21)};
+        cyclingportal.registerRiderResultsInStage(2, 5, riderTimes);
+
+        riderTimes = new LocalTime[]
+                {LocalTime.ofSecondOfDay(2), LocalTime.ofSecondOfDay(25)};
+        cyclingportal.registerRiderResultsInStage(2, 6, riderTimes);
+
+
+        System.out.println(Arrays.toString(cyclingportal.getGeneralClassificationTimesInRace(1)));
+
+        System.out.println(Arrays.toString(cyclingportal.getRidersGeneralClassificationRank(1)));
 
 
 
