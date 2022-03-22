@@ -577,7 +577,7 @@ public class CyclingPortal implements CyclingPortalInterface {
         for (int i = 0; i < ListOfRaces.size(); i++){ // loop through races
             if (pointsCalculated == false) { // if data for points has not been collected
                 for (int j = 0; j < ridersRanked.length; j++) { // for loops through riders
-                    riderPoints[j] = ListOfRaces.get(i).getMountainPointsFromStage(stageId, j, ridersRanked[j]); // add current riders point to array of rider points
+                    riderPoints[j] = ListOfRaces.get(i).getMountainPointsFromStage(stageId, ridersRanked[j]); // add current riders point to array of rider points
                     System.out.println(j + "added");
                     System.out.println(riderPoints[j]);
                     if (riderPoints[j] != 0) { // data has been returned

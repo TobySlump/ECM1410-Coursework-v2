@@ -354,7 +354,7 @@ public class Race implements Serializable {
     }
 
     /**
-     * The method records the times of a rider in a stage
+     * Records the times of a rider in a stage
      *
      * @param stageId     The ID of the stage the result refers to.
      * @param riderId     The ID of the rider.
@@ -387,7 +387,7 @@ public class Race implements Serializable {
     }
 
     /**
-     * The method gets the adjusted elapsed times for a rider in a stage.
+     * Gets the adjusted elapsed times for a rider in a stage.
      *
      * @param stageId The ID of the stage the result refers to.
      * @param riderId The ID of the rider.
@@ -491,10 +491,10 @@ public class Race implements Serializable {
      * Get the number of mountain points obtained by a rider in a stage.
      *
      * @param stageId       The ID of the stage being queried.
-     * @param riderPosition The rank of the rider in the stage.
+     * @param riderID       The ID of the rider.
      * @return The number of mountain points the rider won in the stage.
      */
-    public int getMountainPointsFromStage(int stageId, int riderPosition, int riderID) {
+    public int getMountainPointsFromStage(int stageId, int riderID) {
         int riderPoints = 0;
         for (int i = 0; i < listOfStages.size(); i++) { // loop through stages in race
             if (listOfStages.get(i).getID() == stageId) { //if desired stage

@@ -84,7 +84,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/cycling/Stage.java</url>
-          <line>362</line>
+          <line>451</line>
           <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>

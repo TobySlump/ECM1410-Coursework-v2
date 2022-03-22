@@ -37,9 +37,7 @@ public class Stage implements Serializable {
         this.state = "constructing";
     }
 
-    public int getID(){
-        return stageID;
-    }
+    public int getID() { return stageID; }
 
     public String getStageName() { return stageName; }
 
@@ -67,6 +65,11 @@ public class Stage implements Serializable {
 
     public LinkedList<Segment> getListOfSegments() { return listOfSegments; }
 
+    /**
+     * Creates and returns a list of segment lengths in kilometers.
+     *
+     * @return List of the lengths of segments.
+     */
     public double[] getListOfSegmentLocations(){
         double[] segmentLengths = new double[listOfSegments.size()];
         for (int i = 0; i < listOfSegments.size(); i++){
@@ -75,6 +78,12 @@ public class Stage implements Serializable {
         return segmentLengths;
     }
 
+    /**
+     * Finds and returns the location of the requested segment.
+     *
+     * @param segmentId
+     * @return
+     */
     public double getSegmentLocation(int segmentId){
         for (int i = 0; i < listOfSegments.size(); i++){
             if (listOfSegments.get(i).getSegmentID() == segmentId){
@@ -86,18 +95,37 @@ public class Stage implements Serializable {
 
     public static void setNextStageID(int nextStageId){ nextStageID = nextStageId; }
 
-
+    /**
+     * Adds a climb segment to a stage.
+     *
+     * @param location          The location in which the climb starts.
+     * @param type              The type of climb.
+     * @param averageGradient   The average gradient of the climb.
+     * @param length            The length of the climb in kilometers.
+     * @return The segment ID of the added climb segment.
+     */
     public int addClimb(Double location, SegmentType type,
                         Double averageGradient, Double length){
         listOfSegments.add(new ClimbSegment(location, type, averageGradient, length));
         return listOfSegments.getLast().getSegmentID();
     }
 
+    /**
+     * Adds a sprint segment to the stage.
+     *
+     * @param location The location in which the stage starts.
+     * @return The segment ID of the added sprint segment.
+     */
     public int addSprint(Double location){
         listOfSegments.add(new SprintSegment(location));
         return listOfSegments.getLast().getSegmentID();
     }
 
+    /**
+     * Removes the given segment from the stage.
+     *
+     * @param segmentId The ID of the segment being removed.
+     */
     public void removeSegment(int segmentId){
         for (int i = 0; i < listOfSegments.size(); i++){
             if (listOfSegments.get(i).getSegmentID() == segmentId){
@@ -106,14 +134,30 @@ public class Stage implements Serializable {
         }
     }
 
+    /**
+     * Indicated stage preparation has been completed, allowing results to be added.
+     */
     public void concludeStatePreparation(){
         state = "waiting for results";
     }
 
+    /**
+     * Adds a riders time to their results.
+     *
+     * @param riderId       The ID of the rider that results relate to.
+     * @param riderTimes    The times the rider achieved that are to be added.
+     */
     public void addRidersTime(int riderId, LocalTime[] riderTimes){
         rawRiderResults.put(riderId, riderTimes);
     }
 
+    /**
+     *  Gets the adjusted elapsed times. Riders within one second of each other are grouped together into the same
+     *  position and achieve same points.
+     *
+     * @param riderId   The ID of the rider.
+     * @return     The adjusted elapsed time for the rider in the stage.
+     */
     public LocalTime getRiderAdjustedElapsedTimes(int riderId){
         boolean finishedAdjusting = false;
         LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length-1];
@@ -145,18 +189,39 @@ public class Stage implements Serializable {
         return finishTime;
     }
 
+    /**
+     * Removes the results of the requested rider.
+     *
+     * @param riderId The ID of the rider.
+     */
     public void removeRidersResults(int riderId){
         rawRiderResults.remove(riderId);
     }
 
+    /**
+     * Queries if the rider has results for them.
+     *
+     * @param riderId The ID of the rider.
+     * @return A boolean, true when rider has results for them.
+     */
     public boolean isRiderInResults(int riderId){
         return rawRiderResults.containsKey(riderId);
     }
 
+    /**
+     * Returns the time that the requested rider started the race.
+     *
+     * @param riderId The ID of the rider.
+     * @return The start time of the rider in the race.
+     */
     public int getRiderStartTime(int riderId){
         return rawRiderResults.get(riderId)[0].toSecondOfDay();
     }
 
+    /**
+     *  Sorts the array of riders in the race based on their results (time) and ranking.
+     * @return sorted array of rider IDs
+     */
     public int[] getRidersRank(){
         int[][] riderTimes = new int[rawRiderResults.size()][2];
         int index = 0;
@@ -186,6 +251,10 @@ public class Stage implements Serializable {
         return riderRanks;
     }
 
+    /**
+     * Calculates the adjusted time of riders in a stage, riders within 1s of each other are grouped.
+     * @return Array of the adjusted times of riders in the stage.
+     */
     public LocalTime[] getRankedAdjustedElapsedTimes(){
         int[] RankedAdjustedElapsedTimesSeconds = new int[rawRiderResults.size()];
         int index = 0;
@@ -207,6 +276,12 @@ public class Stage implements Serializable {
         return RankedAdjustedElapsedTimes;
     }
 
+    /**
+     * Calculates the points for the rider based on their finishing position in the race.
+     *
+     * @param cyclistPosition The position of the cyclist in the race.
+     * @return The points scored by the rider.
+     */
     public int getPointsForStageRank(int cyclistPosition){ // selects stage type
         switch (this.type) {
             case FLAT:
@@ -244,7 +319,12 @@ public class Stage implements Serializable {
         return 0;
         }
 
-        public int[][] getPointsFromStageSprints(){ //calculate points for intermediate sprints
+    /**
+     * Calculates the points earned by the riders based on their times in the intermediate sprints within the stage.
+     *
+     * @return Array of rider IDs and the points they earned through sprints.
+     */
+    public int[][] getPointsFromStageSprints(){ //calculate points for intermediate sprints
             LocalTime[] riderTimesList; //list of times for a rider
             int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
             int index = 0;
@@ -284,7 +364,12 @@ public class Stage implements Serializable {
             return ridersPoints;
         }
 
-        public int[][] getPointsFromMountainStages(){
+    /**
+     * Calculates points earned within mountain stages by riders.
+     *
+     * @return Array of rider IDs and the points they earned through mountain stage.
+     */
+    public int[][] getPointsFromMountainStages(){
             LocalTime[] riderTimesList; //list of times for a rider
             int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
             int index = 0;
@@ -310,13 +395,13 @@ public class Stage implements Serializable {
                     });
                 }
             }
-            int[] HCPoints = {20, 15, 12, 10, 8, 6, 4, 2};
+            int[] HCPoints = {20, 15, 12, 10, 8, 6, 4, 2}; // Points that HC earns
             int[] OneCPoints = {10, 8, 6, 4, 2, 1};
             int[] TwoCPoints = {5, 3, 2, 1};
             int[] ThreeCPoints = {2, 1};
             int[] FourCPoints = {1};
             System.out.println(Arrays.toString(ridersTimes[0]));
-            for (int i = 0; i < rawRiderResults.size(); i++){
+            for (int i = 0; i < rawRiderResults.size(); i++){ // Determine points that each cyclist earns from position
                 switch (typeOfSegment) {
                     case HC:
                         ridersPoints[i][0] = ridersTimes[i][0];
