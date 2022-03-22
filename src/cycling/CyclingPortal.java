@@ -714,7 +714,6 @@ public class CyclingPortal implements CyclingPortalInterface {
             }
         }
         throw new IDNotRecognisedException("No race found with ID: " + raceId);
-        return null;
     }
 
     @Override
