@@ -14,7 +14,6 @@ public class Race implements Serializable {
     private  String name;
     private String description;
     private LinkedList<Stage> listOfStages = new LinkedList<>();
-    private LinkedList<Team> listOfTeams = new LinkedList<>();
 
 
     /**
@@ -277,7 +276,7 @@ public class Race implements Serializable {
 
         return 0;
     }
-    
+
     /**
      * The method retrieves a list of IDs for segments in a queried stage.
      *
@@ -529,6 +528,41 @@ public class Race implements Serializable {
         }
         LocalTime[] nullList = new LocalTime[]{};
         return nullList;
+    }
+
+    /**
+     * Creates and sorts a list of rider's total time to complete a race.
+     * The total time is the summation of the riders adjusted elapsed time for each stage in the race.
+     *
+     * @return The sorted list of riders total adjusted elapsed times.
+     */
+    public LocalTime[] getGeneralClassificationTimes(){
+        LinkedList<Integer> classificationTimes = new LinkedList<>();
+
+        for (int i = 1; i <= Rider.getNextRiderID(); i++){
+            int totalTime = 0;
+            for (int j = 0; j < listOfStages.size(); j++) {
+                Stage stageObj = listOfStages.get(j);
+                if (isRiderInResults(stageObj.getID(), i)){
+                    totalTime = totalTime + stageObj.getRiderAdjustedElapsedTimes(i).toSecondOfDay()
+                            - stageObj.getRiderStartTime(i);
+                }else{
+                    totalTime = -1;
+                    break;
+                }
+            }
+            if (totalTime != -1){
+                classificationTimes.add(totalTime);
+            }
+        }
+        Collections.sort(classificationTimes);
+
+        LocalTime[] sortedClassificationTimes = new LocalTime[classificationTimes.size()];
+        for (int i = 0; i < sortedClassificationTimes.length; i++){
+            sortedClassificationTimes[i] = LocalTime.ofSecondOfDay(classificationTimes.get(i));
+        }
+
+        return sortedClassificationTimes;
     }
 
 }

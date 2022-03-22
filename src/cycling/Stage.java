@@ -18,7 +18,7 @@ public class Stage implements Serializable {
     private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>(); //riderid, ridertimes
 
     /**
-     * Stage Class constructor
+     * Stage Class constructor.
      *
      * @param stageName     Name of the stage
      * @param description   Description of the stage
@@ -151,6 +151,10 @@ public class Stage implements Serializable {
 
     public boolean isRiderInResults(int riderId){
         return rawRiderResults.containsKey(riderId);
+    }
+
+    public int getRiderStartTime(int riderId){
+        return rawRiderResults.get(riderId)[0].toSecondOfDay();
     }
 
     public int[] getRidersRank(){
@@ -362,5 +366,7 @@ public class Stage implements Serializable {
 
             return ridersPoints;
         }
+
+
     }
 

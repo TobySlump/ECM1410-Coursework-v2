@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class CyclingPortal implements MiniCyclingPortalInterface {
+public class CyclingPortal implements CyclingPortalInterface {
     private LinkedList<Race> ListOfRaces = new LinkedList<>();
     private LinkedList<Team> ListOfTeams = new LinkedList<>();
     private int[] staticAttributes = new int[5];
@@ -657,6 +657,66 @@ public class CyclingPortal implements MiniCyclingPortalInterface {
         }catch (ClassNotFoundException e){
             throw new ClassNotFoundException("");
         }
+    }
+
+    @Override
+    public void removeRaceByName(String name) throws NameNotRecognisedException {
+        // TODO Auto-generated method stub
+        boolean hasRemoved = false;
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            if (ListOfRaces.get(i).getRaceName() == name){
+                ListOfRaces.remove(i);
+                hasRemoved = true;
+            }
+        }
+
+        if (!hasRemoved){
+            throw new NameNotRecognisedException();
+        }
+
+    }
+
+    @Override
+    public LocalTime[] getGeneralClassificationTimesInRace(int raceId) throws IDNotRecognisedException {
+        // TODO Auto-generated method stub
+
+        for (int i = 0; i < ListOfRaces.size(); i++){
+            if (ListOfRaces.get(i).getRaceID() == raceId){
+                return ListOfRaces.get(i).getGeneralClassificationTimes();
+            }
+        }
+        throw new IDNotRecognisedException("No race found with ID: " + raceId);
+    }
+
+    @Override
+    public int[] getRidersPointsInRace(int raceId) throws IDNotRecognisedException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int[] getRidersMountainPointsInRace(int raceId) throws IDNotRecognisedException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int[] getRidersGeneralClassificationRank(int raceId) throws IDNotRecognisedException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int[] getRidersPointClassificationRank(int raceId) throws IDNotRecognisedException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public int[] getRidersMountainPointClassificationRank(int raceId) throws IDNotRecognisedException {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

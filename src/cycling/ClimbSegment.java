@@ -6,6 +6,14 @@ public class ClimbSegment extends Segment implements Serializable {
     private double averageGradient;
     private double length;
 
+    /**
+     * Climb Segment class constructor.
+     *
+     * @param Location        The finish location of the segment in the stage.
+     * @param type            The category of the climb segment.
+     * @param averageGradient The average gradient of the segment.
+     * @param length          The length of the segment in kilometres.
+     */
     public ClimbSegment(Double Location, SegmentType type, Double averageGradient,
                         Double length){
         super();
