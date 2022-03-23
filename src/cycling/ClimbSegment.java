@@ -2,6 +2,13 @@ package cycling;
 
 import java.io.Serializable;
 
+/**
+ *  The java class for climb segment. Contains methods relating to climb segments within stages of races
+ *  in the cycling app.
+ *
+ *  @author Toby Slump and James Cracknell
+ *  @date 03/2022
+ */
 public class ClimbSegment extends Segment implements Serializable {
     private double averageGradient;
     private double length;

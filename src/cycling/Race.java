@@ -5,6 +5,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+/**
+ * The java class for race. Contains methods relating to races within the cycling app.
+ *
+ * @author Toby Slump and James Cracknell
+ * @date 03/2022
+ */
 public class Race implements Serializable {
     private int raceID;
     private static int nextRaceID = 0;
@@ -25,56 +31,26 @@ public class Race implements Serializable {
         raceID = ++nextRaceID;
     }
 
-    /**
-     * Gets the ID of this race object.
-     *
-     * @return The race ID.
-     */
     public int getRaceID(){
         return raceID;
     }
 
-    /**
-     * Gets the name of this race object.
-     *
-     * @return The race name.
-     */
     public String getRaceName(){
         return name;
     }
 
-    /**
-     * Gets the description of this race object.
-     *
-     * @return The race description.
-     */
     public String viewRaceDetails(){
         return description;
     }
 
-    /**
-     * The method queries the number of stages in this race.
-     *
-     * @return The number of stages being stored.
-     */
     public int getNumberOfStages(){
         return listOfStages.size();
     }
 
-    /**
-     * Gets the value of the static attribute nextRaceID.
-     *
-     * @return The value of nextRaceID.
-     */
     public static int getNextRaceID(){
         return nextRaceID;
     }
 
-    /**
-     * Sets the value of nextRaceID.
-     *
-     * @param nextRaceId The value nextRaceID is being set to.
-     */
     public static void setNextRaceID(int nextRaceId){
         nextRaceID = nextRaceId;
     }
@@ -566,6 +542,11 @@ public class Race implements Serializable {
         return sortedClassificationTimes;
     }
 
+    /**
+     * Calculates the general classification of riders.
+     *
+     * @return A ranked list of riders' IDs sorted by total adjusted elapsed times in all race stages.
+     */
     public int[] getRidersGeneralClassificationRank() {
         int arrayLength = getGeneralClassificationTimes().length;
         int[] classificationRank = new int[arrayLength];
@@ -612,36 +593,38 @@ public class Race implements Serializable {
      * Calculates the number of points for each rider across a whole race (sum of all stages).
      * Points match riders in the order of getRidersGeneralClassificationRank.
      *
-     * @return List of riders points in a race.
+     * @return Array of riders points in a race.
      */
 
     public int[] getRidersOverallPoints(){
-        LocalTime[] ridersSorted = getRidersGeneralClassificationRank();
-        int[] ridersPoints = new int[getRidersGeneralClassificationRank().size];
+        int[] ridersSorted = getRidersGeneralClassificationRank();
+        int[] ridersPoints = new int[getRidersGeneralClassificationRank().length];
         for (int i = 0; i <= ridersSorted.length; i++){ // loop through riders
             for (int j = 0; j < listOfStages.size(); j++) { // loop through stages
                 Stage stageObj = listOfStages.get(j);
                 ridersPoints[i] += stageObj.getPointsForStageRank(i); // score for position in race
-                ridersPoints[i] += stageObj.getPointsFromStageSprints(getRidersGeneralClassificationRank(i))[i][1];
+                ridersPoints[i] += stageObj.getPointsFromStageSprints()[i][1];
             }
-
         }
         return ridersPoints;
     }
 
+    /**
+     * Calculates the number of points in mountain stages for a rider in a race.
+     *
+     * @return array of riders mountain points within a race
+     */
     public int[] getRidersOverallMountainPoints(){
-        LocalTime[] ridersSorted = getRidersGeneralClassificationRank();
-        int[] ridersPoints = new int[getRidersGeneralClassificationRank().size];
+        int[] ridersSorted = getRidersGeneralClassificationRank();
+        int[] ridersPoints = new int[getRidersGeneralClassificationRank().length];
         for (int i = 0; i <= ridersSorted.length; i++){ // loop through riders
             for (int j = 0; j < listOfStages.size(); j++) { // loop through stages
                 Stage stageObj = listOfStages.get(j);
-                ridersPoints[i] += stageObj.getPointsFromMountainStages(getRidersGeneralClassificationRank(i))[i][1];
+                ridersPoints[i] += stageObj.getPointsFromMountainStages()[i][1];
             }
 
         }
         return ridersPoints;
     }
-
-
 
 }
