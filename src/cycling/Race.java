@@ -62,9 +62,9 @@ public class Race implements Serializable {
      * @return The number of segments in the given stage.
      */
     public int getNumberOfSegmentsInStage(int stageID){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageID) {
-                return listOfStage.getListOfSegments().size();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageID) {
+                return stage.getListOfSegments().size();
             }
         }
         return 0;
@@ -85,6 +85,8 @@ public class Race implements Serializable {
         LocalDateTime startTime, StageType type){
 
         listOfStages.add(new Stage(stageName, stageDescription, length, startTime, type));
+        assert (listOfStages.getLast().getID() == Stage.getNextStageID())
+                : "Stage was not created with correct ID";
         return listOfStages.getLast().getID();
     }
 
@@ -111,15 +113,15 @@ public class Race implements Serializable {
         LinkedList<LocalDateTime> StageDates =
                 new LinkedList<>();
 
-        for (Stage listOfStage : listOfStages) {
-            StageDates.add(listOfStage.getStartTime());
+        for (Stage stage : listOfStages) {
+            StageDates.add(stage.getStartTime());
         }
         Collections.sort(StageDates);
 
         for (int i = 0; i < listOfStages.size(); i++) {
-            for (Stage listOfStage : listOfStages) {
-                if (StageDates.get(i) == listOfStage.getStartTime()) {
-                    orderedStageIds[i] = listOfStage.getID();
+            for (Stage stage : listOfStages) {
+                if (StageDates.get(i) == stage.getStartTime()) {
+                    orderedStageIds[i] = stage.getID();
 
                     StageDates.set(i, null);
                 }
@@ -148,9 +150,9 @@ public class Race implements Serializable {
      * @return The stage's length.
      */
     public double getStageLength(int stageID){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageID) {
-                return listOfStage.getLength();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageID) {
+                return stage.getLength();
             }
         }
 
@@ -165,9 +167,9 @@ public class Race implements Serializable {
      * @return The stage's state.
      */
     public String getStageState(int stageID){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageID) {
-                return listOfStage.getState();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageID) {
+                return stage.getState();
             }
         }
 
@@ -182,9 +184,9 @@ public class Race implements Serializable {
      * @return The stage's type.
      */
     public StageType getStageType(int stageID){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageID) {
-                return listOfStage.getStageType();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageID) {
+                return stage.getStageType();
             }
         }
 
@@ -222,9 +224,9 @@ public class Race implements Serializable {
      */
     public int addClimbToStage(int stageId, Double location, SegmentType type,
                                Double averageGradient, Double length){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                return listOfStage.addClimb(location, type,
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                return stage.addClimb(location, type,
                         averageGradient, length);
             }
         }
@@ -242,9 +244,9 @@ public class Race implements Serializable {
      * @return The unique ID of the segment created.
      */
     public int addSprintToStage(int stageId, double location){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                return listOfStage.addSprint(location);
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                return stage.addSprint(location);
             }
         }
 
@@ -258,9 +260,9 @@ public class Race implements Serializable {
      * @return The list of segment IDs.
      */
     public int[] getSegmentIds(int stageId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                return listOfStage.getSegmentsIds();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                return stage.getSegmentsIds();
             }
         }
         return null;
@@ -279,10 +281,10 @@ public class Race implements Serializable {
         int[] segmentIds = new int[listOfStages.size()];
 
         //creates list of segment Ids and locations
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                segmentLengths = listOfStage.getListOfSegmentLocations();
-                segmentIds = listOfStage.getSegmentsIds();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                segmentLengths = stage.getListOfSegmentLocations();
+                segmentIds = stage.getSegmentsIds();
             }
         }
         Arrays.sort(segmentLengths);
@@ -322,9 +324,9 @@ public class Race implements Serializable {
      * @param StageId The ID of the stage being concluded.
      */
     public void concludeStatePreparation(int StageId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == StageId) {
-                listOfStage.concludeStatePreparation();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == StageId) {
+                stage.concludeStatePreparation();
             }
         }
     }
@@ -339,9 +341,9 @@ public class Race implements Serializable {
      *                    finish line.
      */
     public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                listOfStage.addRidersTime(riderId, checkpoints);
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                stage.addRidersTime(riderId, checkpoints);
             }
         }
     }
@@ -354,9 +356,9 @@ public class Race implements Serializable {
      * @return The list of riders results
      */
     public LocalTime[] getRiderResults(int stageId, int riderId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                return listOfStage.getRiderTimes(riderId);
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                return stage.getRiderTimes(riderId);
             }
         }
         return null;
@@ -370,10 +372,10 @@ public class Race implements Serializable {
      * @return The adjusted elapsed time for the rider in the stage.
      */
     public LocalTime getRiderAdjustedElapsedResults(int stageId, int riderId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                int adjustedFinishTime = listOfStage.getRiderAdjustedElapsedTimes(riderId).toSecondOfDay();
-                int startTime = listOfStage.getRiderTimes(riderId)[0].toSecondOfDay();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                int adjustedFinishTime = stage.getRiderAdjustedElapsedTimes(riderId).toSecondOfDay();
+                int startTime = stage.getRiderTimes(riderId)[0].toSecondOfDay();
                 return LocalTime.ofSecondOfDay(adjustedFinishTime - startTime);
             }
         }
@@ -388,9 +390,9 @@ public class Race implements Serializable {
      * @param riderId The ID of the rider.
      */
     public void deleteRidersResults(int stageId, int riderId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                listOfStage.removeRidersResults(riderId);
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                stage.removeRidersResults(riderId);
             }
         }
     }
@@ -404,9 +406,9 @@ public class Race implements Serializable {
      *         rider has results in that stage.
      */
     public boolean isRiderInResults(int stageId, int riderId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                return listOfStage.isRiderInResults(riderId);
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                return stage.isRiderInResults(riderId);
             }
         }
         //never reached
@@ -420,9 +422,9 @@ public class Race implements Serializable {
      * @return A list of riders ID sorted by their elapsed time.
      */
     public int[] getRidersRankInStage(int stageId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                return listOfStage.getRidersRank();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                return stage.getRidersRank();
             }
         }
         // if no riders
@@ -439,13 +441,13 @@ public class Race implements Serializable {
      */
     public int getPointsFromStage(int stageId, int riderPosition, int riderID) {
         int riderPoints;
-        for (Stage listOfStage : listOfStages) { // loop through stages in race
-            if (listOfStage.getID() == stageId) { //if desired stage
-                int numberOfRiders = listOfStage.getNumberOfRiders(); // number of riders in race
-                riderPoints = (listOfStage.getPointsForStageRank(riderPosition)); // points from stage finish
+        for (Stage stage : listOfStages) { // loop through stages in race
+            if (stage.getID() == stageId) { //if desired stage
+                int numberOfRiders = stage.getNumberOfRiders(); // number of riders in race
+                riderPoints = (stage.getPointsForStageRank(riderPosition)); // points from stage finish
                 for (int j = 0; j < (numberOfRiders); j++) { // loop through riders
                     System.out.println("j:" + j);
-                    int[][] PointsFromStage = (listOfStage.getPointsFromStageSprints()); // get the points of stage sprints
+                    int[][] PointsFromStage = (stage.getPointsFromStageSprints()); // get the points of stage sprints
                     if (PointsFromStage[j][0] == riderID) {
                         System.out.println("rider ID:" + riderID);
                         System.out.println("Stage points:" + riderPoints);
@@ -472,11 +474,11 @@ public class Race implements Serializable {
      */
     public int getMountainPointsFromStage(int stageId, int riderID) {
         int riderPoints = 0;
-        for (Stage listOfStage : listOfStages) { // loop through stages in race
-            if (listOfStage.getID() == stageId) { //if desired stage
-                int numberOfRiders = listOfStage.getNumberOfRiders(); // number of riders in race
+        for (Stage stage : listOfStages) { // loop through stages in race
+            if (stage.getID() == stageId) { //if desired stage
+                int numberOfRiders = stage.getNumberOfRiders(); // number of riders in race
                 for (int j = 0; j < (numberOfRiders); j++) { // loop through riders
-                    int[][] PointsFromStage = (listOfStage.getPointsFromMountainStages()); // points from stage
+                    int[][] PointsFromStage = (stage.getPointsFromMountainStages()); // points from stage
                     if (PointsFromStage[j][0] == riderID) {
                         riderPoints = PointsFromStage[j][1];
                     }
@@ -497,9 +499,9 @@ public class Race implements Serializable {
      *         {@link #getRidersRankInStage(int)}.
      */
     public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId){
-        for (Stage listOfStage : listOfStages) {
-            if (listOfStage.getID() == stageId) {
-                return listOfStage.getRankedAdjustedElapsedTimes();
+        for (Stage stage : listOfStages) {
+            if (stage.getID() == stageId) {
+                return stage.getRankedAdjustedElapsedTimes();
             }
         }
         LocalTime[] nullList = new LocalTime[]{};

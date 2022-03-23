@@ -110,10 +110,10 @@ public class Stage implements Serializable {
      * @param segmentId The ID of the segment being queried.
      * @return The location of the queried segment.
      */
-    public double getSegmentLocation(int segmentId) {
-        for (Segment listOfSegment : listOfSegments) {
-            if (listOfSegment.getSegmentID() == segmentId) {
-                return listOfSegment.getLocation();
+    public double getSegmentLocation(int segmentId){
+        for (Segment segment : listOfSegments) {
+            if (segment.getSegmentID() == segmentId) {
+                return segment.getLocation();
             }
         }
         return 0;
@@ -135,6 +135,8 @@ public class Stage implements Serializable {
     public int addClimb(Double location, SegmentType type,
                         Double averageGradient, Double length) {
         listOfSegments.add(new ClimbSegment(location, type, averageGradient, length));
+        assert (listOfSegments.getLast().getSegmentID() == ClimbSegment.getNextSegmentID())
+                : "Segment was not created with correct ID";
         return listOfSegments.getLast().getSegmentID();
     }
 
@@ -146,6 +148,8 @@ public class Stage implements Serializable {
      */
     public int addSprint(Double location) {
         listOfSegments.add(new SprintSegment(location));
+        assert (listOfSegments.getLast().getSegmentID() == SprintSegment.getNextSegmentID())
+                : "Segment was not created with correct ID";
         return listOfSegments.getLast().getSegmentID();
     }
 
@@ -347,8 +351,10 @@ public class Stage implements Serializable {
                     return 0;
                 }
             }
+            default -> {
+                assert false : "Not a valid stage type";
+            }
         }
-        // should never get to this point
         return 0;
     }
 
@@ -475,6 +481,7 @@ public class Stage implements Serializable {
                         }
                     }
                     default -> {
+                        assert false : "Not a valid climb";
                     }
                 }
             }
