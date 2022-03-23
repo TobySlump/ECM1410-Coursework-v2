@@ -15,7 +15,9 @@ public abstract class Segment implements Serializable {
         this.segmentID = ++nextSegmentID;
     }
 
-    public SegmentType getSegmentType() { return type; }
+    public SegmentType getSegmentType() {
+        return type;
+    }
 
     public double getLocation(){
         return location;

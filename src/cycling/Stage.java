@@ -37,23 +37,39 @@ public class Stage implements Serializable {
         this.state = "constructing";
     }
 
-    public int getID() { return stageID; }
+    public int getID() {
+        return stageID;
+    }
 
-    public String getStageName() { return stageName; }
+    public String getStageName() {
+        return stageName;}
 
-    public double getLength() { return length; }
+    public double getLength() {
+        return length;}
 
-    public String getState() { return state; }
+    public String getState() {
+        return state;
+    }
 
-    public StageType getStageType() { return type; }
+    public StageType getStageType() {
+        return type;
+    }
 
-    public LocalDateTime getStartTime(){return startTime; }
+    public LocalDateTime getStartTime(){
+        return startTime;
+    }
 
-    public static int getNextStageID() { return nextStageID; }
+    public static int getNextStageID() {
+        return nextStageID;
+    }
 
-    public LocalTime[] getRiderTimes(int riderId){ return rawRiderResults.get(riderId); }
+    public LocalTime[] getRiderTimes(int riderId){
+        return rawRiderResults.get(riderId);
+    }
 
-    public int getNumberOfRiders(){ return (rawRiderResults.size());}
+    public int getNumberOfRiders(){
+        return (rawRiderResults.size());
+    }
 
     public int[] getSegmentsIds(){
         int[] listOfSegmentIds = new int[listOfSegments.size()];
@@ -135,7 +151,7 @@ public class Stage implements Serializable {
     }
 
     /**
-     * Indicated stage preparation has been completed, allowing results to be added.
+     * Indicates stage preparation has been completed, allowing results to be added.
      */
     public void concludeStatePreparation(){
         state = "waiting for results";
@@ -455,7 +471,5 @@ public class Stage implements Serializable {
 
             return ridersPoints;
         }
-
-
     }
 

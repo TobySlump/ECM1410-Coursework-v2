@@ -4,16 +4,16 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class CyclingPortal implements CyclingPortalInterface {
     private LinkedList<Race> ListOfRaces = new LinkedList<>();
     private LinkedList<Team> ListOfTeams = new LinkedList<>();
     private int[] staticAttributes = new int[5];
-
     @Override
     public int[] getRaceIds() {
-        // TODO Auto-generated method stub
+        
         int RaceIDs[] = new int[ListOfRaces.size()];
 
         for (int i = 0; i < ListOfRaces.size(); i++) {
@@ -26,8 +26,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int createRace(String name, String description) throws IllegalNameException, InvalidNameException {
-        // TODO Auto-generated method stub
-
         // exception handling
         for (int i = 0; i < ListOfRaces.size(); i++) {
             if (ListOfRaces.get(i).getRaceName() == name) { // if name already used
@@ -50,8 +48,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public String viewRaceDetails(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race RaceObj = ListOfRaces.get((i));
             if (RaceObj.getRaceID() == raceId){
@@ -64,9 +60,7 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void removeRaceById(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
         int prevListLength = ListOfRaces.size();
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race RaceObj = ListOfRaces.get((i));
             if (RaceObj.getRaceID() == raceId){
@@ -81,8 +75,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int getNumberOfStages(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race RaceObj = ListOfRaces.get(i);
             if (RaceObj.getRaceID() == raceId){
@@ -96,8 +88,6 @@ public class CyclingPortal implements CyclingPortalInterface {
     public int addStageToRace(int raceId, String stageName, String description, double length, LocalDateTime startTime,
                               StageType type)
             throws IDNotRecognisedException, IllegalNameException, InvalidNameException, InvalidLengthException {
-        // TODO Auto-generated method stub
-
         // exception handling
         for (int i = 0; i < ListOfRaces.size() ; i++) { //what should x be?
             for (int j = 0; j < ListOfRaces.get(i).getStageIDs().length ; j++) {
@@ -134,8 +124,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getRaceStages(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race RaceObj = ListOfRaces.get(i);
             if (RaceObj.getRaceID() == raceId){
@@ -147,8 +135,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public double getStageLength(int stageId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
             for (int j = 0; j < raceObj.getStageIDs().length; j++){
@@ -162,7 +148,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void removeStageById(int stageId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
         boolean hasDeleted = false;
 
         for (int i = 0; i < ListOfRaces.size(); i++){
@@ -185,8 +170,6 @@ public class CyclingPortal implements CyclingPortalInterface {
     public int addCategorizedClimbToStage(int stageId, Double location, SegmentType type, Double averageGradient,
                                           Double length) throws IDNotRecognisedException, InvalidLocationException, InvalidStageStateException,
             InvalidStageTypeException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
@@ -213,8 +196,6 @@ public class CyclingPortal implements CyclingPortalInterface {
     @Override
     public int addIntermediateSprintToStage(int stageId, double location) throws IDNotRecognisedException,
             InvalidLocationException, InvalidStageStateException, InvalidStageTypeException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             Race raceObj = ListOfRaces.get(i);
 
@@ -239,7 +220,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void removeSegment(int segmentId) throws IDNotRecognisedException, InvalidStageStateException {
-        // TODO Auto-generated method stub
         boolean hasDeleted = false;
 
         for (int i = 0; i < ListOfRaces.size(); i++){
@@ -265,7 +245,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void concludeStagePreparation(int stageId) throws IDNotRecognisedException, InvalidStageStateException {
-        // TODO Auto-generated method stub
         boolean hasConcluded = false;
 
         for (int i = 0; i < ListOfRaces.size(); i++){
@@ -290,8 +269,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getStageSegments(int stageId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++) {
             Race raceObj = ListOfRaces.get(i);
 
@@ -307,8 +284,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int createTeam(String name, String description) throws IllegalNameException, InvalidNameException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++) {
             if (ListOfRaces.get(i).getRaceName() == name) { // if name already used
                 throw new IllegalNameException("The given name has already been used on a race. Names must be unique./");
@@ -330,7 +305,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void removeTeam(int teamId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
         boolean hasRemoved = false;
         for (int i = 0; i < ListOfTeams.size(); i++){
             Team teamObj = ListOfTeams.get(i);
@@ -347,7 +321,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getTeams() {
-        // TODO Auto-generated method stub
         int[] teamIds = new int[ListOfTeams.size()];
 
         for (int i = 0; i < ListOfTeams.size(); i++){
@@ -359,8 +332,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getTeamRiders(int teamId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfTeams.size(); i++){
             if (ListOfTeams.get(i).getTeamID() == teamId){
                 return ListOfTeams.get(i).getRiderIds();
@@ -373,7 +344,6 @@ public class CyclingPortal implements CyclingPortalInterface {
     @Override
     public int createRider(int teamID, String name, int yearOfBirth)
             throws IDNotRecognisedException, IllegalArgumentException {
-        // TODO Auto-generated method stub
         if (yearOfBirth < 1900) {
             throw new IllegalArgumentException("Year of birth is less than 1900.");
         } else if (name == null) {
@@ -393,7 +363,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void removeRider(int riderId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
         boolean hasRemoved = false;
 
         for (int i = 0; i < ListOfTeams.size(); i++){
@@ -414,8 +383,6 @@ public class CyclingPortal implements CyclingPortalInterface {
     public void registerRiderResultsInStage(int stageId, int riderId, LocalTime... checkpoints)
             throws IDNotRecognisedException, DuplicatedResultException, InvalidCheckpointsException,
             InvalidStageStateException {
-        // TODO Auto-generated method stub
-        // james DuplicatedResultException race.getRiderResults
         boolean hasRegistered = false;
 
         for (int i = 0; i < ListOfRaces.size(); i++){
@@ -443,8 +410,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public LocalTime[] getRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
@@ -471,8 +436,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public LocalTime getRiderAdjustedElapsedTimeInStage(int stageId, int riderId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
@@ -490,7 +453,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void deleteRiderResultsInStage(int stageId, int riderId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
         boolean hasDeleted = false;
 
         for (int i = 0; i < ListOfRaces.size(); i++){
@@ -513,8 +475,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getRidersRankInStage(int stageId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
@@ -528,7 +488,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public LocalTime[] getRankedAdjustedElapsedTimesInStage(int stageId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
         for (int i = 0; i < ListOfRaces.size(); i++){
             for (int j = 0; j < ListOfRaces.get(i).getNumberOfStages(); j++){
                 if (ListOfRaces.get(i).getStageIDs()[j] == stageId){
@@ -593,7 +552,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void eraseCyclingPortal() {
-        // TODO Auto-generated method stub
         ListOfRaces.clear();
         ListOfTeams.clear();
         Race.setNextRaceID(0);
@@ -605,7 +563,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void saveCyclingPortal(String filename) throws IOException {
-        // TODO Auto-generated method stub
         String fileNameUsed = filename;
         if (!filename.endsWith(".ser")){
             fileNameUsed = filename + ".ser";
@@ -630,7 +587,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void loadCyclingPortal(String filename) throws IOException, ClassNotFoundException {
-        // TODO Auto-generated method stub
         String fileNameUsed = filename;
         if (!filename.endsWith(".ser")){
             fileNameUsed = filename + ".ser";
@@ -661,7 +617,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public void removeRaceByName(String name) throws NameNotRecognisedException {
-        // TODO Auto-generated method stub
         boolean hasRemoved = false;
 
         for (int i = 0; i < ListOfRaces.size(); i++){
@@ -679,8 +634,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public LocalTime[] getGeneralClassificationTimesInRace(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             if (ListOfRaces.get(i).getRaceID() == raceId){
                 return ListOfRaces.get(i).getGeneralClassificationTimes();
@@ -700,12 +653,11 @@ public class CyclingPortal implements CyclingPortalInterface {
             }
         }
         throw new IDNotRecognisedException("No race found with ID: " + raceId);
-        // TODO Auto-generated method stub
+        
     }
 
     @Override
     public int[] getRidersMountainPointsInRace(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
         int[] ridersPoints;
         for (int i = 0; i < ListOfRaces.size(); i++){
             if (ListOfRaces.get(i).getRaceID() == raceId){
@@ -718,8 +670,6 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getRidersGeneralClassificationRank(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-
         for (int i = 0; i < ListOfRaces.size(); i++){
             if (ListOfRaces.get(i).getRaceID() == raceId){
                 return ListOfRaces.get(i).getRidersGeneralClassificationRank();
@@ -731,14 +681,50 @@ public class CyclingPortal implements CyclingPortalInterface {
 
     @Override
     public int[] getRidersPointClassificationRank(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-        return null;
+        int[] ridersPoints = getRidersPointsInRace(raceId); //gets list of riders points
+        int[] ridersRank = getRidersGeneralClassificationRank(raceId);
+        int[][] combinedRiders = new int[ridersRank.length][2];
+        //ridersRank[i] is the rider ID with the score in ridersPoints[i]
+        for (int i = 0; i < ridersRank.length; i++) { // create 2d array to allow for sorting
+            combinedRiders[i][0] = ridersRank[i];
+            combinedRiders[i][1] = ridersPoints[i];
+        }
+        Arrays.sort(combinedRiders, new Comparator<int[]>() { //sort the array
+            @Override // sort based on time
+            public int compare(int[] first, int[] second) {
+                if (first[1] > second[1]) return 1;
+                else return -1;
+            }
+        });
+        for (int i = 0; i < ridersRank.length; i++) {
+            ridersPoints[i] = combinedRiders[i][0]; // make array of sorted IDs
+        }
+
+        return ridersPoints;
     }
 
     @Override
     public int[] getRidersMountainPointClassificationRank(int raceId) throws IDNotRecognisedException {
-        // TODO Auto-generated method stub
-        return null;
+        int[] ridersPoints = getRidersMountainPointsInRace(raceId); //gets list of riders points
+        int[] ridersRank = getRidersGeneralClassificationRank(raceId);
+        int[][] combinedRiders = new int[ridersRank.length][2];
+        //ridersRank[i] is the rider ID with the score in ridersPoints[i]
+        for (int i = 0; i < ridersRank.length; i++) { // create 2d array to allow for sorting
+            combinedRiders[i][0] = ridersRank[i];
+            combinedRiders[i][1] = ridersPoints[i];
+        }
+        Arrays.sort(combinedRiders, new Comparator<int[]>() { //sort the array
+            @Override // sort based on time
+            public int compare(int[] first, int[] second) {
+                if (first[1] > second[1]) return 1;
+                else return -1;
+            }
+        });
+        for (int i = 0; i < ridersRank.length; i++) {
+            ridersPoints[i] = combinedRiders[i][0]; // make array of sorted IDs
+        }
+
+        return ridersPoints;
     }
 
 }

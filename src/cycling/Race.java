@@ -25,56 +25,26 @@ public class Race implements Serializable {
         raceID = ++nextRaceID;
     }
 
-    /**
-     * Gets the ID of this race object.
-     *
-     * @return The race ID.
-     */
     public int getRaceID(){
         return raceID;
     }
 
-    /**
-     * Gets the name of this race object.
-     *
-     * @return The race name.
-     */
     public String getRaceName(){
         return name;
     }
 
-    /**
-     * Gets the description of this race object.
-     *
-     * @return The race description.
-     */
     public String viewRaceDetails(){
         return description;
     }
 
-    /**
-     * The method queries the number of stages in this race.
-     *
-     * @return The number of stages being stored.
-     */
     public int getNumberOfStages(){
         return listOfStages.size();
     }
 
-    /**
-     * Gets the value of the static attribute nextRaceID.
-     *
-     * @return The value of nextRaceID.
-     */
     public static int getNextRaceID(){
         return nextRaceID;
     }
 
-    /**
-     * Sets the value of nextRaceID.
-     *
-     * @param nextRaceId The value nextRaceID is being set to.
-     */
     public static void setNextRaceID(int nextRaceId){
         nextRaceID = nextRaceId;
     }
@@ -643,7 +613,5 @@ public class Race implements Serializable {
         }
         return ridersPoints;
     }
-
-
 
 }
