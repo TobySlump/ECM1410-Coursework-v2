@@ -131,12 +131,8 @@ public class CyclingPortalInterfaceTestApp2 {
 
         System.out.println(Arrays.toString(cyclingportal.getRidersGeneralClassificationRank(1)));
 
-        //System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
+        System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
 
-        cyclingportal.saveCyclingPortal("test");
-        cyclingportal.eraseCyclingPortal();
-        cyclingportal.loadCyclingPortal("test");
-        cyclingportal.createRace("race4", "test race");
 
 
     }

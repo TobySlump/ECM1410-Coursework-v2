@@ -614,7 +614,7 @@ public class Race implements Serializable {
     public int[] getRidersOverallMountainPoints(){
         int[] ridersSorted = getRidersGeneralClassificationRank();
         int[] ridersPoints = new int[getRidersGeneralClassificationRank().length];
-        for (int i = 0; i <= ridersSorted.length; i++){ // loop through riders
+        for (int i = 0; i < ridersSorted.length; i++){ // loop through riders
             for (Stage stageObj : listOfStages) { // loop through stages
                 ridersPoints[i] += stageObj.getPointsFromMountainStages()[i][1];
             }
