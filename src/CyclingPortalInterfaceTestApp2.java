@@ -41,15 +41,15 @@ public class CyclingPortalInterfaceTestApp2 {
         cyclingportal.createRider(1, "testkid6", 1974);
 
         LocalTime[] riderTimes =
-                {LocalTime.ofSecondOfDay(2), LocalTime.ofSecondOfDay(15)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(15)};
         cyclingportal.registerRiderResultsInStage(1, 1, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(1), LocalTime.ofSecondOfDay(13)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(13)};
         cyclingportal.registerRiderResultsInStage(1, 2, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(5), LocalTime.ofSecondOfDay(20)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(20)};
         cyclingportal.registerRiderResultsInStage(1, 3, riderTimes);
 
         riderTimes = new LocalTime[]
@@ -57,11 +57,11 @@ public class CyclingPortalInterfaceTestApp2 {
         cyclingportal.registerRiderResultsInStage(1, 4, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(4), LocalTime.ofSecondOfDay(21)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(21)};
         cyclingportal.registerRiderResultsInStage(1, 5, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(2), LocalTime.ofSecondOfDay(23)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(23)};
         cyclingportal.registerRiderResultsInStage(1, 6, riderTimes);
 
         System.out.println("""
@@ -101,15 +101,15 @@ public class CyclingPortalInterfaceTestApp2 {
 
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(2), LocalTime.ofSecondOfDay(15)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(16)};
         cyclingportal.registerRiderResultsInStage(2, 1, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(1), LocalTime.ofSecondOfDay(13)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(9)};
         cyclingportal.registerRiderResultsInStage(2, 2, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(5), LocalTime.ofSecondOfDay(20)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(20)};
         cyclingportal.registerRiderResultsInStage(2, 3, riderTimes);
 
         riderTimes = new LocalTime[]
@@ -117,17 +117,19 @@ public class CyclingPortalInterfaceTestApp2 {
         cyclingportal.registerRiderResultsInStage(2, 4, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(4), LocalTime.ofSecondOfDay(21)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(21)};
         cyclingportal.registerRiderResultsInStage(2, 5, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(2), LocalTime.ofSecondOfDay(25)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(25)};
         cyclingportal.registerRiderResultsInStage(2, 6, riderTimes);
 
 
         System.out.println(Arrays.toString(cyclingportal.getGeneralClassificationTimesInRace(1)));
 
         System.out.println(Arrays.toString(cyclingportal.getRidersGeneralClassificationRank(1)));
+
+        System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
 
 
 

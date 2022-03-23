@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  *  The java class for sprint segments. Contains methods relating to sprint segments within stages of races
  *  in the cycling app.
+ *
  *  @author Toby Slump and James Cracknell
  *  @date 03/2022
  */
