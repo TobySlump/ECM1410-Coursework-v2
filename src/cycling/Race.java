@@ -35,7 +35,7 @@ public class Race implements Serializable {
     /**
      * Gets race ID.
      *
-     * @return unique race ID.
+     * @return Unique race ID.
      */
     public int getRaceID(){
         return raceID;
@@ -44,24 +44,45 @@ public class Race implements Serializable {
     /**
      * Gets race name.
      *
-     * @return unique race name.
+     * @return Race name.
      */
     public String getRaceName(){
         return name;
     }
 
+    /**
+     * Gets race details.
+     *
+     * @return Race details.
+     */
     public String viewRaceDetails(){
         return description;
     }
 
+    /**
+     * Gets the number of stages for a race.
+     *
+     * @return number of stages in queried race.
+     */
     public int getNumberOfStages(){
         return listOfStages.size();
     }
 
+    /**
+     * Gets the value of NextRaceID.
+     * This shows the ID of the last race created and is used when giving new races their ID.
+     *
+     * @return The value of nextRaceID.
+     */
     public static int getNextRaceID(){
         return nextRaceID;
     }
 
+    /**
+     * Sets the value of nextRaceID to a specified value.
+     *
+     * @param nextRaceId The new value of nextRaceID.
+     */
     public static void setNextRaceID(int nextRaceId){
         nextRaceID = nextRaceId;
     }
@@ -75,7 +96,7 @@ public class Race implements Serializable {
     public int getNumberOfSegmentsInStage(int stageID){
         for (Stage stage : listOfStages) {
             if (stage.getID() == stageID) {
-                return stage.getListOfSegments().size();
+                return stage.getSegmentsIds().length;
             }
         }
         return 0;
