@@ -351,7 +351,7 @@ public class Race implements Serializable {
      *
      * @param stageId The ID of the stage the result refers to.
      * @param riderId The ID of the rider.
-     * @return
+     * @return The list of riders results
      */
     public LocalTime[] getRiderResults(int stageId, int riderId){
         for (Stage listOfStage : listOfStages) {
@@ -571,12 +571,9 @@ public class Race implements Serializable {
         }
 
         //Sorts the array by the rider's times
-        Arrays.sort(classificationRiderTime, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] first, int[] second) {
-                if (first[1] > second[1]) return 1;
-                else return -1;
-            }
+        Arrays.sort(classificationRiderTime, (first, second) -> {
+            if (first[1] > second[1]) return 1;
+            else return -1;
         });
 
         //Extracts sorted rider Ids
