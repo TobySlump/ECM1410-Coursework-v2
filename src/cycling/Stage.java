@@ -107,9 +107,9 @@ public class Stage implements Serializable {
      * @return The location of the queried segment.
      */
     public double getSegmentLocation(int segmentId){
-        for (Segment listOfSegment : listOfSegments) {
-            if (listOfSegment.getSegmentID() == segmentId) {
-                return listOfSegment.getLocation();
+        for (Segment segment : listOfSegments) {
+            if (segment.getSegmentID() == segmentId) {
+                return segment.getLocation();
             }
         }
         return 0;
@@ -129,6 +129,8 @@ public class Stage implements Serializable {
     public int addClimb(Double location, SegmentType type,
                         Double averageGradient, Double length){
         listOfSegments.add(new ClimbSegment(location, type, averageGradient, length));
+        assert (listOfSegments.getLast().getSegmentID() == ClimbSegment.getNextSegmentID())
+                : "Segment was not created with correct ID";
         return listOfSegments.getLast().getSegmentID();
     }
 
