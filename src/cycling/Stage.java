@@ -425,7 +425,7 @@ public class Stage implements Serializable {
             int[] FourCPoints = {1};
             System.out.println(Arrays.toString(ridersTimes[0]));
             for (int i = 0; i < rawRiderResults.size(); i++){ // Determine points that each cyclist earns from position
-                switch (typeOfSegment) {
+                switch (Objects.requireNonNull(typeOfSegment)) { //to prevent error, requires it to not be null
                     case HC -> {
                         ridersPoints[i][0] = ridersTimes[i][0];
                         if (i < HCPoints.length) {
