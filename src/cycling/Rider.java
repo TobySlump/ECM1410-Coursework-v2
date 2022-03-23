@@ -30,14 +30,29 @@ public class Rider implements Serializable {
         this.riderID = ++nextRiderID;
     }
 
+    /**
+     * Gets unique rider ID.
+     *
+     * @return The ID of the rider.
+     */
     public int getId(){
         return riderID;
     }
 
+    /**
+     * Gets the value of nextRiderID.
+     *
+     * @return The ID of the last rider created.
+     */
     public static int getNextRiderID(){
         return nextRiderID;
     }
 
+    /**
+     * Sets the value of nextRiderID.
+     *
+     * @param nextRiderId The new value of nextRiderID.
+     */
     public static void setNextRiderID(int nextRiderId){
         nextRiderID = nextRiderId;
     }

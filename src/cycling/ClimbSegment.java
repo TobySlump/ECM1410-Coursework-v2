@@ -32,15 +32,30 @@ public class ClimbSegment extends Segment implements Serializable {
 
     }
 
+    /**
+     * Gets unique ID for a segment.
+     *
+     * @return Segment ID.
+     */
     @Override
     public int getSegmentID(){
         return segmentID;
     }
 
+    /**
+     * Gets the value of nextSegmentID.
+     *
+     * @return The ID of the last segment created.
+     */
     public static int getNextSegmentID(){
         return nextSegmentID;
     }
 
+    /**
+     *Sets the value of nextSegmentID.
+     *
+     * @param nextSegmentId The new value of SegmentID.
+     */
     public static void setNextSegmentID(int nextSegmentId){
         nextSegmentID = nextSegmentId;
     }

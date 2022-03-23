@@ -23,14 +23,29 @@ public abstract class Segment implements Serializable {
         this.segmentID = ++nextSegmentID;
     }
 
+    /**
+     * Gets the type of a queried segment.
+     *
+     * @return The type of the segment.
+     */
     public SegmentType getSegmentType() {
         return type;
     }
 
+    /**
+     * Gets the finish location of the segment in a stage (kms).
+     *
+     * @return The location of the queried segment.
+     */
     public double getLocation(){
         return location;
     }
 
+    /**
+     * Gets the ID of the segment.
+     *
+     * @return The ID of the queried segment.
+     */
     abstract int getSegmentID();
 
 }

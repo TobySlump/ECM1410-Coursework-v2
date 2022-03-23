@@ -41,10 +41,20 @@ public class Team implements Serializable {
         listOfRiders.add(newRider);
     }
 
+    /**
+     * Gets value of nextTeamID.
+     *
+     * @return The ID of the last team created.
+     */
     public static int getNextTeamID(){
         return nextTeamID;
     }
 
+    /**
+     * Sets the value of nextTeamID.
+     *
+     * @param nextTeamId The new value of nextTeamID.
+     */
     public static void setNextTeamID(int nextTeamId){
         nextTeamID = nextTeamId;
     }
