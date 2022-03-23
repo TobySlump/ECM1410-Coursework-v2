@@ -85,6 +85,8 @@ public class Race implements Serializable {
         LocalDateTime startTime, StageType type){
 
         listOfStages.add(new Stage(stageName, stageDescription, length, startTime, type));
+        assert (listOfStages.getLast().getID() == Stage.getNextStageID())
+                : "Stage was not created with correct ID";
         return listOfStages.getLast().getID();
     }
 

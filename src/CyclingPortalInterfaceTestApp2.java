@@ -23,6 +23,8 @@ public class CyclingPortalInterfaceTestApp2 {
         CyclingPortalInterface cyclingportal = new CyclingPortal();
 
         cyclingportal.createRace("race1", "test race");
+        cyclingportal.createRace("race2", "test race");
+        cyclingportal.createRace("race3", "test race");
 
         cyclingportal.addStageToRace(1, "stage1", "test stage",
                 5, LocalDateTime.now(), StageType.FLAT);
@@ -129,8 +131,12 @@ public class CyclingPortalInterfaceTestApp2 {
 
         System.out.println(Arrays.toString(cyclingportal.getRidersGeneralClassificationRank(1)));
 
-        System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
+        //System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
 
+        cyclingportal.saveCyclingPortal("test");
+        cyclingportal.eraseCyclingPortal();
+        cyclingportal.loadCyclingPortal("test");
+        cyclingportal.createRace("race4", "test race");
 
 
     }

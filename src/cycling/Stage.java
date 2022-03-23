@@ -140,6 +140,8 @@ public class Stage implements Serializable {
      */
     public int addSprint(Double location){
         listOfSegments.add(new SprintSegment(location));
+        assert (listOfSegments.getLast().getSegmentID() == SprintSegment.getNextSegmentID())
+                : "Segment was not created with correct ID";
         return listOfSegments.getLast().getSegmentID();
     }
 
