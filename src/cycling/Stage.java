@@ -26,14 +26,14 @@ public class Stage implements Serializable {
     /**
      * Stage Class constructor.
      *
-     * @param stageName     Name of the stage.
-     * @param description   Description of the stage.
-     * @param length        Length of the stage (kms).
-     * @param startTime     Start time of the stage in LocalDateTime format.
-     * @param type          Type of stage.
+     * @param stageName   Name of the stage.
+     * @param description Description of the stage.
+     * @param length      Length of the stage (kms).
+     * @param startTime   Start time of the stage in LocalDateTime format.
+     * @param type        Type of stage.
      */
     public Stage(String stageName, String description, double length,
-                 LocalDateTime startTime, StageType type){
+                 LocalDateTime startTime, StageType type) {
         this.stageID = ++nextStageID;
         this.stageName = stageName;
         this.description = description;
@@ -48,10 +48,12 @@ public class Stage implements Serializable {
     }
 
     public String getStageName() {
-        return stageName;}
+        return stageName;
+    }
 
     public double getLength() {
-        return length;}
+        return length;
+    }
 
     public String getState() {
         return state;
@@ -61,7 +63,7 @@ public class Stage implements Serializable {
         return type;
     }
 
-    public LocalDateTime getStartTime(){
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
@@ -69,32 +71,34 @@ public class Stage implements Serializable {
         return nextStageID;
     }
 
-    public LocalTime[] getRiderTimes(int riderId){
+    public LocalTime[] getRiderTimes(int riderId) {
         return rawRiderResults.get(riderId);
     }
 
-    public int getNumberOfRiders(){
+    public int getNumberOfRiders() {
         return (rawRiderResults.size());
     }
 
-    public int[] getSegmentsIds(){
+    public int[] getSegmentsIds() {
         int[] listOfSegmentIds = new int[listOfSegments.size()];
-        for (int i = 0; i < listOfSegments.size(); i++){
+        for (int i = 0; i < listOfSegments.size(); i++) {
             listOfSegmentIds[i] = listOfSegments.get(i).getSegmentID();
         }
         return listOfSegmentIds;
     }
 
-    public LinkedList<Segment> getListOfSegments() { return listOfSegments; }
+    public LinkedList<Segment> getListOfSegments() {
+        return listOfSegments;
+    }
 
     /**
      * Creates and returns a list of segment lengths in kilometers.
      *
      * @return List of the lengths of segments.
      */
-    public double[] getListOfSegmentLocations(){
+    public double[] getListOfSegmentLocations() {
         double[] segmentLengths = new double[listOfSegments.size()];
-        for (int i = 0; i < listOfSegments.size(); i++){
+        for (int i = 0; i < listOfSegments.size(); i++) {
             segmentLengths[i] = listOfSegments.get(i).getLocation();
         }
         return segmentLengths;
@@ -106,7 +110,7 @@ public class Stage implements Serializable {
      * @param segmentId The ID of the segment being queried.
      * @return The location of the queried segment.
      */
-    public double getSegmentLocation(int segmentId){
+    public double getSegmentLocation(int segmentId) {
         for (Segment listOfSegment : listOfSegments) {
             if (listOfSegment.getSegmentID() == segmentId) {
                 return listOfSegment.getLocation();
@@ -115,19 +119,21 @@ public class Stage implements Serializable {
         return 0;
     }
 
-    public static void setNextStageID(int nextStageId){ nextStageID = nextStageId; }
+    public static void setNextStageID(int nextStageId) {
+        nextStageID = nextStageId;
+    }
 
     /**
      * Adds a climb segment to a stage.
      *
-     * @param location          The location in which the climb starts.
-     * @param type              The type of climb.
-     * @param averageGradient   The average gradient of the climb.
-     * @param length            The length of the climb in kilometers.
+     * @param location        The location in which the climb starts.
+     * @param type            The type of climb.
+     * @param averageGradient The average gradient of the climb.
+     * @param length          The length of the climb in kilometers.
      * @return The segment ID of the added climb segment.
      */
     public int addClimb(Double location, SegmentType type,
-                        Double averageGradient, Double length){
+                        Double averageGradient, Double length) {
         listOfSegments.add(new ClimbSegment(location, type, averageGradient, length));
         return listOfSegments.getLast().getSegmentID();
     }
@@ -138,7 +144,7 @@ public class Stage implements Serializable {
      * @param location The location in which the stage starts.
      * @return The segment ID of the added sprint segment.
      */
-    public int addSprint(Double location){
+    public int addSprint(Double location) {
         listOfSegments.add(new SprintSegment(location));
         return listOfSegments.getLast().getSegmentID();
     }
@@ -148,9 +154,9 @@ public class Stage implements Serializable {
      *
      * @param segmentId The ID of the segment being removed.
      */
-    public void removeSegment(int segmentId){
-        for (int i = 0; i < listOfSegments.size(); i++){
-            if (listOfSegments.get(i).getSegmentID() == segmentId){
+    public void removeSegment(int segmentId) {
+        for (int i = 0; i < listOfSegments.size(); i++) {
+            if (listOfSegments.get(i).getSegmentID() == segmentId) {
                 listOfSegments.remove(listOfSegments.get(i));
             }
         }
@@ -159,52 +165,52 @@ public class Stage implements Serializable {
     /**
      * Indicates stage preparation has been completed, allowing results to be added.
      */
-    public void concludeStatePreparation(){
+    public void concludeStatePreparation() {
         state = "waiting for results";
     }
 
     /**
      * Adds a riders time to their results.
      *
-     * @param riderId       The ID of the rider that results relate to.
-     * @param riderTimes    The times the rider achieved that are to be added.
+     * @param riderId    The ID of the rider that results relate to.
+     * @param riderTimes The times the rider achieved that are to be added.
      */
-    public void addRidersTime(int riderId, LocalTime[] riderTimes){
+    public void addRidersTime(int riderId, LocalTime[] riderTimes) {
         rawRiderResults.put(riderId, riderTimes);
     }
 
     /**
-     *  Gets the adjusted elapsed times. Riders within one second of each other are grouped together into the same
-     *  position and achieve same points.
+     * Gets the adjusted elapsed times. Riders within one second of each other are grouped together into the same
+     * position and achieve same points.
      *
-     * @param riderId   The ID of the rider.
-     * @return     The adjusted elapsed time for the rider in the stage.
+     * @param riderId The ID of the rider.
+     * @return The adjusted elapsed time for the rider in the stage.
      */
-    public LocalTime getRiderAdjustedElapsedTimes(int riderId){
+    public LocalTime getRiderAdjustedElapsedTimes(int riderId) {
         boolean finishedAdjusting = false;
-        LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length-1];
+        LocalTime finishTime = rawRiderResults.get(riderId)[rawRiderResults.get(riderId).length - 1];
         boolean hasAdjusted;
 
-        while (!finishedAdjusting){
+        while (!finishedAdjusting) {
             hasAdjusted = false;
-            for (Integer key: rawRiderResults.keySet()){
+            for (Integer key : rawRiderResults.keySet()) {
                 double riderTimeInSeconds = finishTime.toSecondOfDay();
 
-                if (key != riderId){
+                if (key != riderId) {
                     //If rider is within 1 second of a rider in front, lower their finish time
-                    if (rawRiderResults.get(key)[rawRiderResults.get(key).length-1].toSecondOfDay() -
-                    riderTimeInSeconds >= -1 && rawRiderResults.get(key)
-                            [rawRiderResults.get(key).length-1].toSecondOfDay() -
-                            riderTimeInSeconds < 0){
+                    if (rawRiderResults.get(key)[rawRiderResults.get(key).length - 1].toSecondOfDay() -
+                            riderTimeInSeconds >= -1 && rawRiderResults.get(key)
+                            [rawRiderResults.get(key).length - 1].toSecondOfDay() -
+                            riderTimeInSeconds < 0) {
 
-                        finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length-1];
+                        finishTime = rawRiderResults.get(key)[rawRiderResults.get(key).length - 1];
                         hasAdjusted = true;
 
                     }
                 }
             }
 
-            if (!hasAdjusted){
+            if (!hasAdjusted) {
                 finishedAdjusting = true;
             }
         }
@@ -217,7 +223,7 @@ public class Stage implements Serializable {
      *
      * @param riderId The ID of the rider.
      */
-    public void removeRidersResults(int riderId){
+    public void removeRidersResults(int riderId) {
         rawRiderResults.remove(riderId);
     }
 
@@ -227,7 +233,7 @@ public class Stage implements Serializable {
      * @param riderId The ID of the rider.
      * @return A boolean, true when rider has results for them.
      */
-    public boolean isRiderInResults(int riderId){
+    public boolean isRiderInResults(int riderId) {
         return rawRiderResults.containsKey(riderId);
     }
 
@@ -237,23 +243,23 @@ public class Stage implements Serializable {
      * @param riderId The ID of the rider.
      * @return The start time of the rider in the race.
      */
-    public int getRiderStartTime(int riderId){
+    public int getRiderStartTime(int riderId) {
         return rawRiderResults.get(riderId)[0].toSecondOfDay();
     }
 
     /**
-     *  Sorts the array of riders in the race based on their results (time) and ranking.
+     * Sorts the array of riders in the race based on their results (time) and ranking.
      *
      * @return sorted array of rider IDs.
      */
-    public int[] getRidersRank(){
+    public int[] getRidersRank() {
         int[][] riderTimes = new int[rawRiderResults.size()][2];
         int index = 0;
 
         //Fills array with rider Ids and their corresponding elapsed time
-        for (Integer key: rawRiderResults.keySet()){
+        for (Integer key : rawRiderResults.keySet()) {
             LocalTime[] riderTimesList = rawRiderResults.get(key);
-            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length-1].toSecondOfDay()
+            int riderFinishTime = riderTimesList[rawRiderResults.get(key).length - 1].toSecondOfDay()
                     - riderTimesList[0].toSecondOfDay();
 
             riderTimes[index][0] = key;
@@ -263,13 +269,13 @@ public class Stage implements Serializable {
 
         //Sorts array by elapsed time
         Arrays.sort(riderTimes, (first, second) -> {
-            if(first[1] > second[1]) return 1;
+            if (first[1] > second[1]) return 1;
             else return -1;
         });
 
         //Extracts sorted rider Ids from array
         int[] riderRanks = new int[rawRiderResults.size()];
-        for (int i = 0; i < rawRiderResults.size(); i++){
+        for (int i = 0; i < rawRiderResults.size(); i++) {
             riderRanks[i] = riderTimes[i][0];
         }
         return riderRanks;
@@ -280,12 +286,12 @@ public class Stage implements Serializable {
      *
      * @return Array of the adjusted times of riders in the stage.
      */
-    public LocalTime[] getRankedAdjustedElapsedTimes(){
+    public LocalTime[] getRankedAdjustedElapsedTimes() {
         int[] RankedAdjustedElapsedTimesSeconds = new int[rawRiderResults.size()];
         int index = 0;
 
         //Fills array with rider adjusted finish times
-        for (Integer key: rawRiderResults.keySet()){
+        for (Integer key : rawRiderResults.keySet()) {
             RankedAdjustedElapsedTimesSeconds[index] = getRiderAdjustedElapsedTimes(key).toSecondOfDay()
                     - rawRiderResults.get(key)[0].toSecondOfDay();
             index += 1;
@@ -294,7 +300,7 @@ public class Stage implements Serializable {
 
         //Converts finish time from Int to LocalTime
         LocalTime[] RankedAdjustedElapsedTimes = new LocalTime[rawRiderResults.size()];
-        for (int i = 0; i < rawRiderResults.size(); i++){
+        for (int i = 0; i < rawRiderResults.size(); i++) {
             RankedAdjustedElapsedTimes[i] = LocalTime.ofSecondOfDay(RankedAdjustedElapsedTimesSeconds[i]);
 
         }
@@ -308,7 +314,7 @@ public class Stage implements Serializable {
      * @param cyclistPosition The position of the cyclist in the race.
      * @return The points scored by the rider.
      */
-    public int getPointsForStageRank(int cyclistPosition){ // selects stage type
+    public int getPointsForStageRank(int cyclistPosition) { // selects stage type
         switch (this.type) {
             case FLAT -> {
                 // score for flat stage
@@ -344,88 +350,89 @@ public class Stage implements Serializable {
         }
         // should never get to this point
         return 0;
-        }
+    }
 
     /**
      * Calculates the points earned by the riders based on their times in the intermediate sprints within the stage.
      *
      * @return Array of rider IDs and the points they earned through sprints.
      */
-    public int[][] getPointsFromStageSprints(){ //calculate points for intermediate sprints
-            LocalTime[] riderTimesList; //list of times for a rider
-            int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
-            int index = 0;
-            int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
-            for (int i = 0; i < listOfSegments.size(); i++) {
-                System.out.println("segment types:" + i);
-                System.out.println(listOfSegments.get(i).getSegmentType());
-                if (listOfSegments.get(i).getSegmentType() == SegmentType.SPRINT) { // if sprint segment
-                    for (Integer key : rawRiderResults.keySet()) { // loop through riders
-                        riderTimesList = rawRiderResults.get(key); //to account for start time
-                        ridersTimes[index][0] = key;
-                        ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
-                        index += 1;
-                    }
-
-                    //sort riders into order they crossed line
-                    Arrays.sort(ridersTimes, (o1, o2) -> {
-                        if (o1[1] > o2[1]) return 1;
-                        else return -1;
-                    });
+    public int[][] getPointsFromStageSprints() { //calculate points for intermediate sprints
+        LocalTime[] riderTimesList; //list of times for a rider
+        int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
+        int index = 0;
+        int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
+        for (int i = 0; i < listOfSegments.size(); i++) {
+            System.out.println("segment types:" + i);
+            System.out.println(listOfSegments.get(i).getSegmentType());
+            if (listOfSegments.get(i).getSegmentType() == SegmentType.SPRINT) { // if sprint segment
+                for (Integer key : rawRiderResults.keySet()) { // loop through riders
+                    riderTimesList = rawRiderResults.get(key); //to account for start time
+                    ridersTimes[index][0] = key;
+                    ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
+                    index += 1;
                 }
+
+                //sort riders into order they crossed line
+                Arrays.sort(ridersTimes, (o1, o2) -> {
+                    if (o1[1] > o2[1]) return 1;
+                    else return -1;
+                });
             }
-            int[] intermediateSprintPoints = {20, 17, 15, 13, 11, 10, 9,
-                    8, 7, 6, 5, 4, 3, 2, 1};
-            for (int i = 0; i < rawRiderResults.size(); i++){
-                if (i < 14) {
-                    ridersPoints[i][0]=ridersTimes[i][0]; //rider ID
-                    ridersPoints[i][1]=intermediateSprintPoints[i];
-                } else {
-                    ridersPoints[i][0]=ridersTimes[i][0];
-                    ridersPoints[i][1]=0;
-                }
-             }
-
-            return ridersPoints;
         }
+        int[] intermediateSprintPoints = {20, 17, 15, 13, 11, 10, 9,
+                8, 7, 6, 5, 4, 3, 2, 1};
+        for (int i = 0; i < rawRiderResults.size(); i++) {
+            if (i < 14) {
+                ridersPoints[i][0] = ridersTimes[i][0]; //rider ID
+                ridersPoints[i][1] = intermediateSprintPoints[i];
+            } else {
+                ridersPoints[i][0] = ridersTimes[i][0];
+                ridersPoints[i][1] = 0;
+            }
+        }
+
+        return ridersPoints;
+    }
 
     /**
      * Calculates points earned within mountain stages by riders.
      *
      * @return Array of rider IDs and the points they earned through mountain stage.
      */
-    public int[][] getPointsFromMountainStages(){
-            LocalTime[] riderTimesList; //list of times for a rider
-            int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
-            int index = 0;
-            SegmentType typeOfSegment = null;
-            int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
-            for (int i = 0; i < listOfSegments.size(); i++) {
-                if (listOfSegments.get(i).getSegmentType() != SegmentType.SPRINT) { // if not sprint segment, so climb segment
-                    typeOfSegment = listOfSegments.get(i).getSegmentType();
-                    for (Integer key : rawRiderResults.keySet()) { // loop through riders
-                        riderTimesList = rawRiderResults.get(key); //to account for start time
-                        ridersTimes[index][0] = key;
-                        ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
-                        System.out.println(key + "done");
-                        index += 1;
-                    }
-
-                    //sort riders into order they crossed line
-                    Arrays.sort(ridersTimes, (o1, o2) -> {
-                        if (o1[1] > o2[1]) return 1;
-                        else return -1;
-                    });
+    public int[][] getPointsFromMountainStages() {
+        LocalTime[] riderTimesList; //list of times for a rider
+        int[][] ridersTimes = new int[rawRiderResults.size()][2]; // list of times for that segment for the race
+        int index = 0;
+        SegmentType typeOfSegment = null;
+        int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
+        for (int i = 0; i < listOfSegments.size(); i++) {
+            if (listOfSegments.get(i).getSegmentType() != SegmentType.SPRINT) { // if not sprint segment, so climb segment
+                typeOfSegment = listOfSegments.get(i).getSegmentType();
+                for (Integer key : rawRiderResults.keySet()) { // loop through riders
+                    riderTimesList = rawRiderResults.get(key); //to account for start time
+                    ridersTimes[index][0] = key;
+                    ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
+                    System.out.println(key + "done");
+                    index += 1;
                 }
+
+                //sort riders into order they crossed line
+                Arrays.sort(ridersTimes, (o1, o2) -> {
+                    if (o1[1] > o2[1]) return 1;
+                    else return -1;
+                });
             }
-            int[] HCPoints = {20, 15, 12, 10, 8, 6, 4, 2}; // Points that HC earns
-            int[] OneCPoints = {10, 8, 6, 4, 2, 1};
-            int[] TwoCPoints = {5, 3, 2, 1};
-            int[] ThreeCPoints = {2, 1};
-            int[] FourCPoints = {1};
-            System.out.println(Arrays.toString(ridersTimes[0]));
-            for (int i = 0; i < rawRiderResults.size(); i++){ // Determine points that each cyclist earns from position
-                switch (Objects.requireNonNull(typeOfSegment)) { //to prevent error, requires it to not be null
+        }
+        int[] HCPoints = {20, 15, 12, 10, 8, 6, 4, 2}; // Points that HC earns
+        int[] OneCPoints = {10, 8, 6, 4, 2, 1};
+        int[] TwoCPoints = {5, 3, 2, 1};
+        int[] ThreeCPoints = {2, 1};
+        int[] FourCPoints = {1};
+        System.out.println(Arrays.toString(ridersTimes[0]));
+        for (int i = 0; i < rawRiderResults.size(); i++) { // Determine points that each cyclist earns from position
+            if (typeOfSegment != null) {  //to prevent error, requires it to not be null
+                switch (typeOfSegment) {
                     case HC -> {
                         ridersPoints[i][0] = ridersTimes[i][0];
                         if (i < HCPoints.length) {
@@ -468,11 +475,12 @@ public class Stage implements Serializable {
                         }
                     }
                     default -> {
-                    } //not a climb
+                    }
                 }
             }
-
-            return ridersPoints;
         }
+        return ridersPoints;
     }
+}
+
 
