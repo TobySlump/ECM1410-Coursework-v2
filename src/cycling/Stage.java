@@ -21,7 +21,7 @@ public class Stage implements Serializable {
     private StageType type;
     private LinkedList<Segment> listOfSegments = new LinkedList<>();
     private String state;
-    private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<Integer, LocalTime[]>(); //riderid, ridertimes
+    private Map<Integer, LocalTime[]> rawRiderResults = new HashMap<>(); //riderid, ridertimes
 
     /**
      * Stage Class constructor.
@@ -103,13 +103,13 @@ public class Stage implements Serializable {
     /**
      * Finds and returns the location of the requested segment.
      *
-     * @param segmentId
-     * @return
+     * @param segmentId The ID of the segment being queried.
+     * @return The location of the queried segment.
      */
     public double getSegmentLocation(int segmentId){
-        for (int i = 0; i < listOfSegments.size(); i++){
-            if (listOfSegments.get(i).getSegmentID() == segmentId){
-                return listOfSegments.get(i).getLocation();
+        for (Segment listOfSegment : listOfSegments) {
+            if (listOfSegment.getSegmentID() == segmentId) {
+                return listOfSegment.getLocation();
             }
         }
         return 0;
@@ -262,12 +262,9 @@ public class Stage implements Serializable {
         }
 
         //Sorts array by elapsed time
-        Arrays.sort(riderTimes, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] first, int[] second) {
-                if(first[1] > second[1]) return 1;
-                else return -1;
-            }
+        Arrays.sort(riderTimes, (first, second) -> {
+            if(first[1] > second[1]) return 1;
+            else return -1;
         });
 
         //Extracts sorted rider Ids from array
@@ -313,36 +310,37 @@ public class Stage implements Serializable {
      */
     public int getPointsForStageRank(int cyclistPosition){ // selects stage type
         switch (this.type) {
-            case FLAT:
+            case FLAT -> {
                 // score for flat stage
                 int[] flatPoints = {50, 30, 20, 18, 16, 14, 12, 10, 8,
-                    7, 6, 5, 4, 3, 2};
+                        7, 6, 5, 4, 3, 2};
                 if (cyclistPosition < 14) {
                     return flatPoints[cyclistPosition];
                 } else {
                     return 0;
                 }
-            case MEDIUM_MOUNTAIN:
+            }
+            case MEDIUM_MOUNTAIN -> {
                 // score for medium mountain stage
                 int[] mediumMountainPoints = {30, 25, 22, 19, 17, 15, 13, 11,
-                9, 7, 6, 5, 4, 3, 2};
+                        9, 7, 6, 5, 4, 3, 2};
                 if (cyclistPosition < 14) { //position is -1 due to 0 indexing. i.e., first place is position 0.
                     return mediumMountainPoints[cyclistPosition];
                 } else {
                     return 0;
                 }
-            case HIGH_MOUNTAIN:
-                // Score for high mountain stage
-            case TT:
+            }
+            // Score for high mountain stage
+            case HIGH_MOUNTAIN, TT -> {
                 // score for TT mountain stage (Same as high mountain)
                 int[] highMountainPoints = {20, 17, 15, 13, 11, 10, 9,
-                8, 7, 6, 5, 4, 3, 2, 1};
+                        8, 7, 6, 5, 4, 3, 2, 1};
                 if (cyclistPosition < 14) {
                     return highMountainPoints[cyclistPosition];
                 } else {
                     return 0;
                 }
-
+            }
         }
         // should never get to this point
         return 0;
@@ -369,12 +367,10 @@ public class Stage implements Serializable {
                         index += 1;
                     }
 
-                    Arrays.sort(ridersTimes, new Comparator<int[]>() { //sort riders into order they crossed line
-                        @Override
-                        public int compare(int[] o1, int[] o2) {
-                            if (o1[1] > o2[1]) return 1;
-                            else return -1;
-                        }
+                    //sort riders into order they crossed line
+                    Arrays.sort(ridersTimes, (o1, o2) -> {
+                        if (o1[1] > o2[1]) return 1;
+                        else return -1;
                     });
                 }
             }
@@ -415,12 +411,10 @@ public class Stage implements Serializable {
                         index += 1;
                     }
 
-                    Arrays.sort(ridersTimes, new Comparator<int[]>() { //sort riders into order they crossed line
-                        @Override
-                        public int compare(int[] o1, int[] o2) {
-                            if (o1[1] > o2[1]) return 1;
-                            else return -1;
-                        }
+                    //sort riders into order they crossed line
+                    Arrays.sort(ridersTimes, (o1, o2) -> {
+                        if (o1[1] > o2[1]) return 1;
+                        else return -1;
                     });
                 }
             }
@@ -432,49 +426,49 @@ public class Stage implements Serializable {
             System.out.println(Arrays.toString(ridersTimes[0]));
             for (int i = 0; i < rawRiderResults.size(); i++){ // Determine points that each cyclist earns from position
                 switch (typeOfSegment) {
-                    case HC:
+                    case HC -> {
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i < HCPoints.length - 1) {
+                        if (i < HCPoints.length) {
                             ridersPoints[i][1] = HCPoints[i];
                         } else {
                             ridersPoints[i][1] = 0;
                         }
-                        break;
-                    case C1:
+                    }
+                    case C1 -> {
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i < OneCPoints.length - 1) {
+                        if (i < OneCPoints.length) {
                             ridersPoints[i][1] = OneCPoints[i];
                             System.out.println(ridersPoints[i][0] + "done");
                         } else {
                             ridersPoints[i][1] = 0;
                         }
-                        break;
-                    case C2:
+                    }
+                    case C2 -> {
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i > TwoCPoints.length - 1) {
+                        if (i < TwoCPoints.length) {
                             ridersPoints[i][1] = TwoCPoints[i];
                         } else {
                             ridersPoints[i][1] = 0;
                         }
-                        break;
-                    case C3:
+                    }
+                    case C3 -> {
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i < ThreeCPoints.length - 1) {
+                        if (i < ThreeCPoints.length) {
                             ridersPoints[i][1] = ThreeCPoints[i];
                         } else {
                             ridersPoints[i][1] = 0;
                         }
-                        break;
-                    case C4:
+                    }
+                    case C4 -> {
                         ridersPoints[i][0] = ridersTimes[i][0];
-                        if (i < FourCPoints.length - 1) {
+                        if (i < FourCPoints.length) {
                             ridersPoints[i][1] = FourCPoints[i];
                         } else {
                             ridersPoints[i][1] = 0;
                         }
-                        break;
-                    default: //not a climb
-                        break;
+                    }
+                    default -> {
+                    } //not a climb
                 }
             }
 
