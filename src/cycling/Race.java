@@ -9,7 +9,8 @@ import java.util.*;
  * The java class for race. Contains methods relating to races within the cycling app.
  *
  * @author Toby Slump and James Cracknell
- * @date 03/2022
+ * @version 1.0
+ * 03/2022
  */
 public class Race implements Serializable {
     private int raceID;
@@ -31,10 +32,20 @@ public class Race implements Serializable {
         raceID = ++nextRaceID;
     }
 
+    /**
+     * Gets race ID.
+     *
+     * @return unique race ID.
+     */
     public int getRaceID(){
         return raceID;
     }
 
+    /**
+     * Gets race name.
+     *
+     * @return unique race name.
+     */
     public String getRaceName(){
         return name;
     }

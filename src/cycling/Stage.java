@@ -9,7 +9,8 @@ import java.util.*;
  *  The java class for stage. Contains methods relating to stages within races in the cycling app.
  *
  *  @author Toby Slump and James Cracknell
- *  @date 03/2022
+ *  @version 1.0
+ *  03/2022
  */
 public class Stage implements Serializable {
     private int stageID;

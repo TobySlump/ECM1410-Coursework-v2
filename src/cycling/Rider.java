@@ -6,7 +6,8 @@ import java.io.Serializable;
  *  The java class for riders. Contains methods relating to riders within teams in the cycling app.
  *
  *  @author Toby Slump and James Cracknell
- *  @date 03/2022
+ *  @version 1.0
+ *  03/2022
  */
 public class Rider implements Serializable {
     private int riderID;

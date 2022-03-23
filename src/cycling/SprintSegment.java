@@ -7,7 +7,8 @@ import java.io.Serializable;
  *  in the cycling app.
  *
  *  @author Toby Slump and James Cracknell
- *  @date 03/2022
+ *  @version 1.0
+ *  03/2022
  */
 public class SprintSegment extends Segment implements Serializable {
 
@@ -23,6 +24,7 @@ public class SprintSegment extends Segment implements Serializable {
 
     }
 
+    @Override
     public int getSegmentID() {
         return segmentID;
     }

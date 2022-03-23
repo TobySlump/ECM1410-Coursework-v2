@@ -7,7 +7,8 @@ import java.io.Serializable;
  *  in the cycling app. Segments are lengths of races with an additional purpose such as intermediate sprints, or climbs.
  *
  *  @author Toby Slump and James Cracknell
- *  @date 03/2022
+ *  @version 1.0
+ *  03/2022
  */
 public abstract class Segment implements Serializable {
     protected int segmentID;
