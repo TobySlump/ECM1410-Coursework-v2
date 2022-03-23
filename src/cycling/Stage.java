@@ -345,8 +345,10 @@ public class Stage implements Serializable {
                     return 0;
                 }
             }
+            default -> {
+                assert false : "Not a valid stage type";
+            }
         }
-        // should never get to this point
         return 0;
         }
 
@@ -472,7 +474,8 @@ public class Stage implements Serializable {
                         }
                     }
                     default -> {
-                    } //not a climb
+                        assert false : "Not a valid climb";
+                    }
                 }
             }
 
