@@ -5,6 +5,12 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+/**
+ * The java class for race. Contains methods relating to races within the cycling app.
+ *
+ * @author Toby Slump and James Cracknell
+ * @date 03/2022
+ */
 public class Race implements Serializable {
     private int raceID;
     private static int nextRaceID = 0;

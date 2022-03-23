@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+/**
+ *
+ */
 public class CyclingPortal implements CyclingPortalInterface {
     private LinkedList<Race> ListOfRaces = new LinkedList<>();
     private LinkedList<Team> ListOfTeams = new LinkedList<>();

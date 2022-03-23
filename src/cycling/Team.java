@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.LinkedList;
 
+/**
+ *  The java class for teams. Contains methods relating to Teams in the cycling app.
+ *
+ *  @author Toby Slump and James Cracknell
+ *  @date 03/2022
+ */
 public class Team implements Serializable {
 
     private int teamID;
