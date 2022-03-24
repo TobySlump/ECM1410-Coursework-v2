@@ -379,6 +379,9 @@ public class CyclingPortal implements CyclingPortalInterface {
             for (int j = 0; j < team.getRiderIds().length; j++) {
                 if (team.getRiderIds()[j] == riderId) {
                     team.removeRider(riderId);
+                    for (Race race : listOfRaces){
+                        race.deleteAllRiderResults(riderId);
+                    }
                     hasRemoved = true;
                 }
             }

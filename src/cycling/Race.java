@@ -430,6 +430,17 @@ public class Race implements Serializable {
     }
 
     /**
+     * Removes the results of a rider from every stage in the race.
+     *
+     * @param riderID The ID of the rider whose results are being deleted.
+     */
+    public void deleteAllRiderResults(int riderID){
+        for (Stage stage : listOfStages){
+            stage.removeRidersResults(riderID);
+        }
+    }
+
+    /**
      * Queries whether a rider has results in a stage.
      *
      * @param stageId The stage being queried.
