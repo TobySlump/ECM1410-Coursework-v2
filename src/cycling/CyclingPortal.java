@@ -512,9 +512,7 @@ public class CyclingPortal implements CyclingPortalInterface {
         if (ridersRanked.length == 0){ // if ID is not recognised, return will be empty
             throw new IDNotRecognisedException("Stage ID not recognised");
         }
-        System.out.println("run 3");
         int [] riderPoints = new int [ridersRanked.length]; // create new array of riders to store points
-        System.out.println("run 4");
         for (Race race : listOfRaces) { // loop through races
             if (!pointsCalculated) { // if data for points has not been collected
                 for (int j = 0; j < ridersRanked.length; j++) { // loops through riders
@@ -525,7 +523,6 @@ public class CyclingPortal implements CyclingPortalInterface {
                 }
             }
         }
-        System.out.println("run 5");
         return riderPoints;
     }
 
@@ -542,8 +539,6 @@ public class CyclingPortal implements CyclingPortalInterface {
             if (!pointsCalculated) { // if data for points has not been collected
                 for (int j = 0; j < ridersRanked.length; j++) { // for loops through riders
                     riderPoints[j] = race.getMountainPointsFromStage(stageId, ridersRanked[j]); // add current riders point to array of rider points
-                    System.out.println(j + "added");
-                    System.out.println(riderPoints[j]);
                     if (riderPoints[j] != 0) { // data has been returned
                         pointsCalculated = true; // will not get data again
                     }
@@ -697,16 +692,14 @@ public class CyclingPortal implements CyclingPortalInterface {
         for (int i = 0; i < ridersRank.length; i++) { // create 2d array to allow for sorting
             combinedRiders[i][0] = ridersRank[i];
             combinedRiders[i][1] = ridersPoints[i];
-            System.out.println("getRidersPointClassificationRank: Rider: " + ridersRank[i] + " Points: "+ ridersPoints[i]);
         }
-        //sort the array
-// sort based on time
+      // sort based on time
         Arrays.sort(combinedRiders, (first, second) -> {
-            if (first[1] > second[1]) return 1;
+            if (first[1] < second[1]) return 1;
             else return -1;
         });
         for (int i = 0; i < ridersRank.length; i++) {
-            ridersPoints[i] = combinedRiders[i][1]; // make array of sorted points
+            ridersPoints[i] = combinedRiders[i][0]; // make array of sorted IDs
         }
         return ridersPoints;
     }
@@ -724,14 +717,13 @@ public class CyclingPortal implements CyclingPortalInterface {
             combinedRiders[i][0] = ridersRank[i];
             combinedRiders[i][1] = ridersPoints[i];
         }
-        //sort the array
-// sort based on time
+        // sort based on time
         Arrays.sort(combinedRiders, (first, second) -> {
-            if (first[1] > second[1]) return 1;
+            if (first[1] < second[1]) return 1;
             else return -1;
         });
         for (int i = 0; i < ridersRank.length; i++) {
-            ridersPoints[i] = combinedRiders[i][1]; // make array of sorted points
+            ridersPoints[i] = combinedRiders[i][0]; // make array of sorted IDs
         }
 
         return ridersPoints;

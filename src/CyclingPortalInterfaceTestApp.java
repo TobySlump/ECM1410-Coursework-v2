@@ -77,9 +77,9 @@ public class CyclingPortalInterfaceTestApp {
 		assert (Arrays.equals(cyclingportal.getRaceStages(2),desiredArray))
 				: "Races not created correctly";
 
+		System.out.println(cyclingportal.addIntermediateSprintToStage(1, 2.4));
 		System.out.println(cyclingportal.addCategorizedClimbToStage
 				(1, 1.1, SegmentType.C1, 5.0,2.0));
-		System.out.println(cyclingportal.addIntermediateSprintToStage(1, 2.4));
 
 		//cyclingportal.removeSegment(2);
 		System.out.println(Arrays.toString(cyclingportal.getStageSegments(1)));

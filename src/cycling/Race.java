@@ -478,14 +478,9 @@ public class Race implements Serializable {
                 int numberOfRiders = stage.getNumberOfRiders(); // number of riders in race
                 riderPoints = (stage.getPointsForStageRank(riderPosition)); // points from stage finish
                 for (int j = 0; j < (numberOfRiders); j++) { // loop through riders
-                    System.out.println("j:" + j);
                     int[][] PointsFromStage = (stage.getPointsFromStageSprints()); // get the points of stage sprints
                     if (PointsFromStage[j][0] == riderID) {
-                        System.out.println("rider ID:" + riderID);
-                        System.out.println("Stage points:" + riderPoints);
                         riderPoints += PointsFromStage[j][1]; // points from sprints
-                        System.out.println("segment points:" + PointsFromStage[j][1]);
-                        System.out.println("combined points:" + riderPoints);
                     }
                 }
                 return riderPoints;
@@ -630,20 +625,17 @@ public class Race implements Serializable {
         int[] ridersSorted = getRidersGeneralClassificationRank();
         int[] ridersPoints = new int[getRidersGeneralClassificationRank().length];
         for (int i = 0; i <= ridersSorted.length-1; i++){ // loop through riders
-            System.out.println("Rider should be: " + ridersSorted[i]);
             for (Stage stageObj : listOfStages) { // loop through stages
                 //ridersPoints[i] += stageObj.getPointsForStageRank(stageObj.getRidersRank()[ridersSorted[(i)]-1]);
                 // score for position in race for rider in ridersSorted[i]
                 for (int j =0; j < ridersSorted.length; j++){
                     if (stageObj.getRidersRank()[j] == ridersSorted[i]) {
                         ridersPoints[i] += stageObj.getPointsForStageRank(j);
-                        System.out.println("Stage points are: " + ridersPoints[i]);
                     }
-                    if(stageObj.getPointsFromStageSprints()[i][0] == ridersSorted[0]){ //add riders sprint points
-                        ridersPoints[i] += stageObj.getPointsFromStageSprints()[i][1];
+                    if(stageObj.getPointsFromStageSprints()[j][0] == ridersSorted[i]){ //add riders sprint points
+                        ridersPoints[i] += stageObj.getPointsFromStageSprints()[j][1];
                     }
                 }
-                System.out.println("Stage points plus sprints for are: " + ridersPoints[i]);
             }
         }
         return ridersPoints;
@@ -658,12 +650,10 @@ public class Race implements Serializable {
         int[] ridersSorted = getRidersGeneralClassificationRank();
         int[] ridersPoints = new int[getRidersGeneralClassificationRank().length];
         for (int i = 0; i < ridersSorted.length; i++){ // loop through riders
-            System.out.println("Rider should be: " + ridersSorted[i]);
             for (Stage stageObj : listOfStages) { // loop through stages
                 for (int j =0; j < ridersSorted.length; j++) {
-                    if (stageObj.getRidersRank()[j] == ridersSorted[i]) {
-                        ridersPoints[i] += stageObj.getPointsFromMountainStages()[i][1];
-                        System.out.println("Mountain points are: " + ridersPoints[i]);
+                    if (stageObj.getPointsFromMountainStages()[j][0] == ridersSorted[i]) {
+                        ridersPoints[i] += stageObj.getPointsFromMountainStages()[j][1];
                     }
                 }
             }

@@ -372,9 +372,6 @@ public class Stage implements Serializable {
      * @return The points scored by the rider.
      */
     public int getPointsForStageRank(int cyclistPosition) { // selects stage type
-        System.out.println("Stage type is: " + (this.type));
-        System.out.println("Rider position is: " + (cyclistPosition+1));
-
         switch (this.type) {
             case FLAT -> {
                 // score for flat stage
@@ -425,13 +422,11 @@ public class Stage implements Serializable {
         int index = 0;
         int[][] ridersPoints = new int[rawRiderResults.size()][2]; //list of riders points
         for (int i = 0; i < listOfSegments.size(); i++) {
-            System.out.println("segment types:" + i);
-            System.out.println(listOfSegments.get(i).getSegmentType());
             if (listOfSegments.get(i).getSegmentType() == SegmentType.SPRINT) { // if sprint segment
                 for (Integer key : rawRiderResults.keySet()) { // loop through riders
                     riderTimesList = rawRiderResults.get(key); //to account for start time
                     ridersTimes[index][0] = key;
-                    ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
+                    ridersTimes[index][1] = riderTimesList[i+1].toSecondOfDay();
                     index += 1;
                 }
 
@@ -445,7 +440,6 @@ public class Stage implements Serializable {
                         8, 7, 6, 5, 4, 3, 2, 1};
                 for (int j = 0; j < rawRiderResults.size(); j++) {
                     if (j < 14) {
-                        System.out.println("Intermediate sprint points for rider " + ridersTimes[j][0] + " are: " + intermediateSprintPoints[j]);
                         ridersPoints[j][0] = ridersTimes[j][0]; //rider ID
                         ridersPoints[j][1] = intermediateSprintPoints[j];
                     } else {
@@ -477,8 +471,7 @@ public class Stage implements Serializable {
                 for (Integer key : rawRiderResults.keySet()) { // loop through riders
                     riderTimesList = rawRiderResults.get(key); //to account for start time
                     ridersTimes[index][0] = key;
-                    ridersTimes[index][1] = riderTimesList[i].toSecondOfDay(); //
-                    System.out.println(key + "done");
+                    ridersTimes[index][1] = riderTimesList[i+1].toSecondOfDay(); //
                     index += 1;
                 }
 
@@ -494,7 +487,6 @@ public class Stage implements Serializable {
         int[] TwoCPoints = {5, 3, 2, 1};
         int[] ThreeCPoints = {2, 1};
         int[] FourCPoints = {1};
-        System.out.println(Arrays.toString(ridersTimes[0]));
         for (int i = 0; i < rawRiderResults.size(); i++) { // Determine points that each cyclist earns from position
             if (typeOfSegment != null) {  //to prevent error, requires it to not be null
                 switch (typeOfSegment) {
@@ -510,7 +502,6 @@ public class Stage implements Serializable {
                         ridersPoints[i][0] = ridersTimes[i][0];
                         if (i < OneCPoints.length) {
                             ridersPoints[i][1] = OneCPoints[i];
-                            System.out.println(ridersPoints[i][0] + "done");
                         } else {
                             ridersPoints[i][1] = 0;
                         }
