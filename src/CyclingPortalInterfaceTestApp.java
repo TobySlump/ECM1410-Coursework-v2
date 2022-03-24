@@ -35,7 +35,7 @@ public class CyclingPortalInterfaceTestApp {
 		assert (portal.getRaceIds().length == 0)
 				: "Innitial SocialMediaPlatform not empty as required or not returning an empty array.";
 
-		MiniCyclingPortalInterface cyclingportal = new CyclingPortal();
+		CyclingPortalInterface cyclingportal = new CyclingPortal();
 
 		cyclingportal.createRace("race1", "test race");
 		cyclingportal.createRace("race2", "test race");
@@ -153,7 +153,12 @@ public class CyclingPortalInterfaceTestApp {
 		// getRidersRankInStage
 		// rawRiderResults
 
-
-
+		System.out.println("Testing the 'race points adding' now.");
+		System.out.println("stage segments" + Arrays.toString(cyclingportal.getRidersPointClassificationRank(2)));
+		System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(1, 1)));
+		System.out.println(Arrays.toString(cyclingportal.getRidersRankInStage(1)));
+		System.out.println(Arrays.toString(cyclingportal.getRidersPointsInStage(1)));
+		System.out.println("Mountain segments");
+		System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointsInStage(1)));
 	}
 }

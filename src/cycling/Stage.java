@@ -286,9 +286,9 @@ public class Stage implements Serializable {
     }
 
     /**
-     * Calculates the adjusted time of riders in a stage, riders within 1s of each other are grouped.
+     * Calculates the adjusted finish time of riders in a stage, riders within 1s of each other are grouped.
      *
-     * @return Array of the adjusted times of riders in the stage.
+     * @return Array of the adjusted finish times of riders in the stage.
      */
     public LocalTime[] getRankedAdjustedElapsedTimes() {
         int[] RankedAdjustedElapsedTimesSeconds = new int[rawRiderResults.size()];
@@ -319,6 +319,9 @@ public class Stage implements Serializable {
      * @return The points scored by the rider.
      */
     public int getPointsForStageRank(int cyclistPosition) { // selects stage type
+        System.out.println("Stage type is: " + (this.type));
+        System.out.println("Rider position is: " + (cyclistPosition+1));
+
         switch (this.type) {
             case FLAT -> {
                 // score for flat stage
@@ -384,17 +387,20 @@ public class Stage implements Serializable {
                     if (o1[1] > o2[1]) return 1;
                     else return -1;
                 });
-            }
-        }
-        int[] intermediateSprintPoints = {20, 17, 15, 13, 11, 10, 9,
-                8, 7, 6, 5, 4, 3, 2, 1};
-        for (int i = 0; i < rawRiderResults.size(); i++) {
-            if (i < 14) {
-                ridersPoints[i][0] = ridersTimes[i][0]; //rider ID
-                ridersPoints[i][1] = intermediateSprintPoints[i];
-            } else {
-                ridersPoints[i][0] = ridersTimes[i][0];
-                ridersPoints[i][1] = 0;
+
+                int[] intermediateSprintPoints = {20, 17, 15, 13, 11, 10, 9,
+                        8, 7, 6, 5, 4, 3, 2, 1};
+                for (int j = 0; j < rawRiderResults.size(); j++) {
+                    if (j < 14) {
+                        System.out.println("Intermediate sprint points for rider " + ridersTimes[j][0] + " are: " + intermediateSprintPoints[j]);
+                        ridersPoints[j][0] = ridersTimes[j][0]; //rider ID
+                        ridersPoints[j][1] = intermediateSprintPoints[j];
+                    } else {
+                        ridersPoints[j][0] = ridersTimes[j][0];
+                        ridersPoints[j][1] = 0;
+                    }
+                }
+
             }
         }
 

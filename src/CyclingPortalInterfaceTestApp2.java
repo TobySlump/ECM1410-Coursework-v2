@@ -126,6 +126,37 @@ public class CyclingPortalInterfaceTestApp2 {
                 {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(25)};
         cyclingportal.registerRiderResultsInStage(2, 6, riderTimes);
 
+        System.out.println("""
+                STAGE 2 RESULTS
+                
+                rider 1 results""");
+        System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(2, 1)));
+        System.out.println("Adjusted time: " +cyclingportal.getRiderAdjustedElapsedTimeInStage(1,1));
+        System.out.println("""
+                
+                rider 2 results""");
+        System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(2, 2)));
+        System.out.println("Adjusted time: " +cyclingportal.getRiderAdjustedElapsedTimeInStage(1,2));
+        System.out.println("""
+                
+                rider 3 results""");
+        System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(2, 3)));
+        System.out.println("Adjusted time: " +cyclingportal.getRiderAdjustedElapsedTimeInStage(1,3));
+        System.out.println("""
+                
+                rider 4 results""");
+        System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(2, 4)));
+        System.out.println("Adjusted time: " +cyclingportal.getRiderAdjustedElapsedTimeInStage(1,4));
+        System.out.println("""
+                
+                rider 5 results""");
+        System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(2, 5)));
+        System.out.println("Adjusted time: " +cyclingportal.getRiderAdjustedElapsedTimeInStage(1,5));
+        System.out.println("""
+                
+                rider 6 results""");
+        System.out.println(Arrays.toString(cyclingportal.getRiderResultsInStage(2, 6)));
+        System.out.println("Adjusted time: " +cyclingportal.getRiderAdjustedElapsedTimeInStage(1,6));
 
         System.out.println(Arrays.toString(cyclingportal.getGeneralClassificationTimesInRace(1)));
 
@@ -133,7 +164,10 @@ public class CyclingPortalInterfaceTestApp2 {
 
         System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
 
-
+        // Test points for Race
+        System.out.println("Testing the 'race points adding' now.");
+        System.out.println(Arrays.toString(cyclingportal.getRidersPointClassificationRank(1)));
+        System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
 
     }
 }

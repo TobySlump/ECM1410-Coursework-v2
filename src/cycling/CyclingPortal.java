@@ -651,6 +651,7 @@ public class CyclingPortal implements CyclingPortalInterface {
     @Override
     public int[] getRidersPointsInRace(int raceId) throws IDNotRecognisedException {
         int[] ridersPoints;
+        // adjusted lap time not just lap time
         for (Race race : listOfRaces) {
             if (race.getRaceID() == raceId) {
                 ridersPoints = race.getRidersOverallPoints(); //get points for race
@@ -688,11 +689,15 @@ public class CyclingPortal implements CyclingPortalInterface {
     public int[] getRidersPointClassificationRank(int raceId) throws IDNotRecognisedException {
         int[] ridersPoints = getRidersPointsInRace(raceId); //gets list of riders points
         int[] ridersRank = getRidersGeneralClassificationRank(raceId);
+        if (ridersPoints.length == 0){ //if no riders results were returned then race ID is invalid
+            throw new IDNotRecognisedException("Race ID is not recognised.");
+        }
         int[][] combinedRiders = new int[ridersRank.length][2];
         //ridersRank[i] is the rider ID with the score in ridersPoints[i]
         for (int i = 0; i < ridersRank.length; i++) { // create 2d array to allow for sorting
             combinedRiders[i][0] = ridersRank[i];
             combinedRiders[i][1] = ridersPoints[i];
+            System.out.println("getRidersPointClassificationRank: Rider: " + ridersRank[i] + " Points: "+ ridersPoints[i]);
         }
         //sort the array
 // sort based on time
@@ -701,9 +706,8 @@ public class CyclingPortal implements CyclingPortalInterface {
             else return -1;
         });
         for (int i = 0; i < ridersRank.length; i++) {
-            ridersPoints[i] = combinedRiders[i][0]; // make array of sorted IDs
+            ridersPoints[i] = combinedRiders[i][1]; // make array of sorted points
         }
-
         return ridersPoints;
     }
 
@@ -711,6 +715,9 @@ public class CyclingPortal implements CyclingPortalInterface {
     public int[] getRidersMountainPointClassificationRank(int raceId) throws IDNotRecognisedException {
         int[] ridersPoints = getRidersMountainPointsInRace(raceId); //gets list of riders points
         int[] ridersRank = getRidersGeneralClassificationRank(raceId);
+        if (ridersPoints.length == 0){ //if no riders results were returned then race ID is invalid
+            throw new IDNotRecognisedException("Race ID is not recognised.");
+        }
         int[][] combinedRiders = new int[ridersRank.length][2];
         //ridersRank[i] is the rider ID with the score in ridersPoints[i]
         for (int i = 0; i < ridersRank.length; i++) { // create 2d array to allow for sorting
@@ -724,7 +731,7 @@ public class CyclingPortal implements CyclingPortalInterface {
             else return -1;
         });
         for (int i = 0; i < ridersRank.length; i++) {
-            ridersPoints[i] = combinedRiders[i][0]; // make array of sorted IDs
+            ridersPoints[i] = combinedRiders[i][1]; // make array of sorted points
         }
 
         return ridersPoints;
