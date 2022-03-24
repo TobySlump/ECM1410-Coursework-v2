@@ -8,7 +8,11 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 /**
+ * Compiling, functional implementor of the CyclingPortalInterface interface.
  *
+ * @author Toby Slump and James Cracknell
+ * @version 1.0
+ * 03/2022
  */
 public class CyclingPortal implements CyclingPortalInterface {
     private LinkedList<Race> listOfRaces = new LinkedList<>();
@@ -375,6 +379,9 @@ public class CyclingPortal implements CyclingPortalInterface {
             for (int j = 0; j < team.getRiderIds().length; j++) {
                 if (team.getRiderIds()[j] == riderId) {
                     team.removeRider(riderId);
+                    for (Race race : listOfRaces){
+                        race.deleteAllRiderResults(riderId);
+                    }
                     hasRemoved = true;
                 }
             }

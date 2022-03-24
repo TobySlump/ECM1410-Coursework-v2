@@ -1,11 +1,9 @@
 import cycling.*;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 public class CyclingPortalInterfaceTestApp2 {
 
@@ -56,15 +54,15 @@ public class CyclingPortalInterfaceTestApp2 {
         cyclingportal.registerRiderResultsInStage(1, 2, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(20)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(21)};
         cyclingportal.registerRiderResultsInStage(1, 3, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(14)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(19)};
         cyclingportal.registerRiderResultsInStage(1, 4, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(21)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(20)};
         cyclingportal.registerRiderResultsInStage(1, 5, riderTimes);
 
         riderTimes = new LocalTime[]
@@ -165,6 +163,7 @@ public class CyclingPortalInterfaceTestApp2 {
 
         System.out.println(Arrays.toString(cyclingportal.getGeneralClassificationTimesInRace(1)));
 
+        System.out.println(Arrays.toString(cyclingportal.getRidersRankInStage(1)));
         System.out.println(Arrays.toString(cyclingportal.getRidersGeneralClassificationRank(1)));
 
         System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
@@ -177,5 +176,9 @@ public class CyclingPortalInterfaceTestApp2 {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println(Arrays.toString(cyclingportal.getRidersPointsInRace(1)));
         System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointsInRace(1)));
+
+        cyclingportal.removeRider(4);
+        System.out.println(Arrays.toString(cyclingportal.getRankedAdjustedElapsedTimesInStage(1)));
+
     }
 }
