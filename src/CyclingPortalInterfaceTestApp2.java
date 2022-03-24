@@ -51,15 +51,15 @@ public class CyclingPortalInterfaceTestApp2 {
         cyclingportal.registerRiderResultsInStage(1, 2, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(20)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(21)};
         cyclingportal.registerRiderResultsInStage(1, 3, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(14)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(19)};
         cyclingportal.registerRiderResultsInStage(1, 4, riderTimes);
 
         riderTimes = new LocalTime[]
-                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(21)};
+                {LocalTime.ofSecondOfDay(0), LocalTime.ofSecondOfDay(20)};
         cyclingportal.registerRiderResultsInStage(1, 5, riderTimes);
 
         riderTimes = new LocalTime[]
@@ -160,14 +160,15 @@ public class CyclingPortalInterfaceTestApp2 {
 
         System.out.println(Arrays.toString(cyclingportal.getGeneralClassificationTimesInRace(1)));
 
+        System.out.println(Arrays.toString(cyclingportal.getRidersRankInStage(1)));
         System.out.println(Arrays.toString(cyclingportal.getRidersGeneralClassificationRank(1)));
 
-        System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
+        //System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
 
         // Test points for Race
-        System.out.println("Testing the 'race points adding' now.");
-        System.out.println(Arrays.toString(cyclingportal.getRidersPointClassificationRank(1)));
-        System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
+        //System.out.println("Testing the 'race points adding' now.");
+        //System.out.println(Arrays.toString(cyclingportal.getRidersPointClassificationRank(1)));
+        //System.out.println(Arrays.toString(cyclingportal.getRidersMountainPointClassificationRank(1)));
 
     }
 }

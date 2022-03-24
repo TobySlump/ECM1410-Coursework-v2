@@ -584,29 +584,39 @@ public class Race implements Serializable {
     public int[] getRidersGeneralClassificationRank() {
         int arrayLength = getGeneralClassificationTimes().length;
         int[] classificationRank = new int[arrayLength];
-        int[][] classificationRiderTime = new int[arrayLength][2];
+        int[][] classificationRiderTime = new int[arrayLength][3];
 
         //Fills array with rider Ids and their corresponding total times
         for (int i = 1; i <= Rider.getNextRiderID(); i++) {
+            int totalAdjustedTime = 0;
             int totalTime = 0;
             for (Stage stageObj : listOfStages) {
                 if (isRiderInResults(stageObj.getID(), i)) {
-                    totalTime = totalTime + stageObj.getRiderAdjustedElapsedTimes(i).toSecondOfDay()
+                    totalAdjustedTime = totalAdjustedTime + stageObj.getRiderAdjustedElapsedTimes(i).toSecondOfDay()
                             - stageObj.getRiderStartTime(i);
+                    totalTime = totalTime + stageObj.getRiderTimes(i)[stageObj.getRiderTimes(i).length-1].toSecondOfDay()
+                            - stageObj.getRiderStartTime(1);
                 } else {
-                    totalTime = -1;
+                    totalAdjustedTime = -1;
                     break;
                 }
             }
-            if (totalTime != -1) {
+            if (totalAdjustedTime != -1) {
                 classificationRiderTime[i - 1][0] = i;
-                classificationRiderTime[i - 1][1] = totalTime;
+                classificationRiderTime[i - 1][1] = totalAdjustedTime;
+                classificationRiderTime[i-1][2] = totalTime;
             }
         }
 
         //Sorts the array by the rider's times
         Arrays.sort(classificationRiderTime, (first, second) -> {
-            if (first[1] > second[1]) return 1;
+            if (first[2] > second[2]) return 1;
+            else return -1;
+        });
+
+        //Sorts the array by the rider's adjusted times
+        Arrays.sort(classificationRiderTime, (first, second) -> {
+            if (first[1] >= second[1]) return 1;
             else return -1;
         });
 
