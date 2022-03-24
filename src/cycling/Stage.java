@@ -9,7 +9,8 @@ import java.util.*;
  *  The java class for stage. Contains methods relating to stages within races in the cycling app.
  *
  *  @author Toby Slump and James Cracknell
- *  @date 03/2022
+ *  @version 1.0
+ *  03/2022
  */
 public class Stage implements Serializable {
     private int stageID;
@@ -43,52 +44,99 @@ public class Stage implements Serializable {
         this.state = "constructing";
     }
 
+    /**
+     * Gets the stage ID.
+     *
+     * @return The queried stage's unique ID.
+     */
     public int getID() {
         return stageID;
     }
 
+    /**
+     * Gets the stage name.
+     *
+     * @return The queried stage's name.
+     */
     public String getStageName() {
         return stageName;
     }
 
+    /**
+     * Gets the stage length.
+     *
+     * @return The queried stage's length.
+     */
     public double getLength() {
         return length;
     }
 
+    /**
+     * Gets the stage state.
+     *
+     * @return The state of the queried stage.
+     */
     public String getState() {
         return state;
     }
 
+    /**
+     * Gets stage type.
+     *
+     * @return The type of queried stage.
+     */
     public StageType getStageType() {
         return type;
     }
 
+    /**
+     * Gets stage start time.
+     *
+     * @return The start time of the queried stage.
+     */
     public LocalDateTime getStartTime() {
         return startTime;
     }
 
+    /**
+     * Gets the value of nextStageID.
+     *
+     * @return The ID of the last stage to be made.
+     */
     public static int getNextStageID() {
         return nextStageID;
     }
 
+    /**
+     *Gets the list of times for a rider in a stage.
+     *
+     * @param riderId The ID of the queried rider.
+     * @return The list of the rider's times.
+     */
     public LocalTime[] getRiderTimes(int riderId) {
         return rawRiderResults.get(riderId);
     }
 
+    /**
+     * Gets the number of riders present in the stage's results.
+     *
+     * @return The number of riders who are recorded in the queried stage's results.
+     */
     public int getNumberOfRiders() {
         return (rawRiderResults.size());
     }
 
+    /**
+     * Retrieves a list of IDs for the segments in the stage.
+     *
+     * @return The list of segment IDs in a queried stage.
+     */
     public int[] getSegmentsIds() {
         int[] listOfSegmentIds = new int[listOfSegments.size()];
         for (int i = 0; i < listOfSegments.size(); i++) {
             listOfSegmentIds[i] = listOfSegments.get(i).getSegmentID();
         }
         return listOfSegmentIds;
-    }
-
-    public LinkedList<Segment> getListOfSegments() {
-        return listOfSegments;
     }
 
     /**
@@ -119,6 +167,11 @@ public class Stage implements Serializable {
         return 0;
     }
 
+    /**
+     * Sets the value of nextStageID.
+     *
+     * @param nextStageId The new value of nextStageID.
+     */
     public static void setNextStageID(int nextStageId) {
         nextStageID = nextStageId;
     }

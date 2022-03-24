@@ -9,7 +9,8 @@ import java.util.*;
  * The java class for race. Contains methods relating to races within the cycling app.
  *
  * @author Toby Slump and James Cracknell
- * @date 03/2022
+ * @version 1.0
+ * 03/2022
  */
 public class Race implements Serializable {
     private int raceID;
@@ -31,26 +32,57 @@ public class Race implements Serializable {
         raceID = ++nextRaceID;
     }
 
+    /**
+     * Gets race ID.
+     *
+     * @return Unique race ID.
+     */
     public int getRaceID(){
         return raceID;
     }
 
+    /**
+     * Gets race name.
+     *
+     * @return Race name.
+     */
     public String getRaceName(){
         return name;
     }
 
+    /**
+     * Gets race details.
+     *
+     * @return Race details.
+     */
     public String viewRaceDetails(){
         return description;
     }
 
+    /**
+     * Gets the number of stages for a race.
+     *
+     * @return number of stages in queried race.
+     */
     public int getNumberOfStages(){
         return listOfStages.size();
     }
 
+    /**
+     * Gets the value of NextRaceID.
+     * This shows the ID of the last race created and is used when giving new races their ID.
+     *
+     * @return The value of nextRaceID.
+     */
     public static int getNextRaceID(){
         return nextRaceID;
     }
 
+    /**
+     * Sets the value of nextRaceID to a specified value.
+     *
+     * @param nextRaceId The new value of nextRaceID.
+     */
     public static void setNextRaceID(int nextRaceId){
         nextRaceID = nextRaceId;
     }
@@ -64,7 +96,7 @@ public class Race implements Serializable {
     public int getNumberOfSegmentsInStage(int stageID){
         for (Stage stage : listOfStages) {
             if (stage.getID() == stageID) {
-                return stage.getListOfSegments().size();
+                return stage.getSegmentsIds().length;
             }
         }
         return 0;
