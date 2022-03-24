@@ -602,11 +602,17 @@ public class CyclingPortal implements CyclingPortalInterface {
         try (ObjectInputStream in = new ObjectInputStream(new
                 FileInputStream(fileNameUsed))) {
             Object obj = in.readObject();
-            if (obj instanceof LinkedList<?>)
-                listOfRaces = (LinkedList<Race>) obj;//downcast safely
+            if (obj instanceof LinkedList<?> loadedRace) {
+                for (Object race : loadedRace) {
+                    listOfRaces.add((Race) race);
+                }
+            }
             obj = in.readObject();
-            if (obj instanceof LinkedList<?>)
-                listOfTeams = (LinkedList<Team>) obj;//downcast safely
+            if (obj instanceof LinkedList<?> loadedTeam) {
+                for (Object team : loadedTeam){
+                    listOfTeams.add((Team) team);
+                }
+            }
             obj = in.readObject();
             if (obj instanceof int[])
                 staticAttributes = (int[]) obj;
